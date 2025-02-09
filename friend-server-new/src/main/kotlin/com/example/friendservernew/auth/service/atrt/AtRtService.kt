@@ -11,6 +11,7 @@ import org.springframework.security.core.Authentication
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.stereotype.Service
+import java.util.UUID
 
 @Service
 class AtRtService(
@@ -31,8 +32,10 @@ class AtRtService(
         return AtRtDto(accessToken = accessToken, refreshToken = refreshToken)
     }
 
-    fun getMemberId(token: String): Long =
-        jwtUtil.getClaim(token, MEMBER_ID, Long::class.javaObjectType) ?: throw MissingJwtPayloadException(MEMBER_ID)
+    fun getMemberId(token: String): UUID  {
+        val uuid = jwtUtil.getClaim(token, MEMBER_ID, String::class.java) ?: throw MissingJwtPayloadException(MEMBER_ID)
+        return UUID.fromString(uuid)
+    }
 
     fun getAuthorities(token: String): List<GrantedAuthority> {
         val authorities: List<String> =
@@ -57,7 +60,7 @@ class AtRtService(
     }
 
     private fun createAccessToken(
-        memberId: Long,
+        memberId: UUID,
         authorities: Collection<GrantedAuthority>,
     ): String =
         jwtUtil.createToken(
@@ -68,7 +71,7 @@ class AtRtService(
         )
 
     private fun createRefreshToken(
-        memberId: Long,
+        memberId: UUID,
         authorities: Collection<GrantedAuthority>,
     ): String =
         jwtUtil.createToken(

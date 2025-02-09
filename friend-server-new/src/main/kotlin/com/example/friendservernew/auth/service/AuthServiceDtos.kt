@@ -1,10 +1,11 @@
 package com.example.friendservernew.auth.service
 
 import org.springframework.security.core.GrantedAuthority
+import java.util.UUID
 
 
 data class UserTokenDto(
-    val memberId: Long,
+    val memberId: UUID,
     val authorities: Collection<GrantedAuthority>,
 )
 

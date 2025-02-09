@@ -20,8 +20,8 @@ class AuthMailSendService(
 
     companion object {
         private const val EMAIL_VERIFY_TEMPLATE_PATH = "email-verify-template"
-        private const val EMAIL_VERIFY_SUBJECT = "[Atelier] 이메일 인증 코드를 확인해주세요"
-        private const val TEAM_NAME = "Atelier"
+        private const val EMAIL_VERIFY_SUBJECT = "[Friends] 이메일 인증 코드를 확인해주세요"
+        private const val TEAM_NAME = "Friends"
     }
 
     fun sendVerificationMailAsync(to: String) {

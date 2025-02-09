@@ -1,7 +1,7 @@
 package com.example.friendservernew.security
 
-import com.atelier.server.common.exception.ErrorCode
-import com.atelier.server.common.exception.ErrorResponse
+import com.example.friendservernew.common.exception.ErrorCode
+import com.example.friendservernew.common.exception.ErrorResponse
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.http.MediaType

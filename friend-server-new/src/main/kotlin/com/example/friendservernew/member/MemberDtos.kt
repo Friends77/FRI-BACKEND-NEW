@@ -5,3 +5,9 @@ data class CreateUserDto(
     val email: String,
     val encodedPassword: String,
 )
+
+data class UserDto(
+    val nickname: String,
+    val email: String,
+    val password: String,
+)
