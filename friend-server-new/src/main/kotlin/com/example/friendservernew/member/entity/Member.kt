@@ -50,6 +50,9 @@ class Member(
         }
     }
 
+    // 어플리케이션에서 member를 생성자로 생성하지 못하도록 방지
+    protected constructor() : this("", "", "")
+
     fun addAuthority(role: Authority.Role) {
         mutableAuthorities.add(Authority(role = role, member = this))
     }
