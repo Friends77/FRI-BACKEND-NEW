@@ -1,4 +1,4 @@
-package com.atelier.server.security.filter
+package com.example.friendservernew.security.filter
 
 import com.example.friendservernew.auth.service.atrt.AtRtService
 import jakarta.servlet.FilterChain

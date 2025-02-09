@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service
 import org.thymeleaf.TemplateEngine
 import org.thymeleaf.context.Context
 import java.util.concurrent.ExecutorService
+import com.example.friendservernew.common.util.mail.MailUtil
 
 @Service
 class AuthMailSendService(

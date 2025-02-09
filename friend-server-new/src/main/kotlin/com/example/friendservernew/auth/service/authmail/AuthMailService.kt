@@ -1,6 +1,7 @@
 package com.atelier.server.auth.service
 
 
+import com.example.friendservernew.auth.controller.EmailAuthTokenResponseDto
 import com.example.friendservernew.auth.service.CreateEmailAuthTokenDto
 import com.example.friendservernew.auth.service.SendEmailVerifyCodeDto
 import org.springframework.stereotype.Service

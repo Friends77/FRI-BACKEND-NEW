@@ -1,4 +1,4 @@
-package com.atelier.server.security.userdetails
+package com.example.friendservernew.security.userdetails
 
 import com.example.friendservernew.member.entity.Member
 import com.example.friendservernew.member.service.MemberQueryService
