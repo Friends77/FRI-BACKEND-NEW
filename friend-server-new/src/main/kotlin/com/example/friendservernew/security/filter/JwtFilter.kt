@@ -1,6 +1,6 @@
 package com.atelier.server.security.filter
 
-import com.example.friendservernew.auth.atrt.AtRtService
+import com.example.friendservernew.auth.service.atrt.AtRtService
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse

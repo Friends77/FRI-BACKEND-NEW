@@ -1,4 +1,4 @@
-package com.example.friendservernew.auth
+package com.example.friendservernew.auth.service
 
 import org.springframework.security.core.GrantedAuthority
 
@@ -16,4 +16,13 @@ data class AtRtDto(
 data class ValidateEmailAuthTokenDto(
     val token: String,
     val email: String,
+)
+
+data class SendEmailVerifyCodeDto(
+    val email: String,
+)
+
+data class CreateEmailAuthTokenDto(
+    val email: String,
+    val code: String,
 )
