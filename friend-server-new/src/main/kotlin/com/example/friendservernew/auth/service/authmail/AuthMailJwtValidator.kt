@@ -1,11 +1,12 @@
-package com.atelier.server.auth.service
+package com.example.friendservernew.auth.service.authmail
 
-import com.atelier.server.jwt.JwtType
-import com.atelier.server.jwt.JwtUtil
+
 import com.example.friendservernew.auth.service.ValidateEmailAuthTokenDto
 import com.example.friendservernew.auth.exception.InvalidJwtTokenException
 import com.example.friendservernew.auth.exception.InvalidTokenTypeException
 import com.example.friendservernew.auth.exception.MissingJwtPayloadException
+import com.example.friendservernew.common.util.jwt.JwtType
+import com.example.friendservernew.common.util.jwt.JwtUtil
 import org.springframework.stereotype.Component
 
 @Component

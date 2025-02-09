@@ -1,4 +1,4 @@
-package com.atelier.server.jwt
+package com.example.friendservernew.common.util.jwt
 
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.security.Keys

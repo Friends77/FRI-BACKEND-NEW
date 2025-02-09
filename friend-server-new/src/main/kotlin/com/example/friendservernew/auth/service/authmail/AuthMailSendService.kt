@@ -1,11 +1,13 @@
-package com.atelier.server.auth.service
+package com.example.friendservernew.auth.service.authmail
 
+import com.example.friendservernew.auth.repository.MailVerificationCodeRepository
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import org.thymeleaf.TemplateEngine
 import org.thymeleaf.context.Context
 import java.util.concurrent.ExecutorService
 import com.example.friendservernew.common.util.mail.MailUtil
+import com.example.friendservernew.auth.exception.EmailAuthenticationFailedException
 
 @Service
 class AuthMailSendService(
@@ -14,7 +16,7 @@ class AuthMailSendService(
     private val executorService: ExecutorService, // VirtualThreadExecutor
     private val mailVerificationCodeRepository: MailVerificationCodeRepository,
 ) {
-    private val logger = LoggerFactory.getLogger(AuthService::class.java)
+    private val logger = LoggerFactory.getLogger(AuthMailSendService::class.java)
 
     companion object {
         private const val EMAIL_VERIFY_TEMPLATE_PATH = "email-verify-template"

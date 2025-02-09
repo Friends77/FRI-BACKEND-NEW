@@ -1,4 +1,4 @@
-package com.atelier.server.common.exception
+package com.example.friendservernew.common.exception
 
 class ErrorResponse private constructor(
     val code: Int,

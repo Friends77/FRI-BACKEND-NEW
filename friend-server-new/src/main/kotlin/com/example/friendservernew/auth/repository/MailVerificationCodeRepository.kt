@@ -1,4 +1,4 @@
-package com.atelier.server.auth.repository
+package com.example.friendservernew.auth.repository
 
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.data.redis.core.RedisTemplate

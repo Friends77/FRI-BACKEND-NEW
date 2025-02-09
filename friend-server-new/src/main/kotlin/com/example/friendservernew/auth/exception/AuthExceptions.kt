@@ -1,7 +1,8 @@
 package com.example.friendservernew.auth.exception
 
-import com.atelier.server.common.exception.CustomException
-import com.atelier.server.common.exception.ErrorCode
+import com.example.friendservernew.common.exception.CustomException
+import com.example.friendservernew.common.exception.ErrorCode
+
 
 abstract class AuthException(
     errorCode: ErrorCode,

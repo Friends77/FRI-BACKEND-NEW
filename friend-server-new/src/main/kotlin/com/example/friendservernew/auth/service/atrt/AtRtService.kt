@@ -1,10 +1,10 @@
 package com.example.friendservernew.auth.service.atrt
 
-import com.atelier.server.jwt.JwtType
-import com.atelier.server.jwt.JwtUtil
 import com.example.friendservernew.auth.service.AtRtDto
 import com.example.friendservernew.auth.service.UserTokenDto
 import com.example.friendservernew.auth.exception.MissingJwtPayloadException
+import com.example.friendservernew.common.util.jwt.JwtType
+import com.example.friendservernew.common.util.jwt.JwtUtil
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication

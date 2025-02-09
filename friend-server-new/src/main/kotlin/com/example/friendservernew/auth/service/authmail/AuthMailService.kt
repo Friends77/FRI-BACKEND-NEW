@@ -1,4 +1,4 @@
-package com.atelier.server.auth.service
+package com.example.friendservernew.auth.service.authmail
 
 
 import com.example.friendservernew.auth.controller.EmailAuthTokenResponseDto

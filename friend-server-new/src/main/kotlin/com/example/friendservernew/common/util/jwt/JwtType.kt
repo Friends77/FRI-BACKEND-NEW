@@ -1,4 +1,4 @@
-package com.atelier.server.jwt
+package com.example.friendservernew.common.util.jwt
 
 enum class JwtType {
     ACCESS,
