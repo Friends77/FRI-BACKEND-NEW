@@ -2,6 +2,7 @@ package com.example.user.adapter.exception
 
 import com.example.common.exception.BaseException
 import com.example.common.exception.ErrorCode
+import com.example.common.exception.ErrorResponse
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
 import org.springframework.security.access.AccessDeniedException
