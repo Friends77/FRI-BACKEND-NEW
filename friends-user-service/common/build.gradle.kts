@@ -7,9 +7,5 @@ bootJar.enabled = false
 jar.enabled = true
 
 dependencies {
-    // ulid creator
-    implementation("com.github.f4b6a3:ulid-creator:5.0.0")
 
-    // jpa
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 }
