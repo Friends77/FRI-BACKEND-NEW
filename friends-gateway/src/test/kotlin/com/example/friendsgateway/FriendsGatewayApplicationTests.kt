@@ -1,10 +1,10 @@
-package com.example.serverdiscovery
+package com.example.friendsgateway
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
-class ServerDiscoveryApplicationTests {
+class FriendsGatewayApplicationTests {
 
     @Test
     fun contextLoads() {
