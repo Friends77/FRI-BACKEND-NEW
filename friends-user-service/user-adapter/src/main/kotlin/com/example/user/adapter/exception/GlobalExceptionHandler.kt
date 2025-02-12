@@ -1,4 +1,4 @@
-package com.example.user.adapter
+package com.example.user.adapter.exception
 
 import com.example.common.exception.BaseException
 import com.example.common.exception.ErrorCode
