@@ -1,6 +1,6 @@
 package com.example.user.domain.entity
 
-import com.example.user.domain.common.BaseModifiableEntity
+import com.example.common.entity.BaseModifiableEntity
 import jakarta.persistence.CascadeType
 import jakarta.persistence.Column
 import jakarta.persistence.Entity

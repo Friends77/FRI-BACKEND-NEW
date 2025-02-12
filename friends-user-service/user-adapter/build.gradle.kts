@@ -6,6 +6,7 @@ bootJar.enabled = true
 
 dependencies {
     implementation(project(":common"))
+    implementation(project(":user-domain"))
     // spring security
     implementation("org.springframework.boot:spring-boot-starter-security")
 }

@@ -11,7 +11,7 @@ import javax.crypto.SecretKey
 class JwtUtil (
     @Value("\${jwt.secret-key}") private val secret: String,
 ){
-    val secretKey: SecretKey =  Keys.hmacShaKeyFor(secret.toByteArray())
+    private val secretKey: SecretKey =  Keys.hmacShaKeyFor(secret.toByteArray())
 
     private fun getDateAfterSeconds(seconds: Long) = Date(System.currentTimeMillis() + seconds * 1000)
 
