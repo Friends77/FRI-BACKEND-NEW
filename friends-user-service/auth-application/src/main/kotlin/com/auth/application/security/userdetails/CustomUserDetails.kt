@@ -1,4 +1,4 @@
-package com.example.user.adapter.security.userdetails
+package com.auth.application.security.userdetails
 
 import com.example.user.domain.entity.Member
 import org.springframework.security.core.GrantedAuthority
@@ -6,8 +6,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 
 class CustomUserDetails(
-    private val member: Member,
-) : UserDetails {
+    private val member: Member
+) : UserDetails{
     private val authorities: Collection<GrantedAuthority> =
         member.authorities.map { authority ->
             SimpleGrantedAuthority(authority.role.name)
