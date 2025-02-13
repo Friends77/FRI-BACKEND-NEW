@@ -7,7 +7,6 @@ bootJar.enabled = false
 jar.enabled = true
 
 dependencies {
-    implementation(project(":user-application"))
     implementation(project(":user-domain"))
 
     // spring security
