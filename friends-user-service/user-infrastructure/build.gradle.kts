@@ -7,9 +7,11 @@ bootJar.enabled = false
 jar.enabled = true
 
 dependencies {
-    implementation(project(":common"))
     implementation(project(":user-domain"))
 
     // postgresql
     runtimeOnly("org.postgresql:postgresql")
+
+    // redis
+    implementation("org.springframework.boot:spring-boot-starter-data-redis-reactive")
 }

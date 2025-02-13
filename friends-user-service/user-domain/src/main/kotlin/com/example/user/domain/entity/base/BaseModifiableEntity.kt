@@ -1,4 +1,4 @@
-package com.example.common.entity
+package com.example.user.domain.entity.base
 
 import jakarta.persistence.Column
 import jakarta.persistence.MappedSuperclass

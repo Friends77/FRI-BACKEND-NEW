@@ -1,4 +1,4 @@
-package com.example.common.entity
+package com.example.user.domain.entity.base
 
 import com.github.f4b6a3.ulid.UlidCreator
 import jakarta.persistence.Column

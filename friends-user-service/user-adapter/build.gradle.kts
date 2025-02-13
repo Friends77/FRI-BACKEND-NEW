@@ -5,7 +5,6 @@ val bootJar: BootJar by tasks
 bootJar.enabled = true
 
 dependencies {
-    implementation(project(":common"))
     implementation(project(":user-application"))
     implementation(project(":auth-application"))
     implementation(project(":user-domain"))

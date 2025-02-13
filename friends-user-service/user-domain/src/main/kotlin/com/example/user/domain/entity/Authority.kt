@@ -1,6 +1,6 @@
 package com.example.user.domain.entity
 
-import com.example.common.entity.BaseTimeEntity
+import com.example.user.domain.entity.base.BaseTimeEntity
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
