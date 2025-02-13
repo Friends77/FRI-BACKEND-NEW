@@ -2,9 +2,9 @@ package com.auth.application.service
 
 import com.auth.application.AtRtDto
 import com.auth.application.CreateAtRtDto
-import com.auth.application.MissingJwtPayloadException
-import com.example.common.util.jwt.JwtType
-import com.example.common.util.jwt.JwtUtil
+import com.auth.application.exception.MissingJwtPayloadException
+import com.auth.application.jwt.JwtType
+import com.auth.application.jwt.JwtUtil
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
