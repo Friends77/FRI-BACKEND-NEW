@@ -12,3 +12,9 @@ data class AtRtDto(
     val accessToken : String,
     val refreshToken : String
 )
+
+data class RegisterRequestDto(
+    val nickname: String,
+    val email : String,
+    val password : String
+)
