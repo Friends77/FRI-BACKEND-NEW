@@ -7,6 +7,9 @@ bootJar.enabled = true
 dependencies {
     implementation(project(":common"))
     implementation(project(":user-application"))
+    implementation(project(":auth-application"))
+    implementation(project(":user-domain"))
+    implementation(project(":user-infrastructure"))
     // spring security
     implementation("org.springframework.boot:spring-boot-starter-security")
     // eureka client

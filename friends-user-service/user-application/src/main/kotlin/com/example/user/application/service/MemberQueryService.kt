@@ -1,8 +1,8 @@
 package com.example.user.application.service
 
 import com.example.user.application.exception.MemberNotFoundByEmailException
-import com.example.user.application.repository.MemberRepository
 import com.example.user.domain.entity.Member
+import com.example.user.domain.repository.MemberRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
