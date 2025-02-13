@@ -1,4 +1,4 @@
-package com.auth.application.jwt
+package com.example.auth.application.jwt
 
 enum class JwtType {
     ACCESS,

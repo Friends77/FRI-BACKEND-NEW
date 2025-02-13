@@ -1,4 +1,4 @@
-package com.auth.application.security.userdetails
+package com.example.auth.application.security.userdetails
 
 import com.example.user.domain.entity.Member
 import org.springframework.security.core.GrantedAuthority

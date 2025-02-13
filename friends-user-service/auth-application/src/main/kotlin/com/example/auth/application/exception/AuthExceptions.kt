@@ -1,4 +1,4 @@
-package com.auth.application.exception
+package com.example.auth.application.exception
 
 class MissingJwtPayloadException(
     payloadMissed: String,

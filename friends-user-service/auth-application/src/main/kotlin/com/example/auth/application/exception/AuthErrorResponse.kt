@@ -1,4 +1,4 @@
-package com.auth.application.exception
+package com.example.auth.application.exception
 
 class AuthErrorResponse private constructor(
     val errorCode: Int,
@@ -6,9 +6,12 @@ class AuthErrorResponse private constructor(
 ) {
     companion object {
         fun of(
-            errorCode: AuthErrorCode,
+            errorCode: com.example.auth.application.exception.AuthErrorCode,
             errorMessage: String?,
-        ) = AuthErrorResponse(errorCode.code, errorMessage ?: errorCode.formatErrorMessage())
+        ) = com.example.auth.application.exception.AuthErrorResponse(
+            errorCode.code,
+            errorMessage ?: errorCode.formatErrorMessage()
+        )
     }
 
     fun toJson() =

@@ -1,4 +1,4 @@
-package com.auth.application
+package com.example.auth.application
 
 import org.springframework.security.core.GrantedAuthority
 import java.util.UUID
@@ -13,8 +13,14 @@ data class AtRtDto(
     val refreshToken : String
 )
 
-data class RegisterRequestDto(
+data class RegisterDto(
     val nickname: String,
     val email : String,
     val password : String
+)
+
+data class UserDto(
+    val memberId : UUID,
+    val nickname : String,
+    val email : String
 )

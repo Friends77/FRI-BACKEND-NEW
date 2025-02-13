@@ -1,7 +1,6 @@
-package com.auth.application.config
+package com.example.auth.application.config
 
-import com.auth.application.security.userdetails.CustomUserDetails
-import com.auth.application.security.userdetails.CustomUserDetailsService
+import com.example.auth.application.security.userdetails.CustomUserDetailsService
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.authentication.AuthenticationManager

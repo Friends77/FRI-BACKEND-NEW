@@ -1,6 +1,6 @@
-package com.auth.application.security.userdetails
+package com.example.auth.application.security.userdetails
 
-import com.auth.application.exception.MemberNotFoundByEmailException
+import com.example.auth.application.exception.MemberNotFoundByEmailException
 import com.example.user.domain.entity.Member
 import com.example.user.domain.repository.MemberRepository
 import org.springframework.security.core.userdetails.UserDetails
