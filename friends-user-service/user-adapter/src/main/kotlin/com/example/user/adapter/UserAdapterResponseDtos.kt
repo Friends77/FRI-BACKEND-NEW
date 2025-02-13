@@ -7,3 +7,8 @@ data class RegisterResponseDto(
     val nickname: String,
     val email: String,
 )
+
+data class LoginResponseDto(
+    val accessToken : String,
+    val refreshToken : String
+)

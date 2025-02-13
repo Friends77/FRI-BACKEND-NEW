@@ -24,3 +24,8 @@ data class UserDto(
     val nickname : String,
     val email : String
 )
+
+data class LoginDto(
+    val email : String,
+    val password : String
+)
