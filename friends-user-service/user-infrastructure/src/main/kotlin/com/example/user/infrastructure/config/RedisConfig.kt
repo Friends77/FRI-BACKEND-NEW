@@ -1,7 +1,6 @@
 package com.example.user.infrastructure.config
 
-
-import org.springframework.boot.autoconfigure.data.redis.RedisProperties
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.redis.connection.RedisConnectionFactory
@@ -13,10 +12,11 @@ import org.springframework.data.redis.serializer.StringRedisSerializer
 @Configuration
 @EnableRedisRepositories
 class RedisConfig(
-    private val redisProperties: RedisProperties,
+    @Value("\${spring.data.redis.host}") private val host: String,
+    @Value("\${spring.data.redis.port}") private val port: Int,
 ) {
     @Bean
-    fun redisProperties(): RedisConnectionFactory = LettuceConnectionFactory(redisProperties.host, redisProperties.port)
+    fun redisProperties(): RedisConnectionFactory = LettuceConnectionFactory(host, port)
 
     @Bean
     fun redisTemplate(): RedisTemplate<String, String> {
