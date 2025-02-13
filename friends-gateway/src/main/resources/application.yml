@@ -13,3 +13,11 @@ eureka:
 spring:
   application:
     name: friends-gateway
+
+  cloud:
+    gateway:
+      routes:
+        - id: user-service
+          uri: lb://friends-user-service
+          predicates:
+            - Path=/user-service/**
