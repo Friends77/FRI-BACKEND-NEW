@@ -12,7 +12,7 @@ class MailConfig(
     @Value("\${spring.mail.port}") private val port: Int,
     @Value("\${spring.mail.username}") private val username: String,
     @Value("\${spring.mail.password}") private val password: String,
-    @Value("\${spring.mail..auth}") private val auth: Boolean,
+    @Value("\${spring.mail.auth}") private val auth: Boolean,
     @Value("\${spring.mail.starttls}") private val starttls: Boolean,
     @Value("\${spring.mail.debug}") private val debug: Boolean,
     @Value("\${spring.mail.connectiontimeout}") private val connectiontimeout: Int,
