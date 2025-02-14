@@ -1,4 +1,4 @@
-package com.example.friendservernew.config
+package com.example.auth.application.config
 
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean

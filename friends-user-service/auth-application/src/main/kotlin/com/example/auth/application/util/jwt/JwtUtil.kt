@@ -1,4 +1,4 @@
-package com.example.auth.application.jwt
+package com.example.auth.application.util.jwt
 
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.security.Keys
