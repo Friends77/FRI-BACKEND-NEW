@@ -1,6 +1,6 @@
 package com.example.user.adapter.controller
 
-import com.example.auth.application.service.AuthService
+import com.example.auth.application.service.RegisterService
 import com.example.user.adapter.AdapterMapper
 import com.example.user.adapter.LoginRequestDto
 import com.example.user.adapter.LoginResponseDto
@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/global/auth")
 class AuthController (
-    private val authService: AuthService
+    private val registerService: RegisterService
 ){
     @PostMapping("/register")
     fun register(@RequestBody registerRegisterDto: RegisterRequestDto) : ResponseEntity<RegisterResponseDto>{
         val registerDto = AdapterMapper.registerRequestDtoToRegisterDto(registerRegisterDto)
-        val userDto = authService.register(registerDto)
+        val userDto = registerService.register(registerDto)
         val registerResponseDto = AdapterMapper.userDtoToRegisterResponseDto(userDto)
         return ResponseEntity.status(HttpStatus.CREATED).body(registerResponseDto)
     }
@@ -29,7 +29,7 @@ class AuthController (
     @PostMapping("/login")
     fun login(@RequestBody loginRequestDto: LoginRequestDto) : ResponseEntity<LoginResponseDto>{
         val loginDto = AdapterMapper.loginRequestDtoToLoginDto(loginRequestDto)
-        val atRtDto = authService.login(loginDto)
+        val atRtDto = registerService.login(loginDto)
         val loginResponseDto = AdapterMapper.atRtDtoToLoginResponseDto(atRtDto)
         return ResponseEntity.ok(loginResponseDto)
     }
