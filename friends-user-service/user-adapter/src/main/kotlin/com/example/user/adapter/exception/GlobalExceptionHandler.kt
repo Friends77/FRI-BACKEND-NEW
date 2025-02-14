@@ -1,7 +1,6 @@
 package com.example.user.adapter.exception
 
 import com.example.auth.application.exception.AuthBaseException
-import com.example.auth.application.exception.AuthErrorCode
 import com.example.auth.application.exception.AuthErrorResponse
 import com.example.user.application.exception.UserBaseException
 import com.example.user.application.exception.UserErrorResponse
@@ -19,7 +18,7 @@ class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
 
     @ExceptionHandler(UserBaseException::class)
     fun handleCustomException(ex: UserBaseException): ResponseEntity<Any> {
-        log.error(ex.message)
+        log.info(ex.message)
         return ResponseEntity
             .status(ex.errorCode.httpStatus)
             .body(UserErrorResponse.of(ex.errorCode, ex.message))
@@ -27,7 +26,7 @@ class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
 
     @ExceptionHandler(AuthBaseException::class)
     fun handleAuthBaseException(ex: AuthBaseException): ResponseEntity<Any> {
-        log.error(ex.message)
+        log.info(ex.message)
         return ResponseEntity
             .status(ex.errorCode.httpStatus)
             .body(AuthErrorResponse.of(ex.errorCode, ex.message))
