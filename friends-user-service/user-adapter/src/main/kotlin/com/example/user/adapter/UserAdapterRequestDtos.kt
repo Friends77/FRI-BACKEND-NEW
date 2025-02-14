@@ -11,3 +11,12 @@ data class LoginRequestDto(
     val email: String,
     val password: String,
 )
+
+data class EmailVerifyCodeRequestDto(
+    val email: String,
+)
+
+data class EmailAuthTokenRequestDto(
+    val email: String,
+    val code: String,
+)

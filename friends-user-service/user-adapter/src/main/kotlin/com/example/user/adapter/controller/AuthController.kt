@@ -1,7 +1,12 @@
 package com.example.user.adapter.controller
 
+import com.example.auth.application.service.AuthMailService
+import com.example.auth.application.service.LoginService
 import com.example.auth.application.service.RegisterService
 import com.example.user.adapter.AdapterMapper
+import com.example.user.adapter.EmailAuthTokenRequestDto
+import com.example.user.adapter.EmailAuthTokenResponseDto
+import com.example.user.adapter.EmailVerifyCodeRequestDto
 import com.example.user.adapter.LoginRequestDto
 import com.example.user.adapter.LoginResponseDto
 import com.example.user.adapter.RegisterRequestDto
@@ -16,7 +21,9 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/global/auth")
 class AuthController (
-    private val registerService: RegisterService
+    private val authMailService: AuthMailService,
+    private val registerService: RegisterService,
+    private val loginService: LoginService
 ){
     @PostMapping("/register")
     fun register(@RequestBody registerRegisterDto: RegisterRequestDto) : ResponseEntity<RegisterResponseDto>{
@@ -29,8 +36,24 @@ class AuthController (
     @PostMapping("/login")
     fun login(@RequestBody loginRequestDto: LoginRequestDto) : ResponseEntity<LoginResponseDto>{
         val loginDto = AdapterMapper.loginRequestDtoToLoginDto(loginRequestDto)
-        val atRtDto = registerService.login(loginDto)
+        val atRtDto = loginService.login(loginDto)
         val loginResponseDto = AdapterMapper.atRtDtoToLoginResponseDto(atRtDto)
         return ResponseEntity.ok(loginResponseDto)
+    }
+
+    @PostMapping("/send-email-verify-code")
+    fun sendEmailVerifyCode(@RequestBody emailVerifyCodeRequestDto: EmailVerifyCodeRequestDto) : ResponseEntity<String>{
+        val email = emailVerifyCodeRequestDto.email
+        authMailService.sendEmailVerifyCode(email)
+        return ResponseEntity.ok("이메일 인증 코드 전송 (비동기)")
+    }
+
+    @PostMapping("/verify-email-code")
+    fun verifyEmailCode(@RequestBody emailAuthTokenRequestDto: EmailAuthTokenRequestDto) : ResponseEntity<EmailAuthTokenResponseDto>{
+        val createEmailAuthTokenDto =
+            AdapterMapper.emailAuthTokenRequestDtoToCreateEmailAuthTokenDto(emailAuthTokenRequestDto)
+        val emailAuthToken = authMailService.createEmailAuthToken(createEmailAuthTokenDto)
+        val emailAuthTokenResponseDto = EmailAuthTokenResponseDto(emailAuthToken.emailAuthToken)
+        return ResponseEntity.ok(emailAuthTokenResponseDto)
     }
 }

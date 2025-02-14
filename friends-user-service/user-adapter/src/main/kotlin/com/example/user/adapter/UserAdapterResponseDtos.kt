@@ -11,3 +11,7 @@ data class LoginResponseDto(
     val accessToken : String,
     val refreshToken : String
 )
+
+data class EmailAuthTokenResponseDto(
+    val emailAuthToken : String
+)

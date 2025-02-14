@@ -1,6 +1,7 @@
 package com.example.user.adapter
 
 import com.example.auth.application.AtRtDto
+import com.example.auth.application.CreateEmailAuthTokenDto
 import com.example.auth.application.LoginDto
 import com.example.auth.application.RegisterDto
 import com.example.auth.application.UserDto
@@ -34,6 +35,13 @@ object AdapterMapper {
         return LoginResponseDto(
             accessToken = atRtDto.accessToken,
             refreshToken = atRtDto.refreshToken
+        )
+    }
+
+    fun emailAuthTokenRequestDtoToCreateEmailAuthTokenDto(emailAuthTokenRequestDto: EmailAuthTokenRequestDto): CreateEmailAuthTokenDto {
+        return CreateEmailAuthTokenDto(
+            email = emailAuthTokenRequestDto.email,
+            code = emailAuthTokenRequestDto.code
         )
     }
 }
