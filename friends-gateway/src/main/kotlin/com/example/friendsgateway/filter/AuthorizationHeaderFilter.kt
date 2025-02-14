@@ -32,24 +32,30 @@ abstract class AuthorizationHeaderFilter(
                     exchange.response.statusCode = HttpStatus.UNAUTHORIZED
                     throw Exception("No Authorization Header")
                 }
+                // JWT 를 파싱할 수 있는지, 유효한지 검사
+                if (!jwtUtil.isValid(accessToken)) {
+                    exchange.response.statusCode = HttpStatus.UNAUTHORIZED
+                    throw Exception("Invalid JWT")
+                }
 
+                // JWT 타입 파싱 및 검사
                 val jwtTypeStr = jwtUtil.getClaim(accessToken, config.jwtTypeParameter, String::class.java)
                 if (jwtTypeStr == null) {
                     exchange.response.statusCode = HttpStatus.UNAUTHORIZED
                     throw Exception("No JWT Type")
                 }
 
+                // JWT 타입이 ACCESS 인지 검사
                 if (!JwtType.entries.map { it.name }.contains(jwtTypeStr)) {
                     exchange.response.statusCode = HttpStatus.UNAUTHORIZED
                     throw Exception("Invalid JWT Type")
                 }
                 val jwtType = JwtType.valueOf(jwtTypeStr)
-
-
-                if (!jwtUtil.isValid(accessToken) || jwtType != JwtType.ACCESS) {
+                if (jwtType != JwtType.ACCESS) {
                     exchange.response.statusCode = HttpStatus.UNAUTHORIZED
-                    throw Exception("Invalid Access Token")
+                    throw Exception("Invalid JWT Type")
                 }
+
                 // 인가 검사
                 val authoritiesInParam = jwtUtil.getClaim(accessToken, config.authorityParameter, List::class.javaObjectType)?.filterIsInstance<String>()
                 if (authoritiesInParam == null) {
