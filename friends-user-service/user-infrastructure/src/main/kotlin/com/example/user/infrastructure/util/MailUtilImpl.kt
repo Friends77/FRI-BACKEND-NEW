@@ -1,14 +1,15 @@
-package com.example.user.infrastructure.util.mail
+package com.example.user.infrastructure.util
 
+import com.example.user.domain.util.MailUtil
 import jakarta.mail.Message
 import org.springframework.mail.javamail.JavaMailSender
 import org.springframework.stereotype.Component
 
 @Component
-class MailUtil(
+class MailUtilImpl(
     private val mailSender: JavaMailSender,
-) {
-    fun sendHtml(
+) : MailUtil{
+    override fun sendHtml(
         to: String,
         subject: String,
         html: String,
