@@ -1,7 +1,7 @@
 package com.example.user.adapter.controller
 
 import com.example.auth.application.service.AuthMailService
-import com.example.auth.application.service.LoginService
+import com.example.auth.application.service.UserLoginUseCase
 import com.example.auth.application.service.UserRegisterUseCase
 import com.example.user.adapter.AdapterMapper
 import com.example.user.adapter.EmailAuthTokenRequestDto
@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController
 class AuthController (
     private val authMailService: AuthMailService,
     private val userRegisterUseCase: UserRegisterUseCase,
-    private val loginService: LoginService
+    private val userLoginUseCase: UserLoginUseCase
 ){
     @PostMapping("/register")
     fun register(@RequestBody registerRegisterDto: RegisterRequestDto) : ResponseEntity<RegisterResponseDto>{
@@ -36,7 +36,7 @@ class AuthController (
     @PostMapping("/login")
     fun login(@RequestBody loginRequestDto: LoginRequestDto) : ResponseEntity<LoginResponseDto>{
         val loginDto = AdapterMapper.loginRequestDtoToLoginDto(loginRequestDto)
-        val atRtDto = loginService.login(loginDto)
+        val atRtDto = userLoginUseCase.login(loginDto)
         val loginResponseDto = AdapterMapper.atRtDtoToLoginResponseDto(atRtDto)
         return ResponseEntity.ok(loginResponseDto)
     }

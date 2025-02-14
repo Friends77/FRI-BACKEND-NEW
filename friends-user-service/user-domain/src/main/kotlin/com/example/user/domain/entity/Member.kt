@@ -1,6 +1,7 @@
 package com.example.user.domain.entity
 
 import com.example.user.domain.entity.base.BaseModifiableEntity
+import com.example.user.domain.valueobject.AuthorityRole
 import jakarta.persistence.CascadeType
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
@@ -29,7 +30,7 @@ class Member private constructor(
             password: String,
         ): Member {
             val member = Member(email = email, password = password)
-            member.addAuthority(Authority.Role.ROLE_USER)
+            member.addAuthority(AuthorityRole.ROLE_USER)
             return member
         }
 
@@ -38,12 +39,12 @@ class Member private constructor(
             password: String,
         ): Member {
             val member = Member(email = email, password = password)
-            member.addAuthority(Authority.Role.ROLE_ADMIN)
+            member.addAuthority(AuthorityRole.ROLE_ADMIN)
             return member
         }
     }
 
-    private fun addAuthority(role: Authority.Role) {
+    private fun addAuthority(role: AuthorityRole) {
         mutableAuthorities.add(Authority(role = role, member = this))
     }
 
