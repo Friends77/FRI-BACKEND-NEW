@@ -15,7 +15,6 @@ data class RegisterDto(
 )
 
 data class UserDto(
-    val nickname: String,
     val memberId : UUID,
     val email : String
 )
