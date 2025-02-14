@@ -2,7 +2,7 @@ package com.example.user.adapter.controller
 
 import com.example.auth.application.service.AuthMailService
 import com.example.auth.application.service.LoginService
-import com.example.auth.application.service.RegisterService
+import com.example.auth.application.service.UserRegisterUseCase
 import com.example.user.adapter.AdapterMapper
 import com.example.user.adapter.EmailAuthTokenRequestDto
 import com.example.user.adapter.EmailAuthTokenResponseDto
@@ -22,13 +22,13 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/api/global/auth")
 class AuthController (
     private val authMailService: AuthMailService,
-    private val registerService: RegisterService,
+    private val userRegisterUseCase: UserRegisterUseCase,
     private val loginService: LoginService
 ){
     @PostMapping("/register")
     fun register(@RequestBody registerRegisterDto: RegisterRequestDto) : ResponseEntity<RegisterResponseDto>{
         val registerDto = AdapterMapper.registerRequestDtoToRegisterDto(registerRegisterDto)
-        val userDto = registerService.register(registerDto)
+        val userDto = userRegisterUseCase.register(registerDto)
         val registerResponseDto = AdapterMapper.userDtoToRegisterResponseDto(userDto)
         return ResponseEntity.status(HttpStatus.CREATED).body(registerResponseDto)
     }
