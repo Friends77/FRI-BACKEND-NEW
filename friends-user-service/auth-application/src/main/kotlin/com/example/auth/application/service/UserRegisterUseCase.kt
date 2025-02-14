@@ -3,6 +3,7 @@ package com.example.auth.application.service
 import com.example.auth.application.AuthMapper
 import com.example.auth.application.RegisterDto
 import com.example.auth.application.UserDto
+import com.example.auth.application.exception.EmailAlreadyExistsException
 import com.example.auth.application.exception.InvalidEmailPatternException
 import com.example.auth.application.exception.InvalidNicknamePatternException
 import com.example.auth.application.exception.InvalidPasswordPatternException
@@ -25,10 +26,13 @@ class UserRegisterUseCase(
         val validateEmailAuthTokenDto = AuthMapper.registerDtoToValidateEmailAuthTokenDto(registerDto)
         emailAuthTokenService.validateEmailAuthToken(validateEmailAuthTokenDto)
 
-        // 회원가입 정보 검사 (이메일 패턴, 닉네임 패턴, 비밀번호 패턴)
+        // 회원가입 정보 검사 (이메일 중복, 이메일 패턴, 닉네임 패턴, 비밀번호 패턴)
         val email = registerDto.email
         val nickname = registerDto.nickname
         val password = registerDto.password
+        if (userRegisterValidator.isEmailExists(email)) {
+            throw EmailAlreadyExistsException()
+        }
         if (!userRegisterValidator.isValidNicknamePattern(nickname)) {
             throw InvalidNicknamePatternException()
         }
