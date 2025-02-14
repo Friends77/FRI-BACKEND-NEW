@@ -26,7 +26,7 @@ class AuthService(
         val nickname = registerDto.nickname
         val email = registerDto.email
         val password = registerDto.password
-        val member = Member(nickname = nickname, email = email, password = passwordEncoder.encode(password))
+        val member = Member.createUser(nickname = nickname, email = email, password = passwordEncoder.encode(password))
         memberRepository.save(member)
         return UserDto(memberId = member.id, nickname = member.nickname, email = member.email)
     }

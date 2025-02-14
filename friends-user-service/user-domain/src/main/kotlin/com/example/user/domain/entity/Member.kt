@@ -7,7 +7,7 @@ import jakarta.persistence.Entity
 import jakarta.persistence.OneToMany
 
 @Entity
-class Member(
+class Member private constructor(
     nickname: String,
     email: String,
     password: String
