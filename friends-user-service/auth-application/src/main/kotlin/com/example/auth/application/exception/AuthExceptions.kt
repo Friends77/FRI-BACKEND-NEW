@@ -19,3 +19,7 @@ class InvalidNicknamePatternException : AuthBaseException(AuthErrorCode.INVALID_
 class InvalidPasswordPatternException : AuthBaseException(AuthErrorCode.INVALID_PASSWORD_PATTERN)
 
 class LoginFailedException : AuthBaseException(AuthErrorCode.LOGIN_FAILED)
+
+class EmailSendFailedException : AuthBaseException(AuthErrorCode.EMAIL_SEND_FAILED)
+
+class InvalidEmailVerificationCodeException : AuthBaseException(AuthErrorCode.INVALID_EMAIL_VERIFICATION_CODE)

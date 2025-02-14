@@ -1,6 +1,6 @@
 package com.example.user.adapter.controller
 
-import com.example.auth.application.service.AuthMailService
+import com.example.auth.application.service.AuthMailUseCase
 import com.example.auth.application.service.UserLoginUseCase
 import com.example.auth.application.service.UserRegisterUseCase
 import com.example.user.adapter.AdapterMapper
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/global/auth")
 class AuthController (
-    private val authMailService: AuthMailService,
+    private val authMailUseCase: AuthMailUseCase,
     private val userRegisterUseCase: UserRegisterUseCase,
     private val userLoginUseCase: UserLoginUseCase
 ){
@@ -44,7 +44,7 @@ class AuthController (
     @PostMapping("/send-email-verify-code")
     fun sendEmailVerifyCode(@RequestBody emailVerifyCodeRequestDto: EmailVerifyCodeRequestDto) : ResponseEntity<String>{
         val email = emailVerifyCodeRequestDto.email
-        authMailService.sendEmailVerifyCode(email)
+        authMailUseCase.sendEmailVerifyCodeAsync(email)
         return ResponseEntity.ok("이메일 인증 코드 전송 (비동기)")
     }
 
@@ -52,7 +52,7 @@ class AuthController (
     fun verifyEmailCode(@RequestBody emailAuthTokenRequestDto: EmailAuthTokenRequestDto) : ResponseEntity<EmailAuthTokenResponseDto>{
         val createEmailAuthTokenDto =
             AdapterMapper.emailAuthTokenRequestDtoToCreateEmailAuthTokenDto(emailAuthTokenRequestDto)
-        val emailAuthToken = authMailService.createEmailAuthToken(createEmailAuthTokenDto)
+        val emailAuthToken = authMailUseCase.createEmailAuthToken(createEmailAuthTokenDto)
         val emailAuthTokenResponseDto = EmailAuthTokenResponseDto(emailAuthToken.emailAuthToken)
         return ResponseEntity.ok(emailAuthTokenResponseDto)
     }

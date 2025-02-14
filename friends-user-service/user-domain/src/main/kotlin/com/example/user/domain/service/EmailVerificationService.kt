@@ -1,19 +1,15 @@
-package com.example.auth.application.service
+package com.example.user.domain.service
 
-import com.example.auth.application.exception.EmailAuthenticationFailedException
-import com.example.auth.application.util.mail.MailUtil
 import com.example.user.domain.repository.EmailVerificationCodeRepository
+import com.example.user.domain.util.HtmlUtil
+import com.example.user.domain.util.MailUtil
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
-import org.thymeleaf.TemplateEngine
-import org.thymeleaf.context.Context
-import java.util.concurrent.ExecutorService
 
 @Service
 class EmailVerificationService(
     private val mailUtil: MailUtil,
-    private val templateEngine: TemplateEngine,
-    private val executorService: ExecutorService, // VirtualThreadExecutor
+    private val htmlUtil: HtmlUtil,
     private val emailVerificationCodeRepository: EmailVerificationCodeRepository
 ) {
     private val logger = LoggerFactory.getLogger(EmailVerificationService::class.java)
@@ -24,29 +20,19 @@ class EmailVerificationService(
         private const val TEAM_NAME = "Friends"
     }
 
-    fun sendVerificationMailAsync(to: String) {
-        executorService.submit {
-            try {
-                sendVerificationMail(to)
-            } catch (e: Exception) {
-                logger.error("$to : 이메일 인증 코드 전송 실패", e)
-            }
-        }
-    }
-
-    fun verifyEmailCode(
+    fun isValidEmailCode(
         email: String,
         code: String,
-    ) {
-        val savedCode = emailVerificationCodeRepository.getCode(email) ?: throw EmailAuthenticationFailedException()
+    ): Boolean {
+        val savedCode = emailVerificationCodeRepository.getCode(email) ?: return false
         if (savedCode == code) {
             emailVerificationCodeRepository.deleteCode(email)
-        } else {
-            throw EmailAuthenticationFailedException()
+            return true
         }
+        return false
     }
 
-    private fun sendVerificationMail(to: String) {
+    fun sendVerificationMail(to: String) {
         val code = createVerifyCode()
         emailVerificationCodeRepository.saveCode(email = to, code = code)
         val html = createMailHtml(code = code, team = TEAM_NAME)
@@ -57,10 +43,10 @@ class EmailVerificationService(
         code: String,
         team: String,
     ): String {
-        val context = Context()
-        context.setVariable("code", code)
-        context.setVariable("team", team)
-        return templateEngine.process(EMAIL_VERIFY_TEMPLATE_PATH, context)
+        return htmlUtil.createHtmlFromTemplate(
+            templatePath = EMAIL_VERIFY_TEMPLATE_PATH,
+            "code" to code, "team" to team
+        )
     }
 
     private fun createVerifyCode(): String = (100000..999999).random().toString()

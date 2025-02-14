@@ -23,6 +23,9 @@ dependencies {
     implementation("io.jsonwebtoken:jjwt-impl:0.12.6")
     implementation("io.jsonwebtoken:jjwt-jackson:0.12.6")
 
+    // thyemleaf
+    implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
+
     // spring security
     implementation("org.springframework.boot:spring-boot-starter-security")
 }

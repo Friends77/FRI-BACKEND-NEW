@@ -8,7 +8,4 @@ jar.enabled = true
 
 dependencies {
     implementation(project(":user-domain"))
-
-    // thyemleaf
-    implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
 }
