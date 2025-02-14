@@ -8,8 +8,6 @@ import com.example.user.application.exception.UserErrorResponse
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.security.access.AccessDeniedException
-import org.springframework.security.core.AuthenticationException
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler
@@ -33,22 +31,6 @@ class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
         return ResponseEntity
             .status(ex.errorCode.httpStatus)
             .body(AuthErrorResponse.of(ex.errorCode, ex.message))
-    }
-
-    @ExceptionHandler(AuthenticationException::class)
-    fun handleAuthenticationException(ex: AuthenticationException): ResponseEntity<Any> {
-        log.error(ex.message)
-        return ResponseEntity
-            .status(AuthErrorCode.UNAUTHORIZED.httpStatus)
-            .body(AuthErrorResponse.of(AuthErrorCode.UNAUTHORIZED, ex.message))
-    }
-
-    @ExceptionHandler(AccessDeniedException::class)
-    fun handleAccessDeniedException(ex: AccessDeniedException): ResponseEntity<Any> {
-        log.error(ex.message)
-        return ResponseEntity
-            .status(AuthErrorCode.FORBIDDEN.httpStatus)
-            .body(AuthErrorResponse.of(AuthErrorCode.FORBIDDEN, ex.message))
     }
 
     @ExceptionHandler(Exception::class)

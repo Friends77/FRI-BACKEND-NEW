@@ -23,7 +23,6 @@ class AuthMailUseCase(
                 throw EmailSendFailedException()
             }
         }
-        emailVerificationService.sendVerificationMail(email)
     }
 
     fun createEmailAuthToken(createEmailAuthTokenDto: CreateEmailAuthTokenDto) : EmailAuthTokenDto {

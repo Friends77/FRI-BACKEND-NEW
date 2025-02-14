@@ -6,8 +6,9 @@ import org.thymeleaf.TemplateEngine
 import org.thymeleaf.context.Context
 
 @Component
-class HtmlUtilImpl : HtmlUtil{
-    private val templateEngine: TemplateEngine = TemplateEngine()
+class HtmlUtilImpl(
+    private val templateEngine: TemplateEngine
+) : HtmlUtil{
 
     override fun createHtmlFromTemplate(templatePath: String, vararg params: Pair<String, Any>): String {
         val context = Context()

@@ -6,8 +6,7 @@ import org.springframework.stereotype.Component
 
 @Component
 class PasswordEncoderImpl : PasswordEncoder {
-    private val encoder: BCryptPasswordEncoder
-        get() = BCryptPasswordEncoder()
+    private val encoder = BCryptPasswordEncoder()
 
     override fun encode(rawPassword: String): String {
         return encoder.encode(rawPassword)
