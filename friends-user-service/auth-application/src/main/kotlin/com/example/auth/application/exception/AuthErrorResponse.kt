@@ -6,9 +6,9 @@ class AuthErrorResponse private constructor(
 ) {
     companion object {
         fun of(
-            errorCode: com.example.auth.application.exception.AuthErrorCode,
+            errorCode: AuthErrorCode,
             errorMessage: String?,
-        ) = com.example.auth.application.exception.AuthErrorResponse(
+        ) = AuthErrorResponse(
             errorCode.code,
             errorMessage ?: errorCode.formatErrorMessage()
         )
