@@ -6,7 +6,6 @@ import com.example.auth.application.UserDto
 import com.example.auth.application.exception.InvalidEmailPatternException
 import com.example.auth.application.exception.InvalidNicknamePatternException
 import com.example.auth.application.exception.InvalidPasswordPatternException
-import com.example.auth.application.validation.AuthValidator
 import com.example.user.domain.service.UserRegisterService
 import com.example.user.domain.validator.UserRegisterValidator
 import org.springframework.security.crypto.password.PasswordEncoder
@@ -19,7 +18,6 @@ class UserRegisterUseCase(
     private val userRegisterService: UserRegisterService,
     private val userRegisterValidator: UserRegisterValidator,
     private val emailAuthTokenService: EmailAuthTokenService,
-    private val authValidator: AuthValidator
 ) {
     @Transactional
     fun register(registerDto: RegisterDto) : UserDto {
