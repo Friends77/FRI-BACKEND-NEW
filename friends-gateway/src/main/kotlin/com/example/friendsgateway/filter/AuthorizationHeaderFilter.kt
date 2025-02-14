@@ -26,32 +26,46 @@ abstract class AuthorizationHeaderFilter(
                 val path = exchange.request.path.toString()
                 logger.info("Incoming Request: $method $path")
 
+                // 인증 검사
                 val accessToken = exchange.request.headers.getFirst(config.headerName)?.substring(7)
-                    ?: throw Exception("No Authorization Header")
+                if (accessToken == null) {
+                    exchange.response.statusCode = HttpStatus.UNAUTHORIZED
+                    throw Exception("No Authorization Header")
+                }
+
                 val jwtTypeStr = jwtUtil.getClaim(accessToken, config.jwtTypeParameter, String::class.java)
-                    ?: throw Exception("No JWT Type Parameter")
+                if (jwtTypeStr == null) {
+                    exchange.response.statusCode = HttpStatus.UNAUTHORIZED
+                    throw Exception("No JWT Type")
+                }
+
+                if (!JwtType.entries.map { it.name }.contains(jwtTypeStr)) {
+                    exchange.response.statusCode = HttpStatus.UNAUTHORIZED
+                    throw Exception("Invalid JWT Type")
+                }
                 val jwtType = JwtType.valueOf(jwtTypeStr)
 
-                // 인증 검사
+
                 if (!jwtUtil.isValid(accessToken) || jwtType != JwtType.ACCESS) {
                     exchange.response.statusCode = HttpStatus.UNAUTHORIZED
-                    return@GatewayFilter exchange.response.setComplete()
+                    throw Exception("Invalid Access Token")
                 }
                 // 인가 검사
                 val authoritiesInParam = jwtUtil.getClaim(accessToken, config.authorityParameter, List::class.javaObjectType)?.filterIsInstance<String>()
-                    ?: throw Exception("No Authorities")
+                if (authoritiesInParam == null) {
+                    exchange.response.statusCode = HttpStatus.FORBIDDEN
+                    throw Exception("No Authorities in JWT")
+                }
                 if (!authoritiesInParam.containsAll(authorities.map { it.name })) {
                     exchange.response.statusCode = HttpStatus.FORBIDDEN
-                    return@GatewayFilter exchange.response.setComplete()
+                    throw Exception("Insufficient Authorities")
                 }
 
                 return@GatewayFilter chain.filter(exchange)
             } catch (e: Exception) {
                 logger.info("Error: ${e.message}")
-                exchange.response.statusCode = HttpStatus.UNAUTHORIZED
                 return@GatewayFilter exchange.response.setComplete()
             }
         }
-
     }
 }
