@@ -1,6 +1,8 @@
 package com.example.user.adapter.exception
 
+import com.example.auth.application.exception.AuthBaseException
 import com.example.auth.application.exception.AuthErrorCode
+import com.example.auth.application.exception.AuthErrorResponse
 import com.example.user.application.exception.UserBaseException
 import com.example.user.application.exception.UserErrorResponse
 import org.slf4j.LoggerFactory
@@ -25,12 +27,20 @@ class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
             .body(UserErrorResponse.of(ex.errorCode, ex.message))
     }
 
+    @ExceptionHandler(AuthBaseException::class)
+    fun handleAuthBaseException(ex: AuthBaseException): ResponseEntity<Any> {
+        log.error(ex.message)
+        return ResponseEntity
+            .status(ex.errorCode.httpStatus)
+            .body(AuthErrorResponse.of(ex.errorCode, ex.message))
+    }
+
     @ExceptionHandler(AuthenticationException::class)
     fun handleAuthenticationException(ex: AuthenticationException): ResponseEntity<Any> {
         log.error(ex.message)
         return ResponseEntity
             .status(AuthErrorCode.UNAUTHORIZED.httpStatus)
-            .body(com.example.auth.application.exception.AuthErrorResponse.of(AuthErrorCode.UNAUTHORIZED, ex.message))
+            .body(AuthErrorResponse.of(AuthErrorCode.UNAUTHORIZED, ex.message))
     }
 
     @ExceptionHandler(AccessDeniedException::class)
@@ -38,7 +48,7 @@ class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
         log.error(ex.message)
         return ResponseEntity
             .status(AuthErrorCode.FORBIDDEN.httpStatus)
-            .body(com.example.auth.application.exception.AuthErrorResponse.of(AuthErrorCode.FORBIDDEN, ex.message))
+            .body(AuthErrorResponse.of(AuthErrorCode.FORBIDDEN, ex.message))
     }
 
     @ExceptionHandler(Exception::class)
