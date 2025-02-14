@@ -8,14 +8,9 @@ import jakarta.persistence.OneToMany
 
 @Entity
 class Member private constructor(
-    nickname: String,
     email: String,
     password: String
 ) : BaseModifiableEntity() {
-    @Column(nullable = false)
-    var nickname: String = nickname
-        protected set
-
     @Column(unique = true, nullable = false)
     val email: String = email
 
@@ -30,35 +25,26 @@ class Member private constructor(
 
     companion object {
         fun createUser(
-            nickname: String,
             email: String,
             password: String,
         ): Member {
-            val member = Member(nickname = nickname, email = email, password = password)
+            val member = Member(email = email, password = password)
             member.addAuthority(Authority.Role.ROLE_USER)
             return member
         }
 
         fun createAdmin(
-            nickname: String,
             email: String,
             password: String,
         ): Member {
-            val member = Member(nickname = nickname, email = email, password = password)
+            val member = Member(email = email, password = password)
             member.addAuthority(Authority.Role.ROLE_ADMIN)
             return member
         }
     }
 
-    // 어플리케이션에서 member를 생성자로 생성하지 못하도록 방지
-    protected constructor() : this("", "", "")
-
     private fun addAuthority(role: Authority.Role) {
         mutableAuthorities.add(Authority(role = role, member = this))
-    }
-
-    fun changeNickname(nickname: String) {
-        this.nickname = nickname
     }
 
     fun changePassword(password: String) {
