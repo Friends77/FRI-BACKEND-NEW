@@ -6,4 +6,6 @@ interface MemberRepository {
     fun findByEmailWithAuthorities(email: String): Member?
 
     fun save(member: Member): Member
+
+    fun existsByEmail(email: String): Boolean
 }
