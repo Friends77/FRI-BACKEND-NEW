@@ -27,3 +27,17 @@ data class LoginDto(
     val email : String,
     val password : String
 )
+
+data class ValidateEmailAuthTokenDto(
+    val token : String,
+    val email : String
+)
+
+data class CreateEmailAuthTokenDto(
+    val email : String,
+    val code : String
+)
+
+data class EmailAuthTokenDto(
+    val emailAuthToken : String
+)

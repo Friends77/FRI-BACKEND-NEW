@@ -15,6 +15,8 @@ enum class AuthErrorCode(
     FORBIDDEN(HttpStatus.FORBIDDEN, -10001, "권한이 없습니다."),
     MISSING_JWT_PAYLOAD(HttpStatus.UNAUTHORIZED, -10002, "JWT 토큰에 %s가 존재하지 않습니다."),
     NOT_FOUND_MEMBER_BY_EMAIL(HttpStatus.NOT_FOUND, -10003, "해당 이메일의 유저가 존재하지 않습니다."),
+    EMAIL_AUTHENTICATION_FAILED(HttpStatus.UNAUTHORIZED, -10004, "이메일 인증에 실패하였습니다."),
+    INVALID_EMAIL_JWT(HttpStatus.UNAUTHORIZED, -10005, "유효하지 않은 이메일 JWT입니다."),
 
     ;
     fun formatErrorMessage(vararg args: Any): String =
