@@ -9,15 +9,14 @@ import org.springframework.http.HttpStatus
 abstract class AuthorizationHeaderFilter(
     private val jwtUtil: JwtUtil,
     private val authorities : List<Authority>
-) : AbstractGatewayFilterFactory<AuthorizationHeaderFilter.Config>() {
+) : AbstractGatewayFilterFactory<AuthorizationHeaderFilter.Config>(Config::class.java) {
 
     val logger = LoggerFactory.getLogger(AuthorizationHeaderFilter::class.java)
 
-
     data class Config (
-        val headerName: String = "Authorization",
-        val jwtTypeParameter : String = "type",
-        val authorityParameter : String = "authorities"
+        val headerName: String,
+        val jwtTypeParameter : String,
+        val authorityParameter : String
     )
 
     override fun apply(config: Config): GatewayFilter {
