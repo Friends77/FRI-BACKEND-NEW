@@ -9,6 +9,8 @@ import com.example.auth.application.UserDto
 object AdapterMapper {
     fun registerRequestDtoToRegisterDto(registerRequestDto: RegisterRequestDto): RegisterDto {
         return RegisterDto(
+            emailAuthToken = registerRequestDto.emailAuthToken,
+            nickname = registerRequestDto.nickname,
             email = registerRequestDto.email,
             password = registerRequestDto.password
         )

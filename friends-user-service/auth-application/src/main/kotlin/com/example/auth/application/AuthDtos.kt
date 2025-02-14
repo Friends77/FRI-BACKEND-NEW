@@ -14,11 +14,14 @@ data class AtRtDto(
 )
 
 data class RegisterDto(
+    val emailAuthToken : String,
+    val nickname: String,
     val email : String,
     val password : String
 )
 
 data class UserDto(
+    val nickname: String,
     val memberId : UUID,
     val email : String
 )
