@@ -2,22 +2,30 @@ package com.example.user.domain.entity
 
 import com.example.user.domain.entity.base.BaseModifiableEntity
 import com.example.user.domain.valueobject.AuthorityRole
+import com.example.user.domain.valueobject.OAuth2Provider
 import jakarta.persistence.CascadeType
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
+import jakarta.persistence.EnumType
+import jakarta.persistence.Enumerated
 import jakarta.persistence.OneToMany
 
 @Entity
 class Member private constructor(
     email: String,
-    password: String
 ) : BaseModifiableEntity() {
     @Column(unique = true, nullable = false)
     val email: String = email
 
-    @Column(nullable = false)
-    var password: String = password
+    @Column(nullable = true)
+    var password: String? = null
         protected set
+
+    @Column(nullable = true)
+    @Enumerated(EnumType.STRING)
+    var oAuth2Provider: OAuth2Provider? = null
+        protected set
+
 
     @OneToMany(mappedBy = "member", cascade = [CascadeType.ALL], orphanRemoval = true)
     protected val mutableAuthorities: MutableList<Authority> = mutableListOf()
@@ -29,10 +37,22 @@ class Member private constructor(
             email: String,
             password: String,
         ): Member {
-            val member = Member(email = email, password = password)
+            val member = Member(email = email)
+            member.password = password
             member.addAuthority(AuthorityRole.ROLE_USER)
             return member
         }
+
+        fun createUserByOAuth2(
+            email: String,
+            oAuth2Provider: OAuth2Provider,
+        ): Member {
+            val member = Member(email = email)
+            member.oAuth2Provider = oAuth2Provider
+            member.addAuthority(AuthorityRole.ROLE_USER)
+            return member
+        }
+
 
         fun createAdmin(
             email: String,
