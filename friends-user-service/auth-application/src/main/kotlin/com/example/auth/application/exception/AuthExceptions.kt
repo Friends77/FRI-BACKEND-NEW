@@ -1,5 +1,7 @@
 package com.example.auth.application.exception
 
+import com.example.user.domain.valueobject.OAuth2Provider
+
 class MissingJwtPayloadException(
     payloadMissed: String,
 ) : AuthBaseException(AuthErrorCode.MISSING_JWT_PAYLOAD, payloadMissed)
@@ -23,3 +25,7 @@ class LoginFailedException : AuthBaseException(AuthErrorCode.LOGIN_FAILED)
 class EmailSendFailedException : AuthBaseException(AuthErrorCode.EMAIL_SEND_FAILED)
 
 class InvalidEmailVerificationCodeException : AuthBaseException(AuthErrorCode.INVALID_EMAIL_VERIFICATION_CODE)
+
+class OAuth2FetchFailedException(oAuth2Provider: OAuth2Provider) : AuthBaseException(AuthErrorCode.OAUTH2_FETCH_FAILED, oAuth2Provider.name)
+
+class AlreadyRegisteredAnotherMethodException : AuthBaseException(AuthErrorCode.ALREADY_REGISTERED_ANOTHER_METHOD)

@@ -4,7 +4,9 @@ import com.example.auth.application.AtRtDto
 import com.example.auth.application.AuthMapper
 import com.example.auth.application.LoginDto
 import com.example.auth.application.OAuth2LoginDto
+import com.example.auth.application.exception.AlreadyRegisteredAnotherMethodException
 import com.example.auth.application.exception.LoginFailedException
+import com.example.auth.application.exception.OAuth2FetchFailedException
 import com.example.user.domain.service.OAuth2Service
 import com.example.user.domain.service.UserLoginService
 import com.example.user.domain.valueobject.AtRt
@@ -31,13 +33,18 @@ class UserLoginUseCase(
         val code = oAuth2LoginDto.authorizationCode
         val oAuth2Provider = oAuth2LoginDto.oAuth2Provider
 
-        val userProfile = oAuth2Service.getUserProfile(
-            code = code,
-            oAuth2Provider = oAuth2Provider
-        )
+        val userProfile = try {
+            oAuth2Service.getUserProfile(code, oAuth2Provider)
+        } catch (e: Exception) {
+            throw OAuth2FetchFailedException(oAuth2Provider)
+        }
 
         val email = userProfile.email
-        val atRt = userLoginService.loginByOAuth2(email, oAuth2Provider)
+        val atRt = try {
+            userLoginService.loginByOAuth2(email, oAuth2Provider)
+        } catch (e: Exception) {
+            throw AlreadyRegisteredAnotherMethodException()
+        }
         return AuthMapper.atRtToAtRtDto(atRt)
     }
 }

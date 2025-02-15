@@ -24,6 +24,8 @@ enum class AuthErrorCode(
     LOGIN_FAILED(HttpStatus.UNAUTHORIZED, -10010, "로그인에 실패하였습니다."),
     EMAIL_SEND_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, -10011, "이메일 전송에 실패하였습니다."),
     INVALID_EMAIL_VERIFICATION_CODE(HttpStatus.BAD_REQUEST, -10012, "유효하지 않은 이메일 인증 코드입니다."),
+    OAUTH2_FETCH_FAILED(HttpStatus.UNAUTHORIZED, -10013, "[%s] OAuth2 정보를 가져오는데 실패하였습니다."),
+    ALREADY_REGISTERED_ANOTHER_METHOD(HttpStatus.BAD_REQUEST, -10014, "이미 다른 방식으로 가입된 이메일입니다."),
 
     ;
     fun formatErrorMessage(vararg args: Any): String =

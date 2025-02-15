@@ -40,9 +40,9 @@ class UserLoginService(
         // 가입한 회원이지 확인하고 가입하지 않았다면 대신 회원 가입
         val member = memberRepository.findByEmailWithAuthorities(email) ?: Member.createUserByOAuth2(email, oAuth2Provider)
 
-        // 이미 다른 소셜 서비스로 가입한 경우 예외 처리
+        // 이미 같은 이메일로 가입한 계정이 있는 경우
         if (member.oAuth2Provider != oAuth2Provider) {
-            throw IllegalArgumentException("OAuth2 provider does not match")
+            throw IllegalArgumentException("Already registered with another method")
         }
 
         val memberId = member.id
