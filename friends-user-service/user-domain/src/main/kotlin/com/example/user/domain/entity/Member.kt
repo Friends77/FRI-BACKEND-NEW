@@ -58,7 +58,8 @@ class Member private constructor(
             email: String,
             password: String,
         ): Member {
-            val member = Member(email = email, password = password)
+            val member = Member(email = email)
+            member.password = password
             member.addAuthority(AuthorityRole.ROLE_ADMIN)
             return member
         }

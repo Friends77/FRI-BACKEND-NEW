@@ -20,7 +20,7 @@ class UserLoginService(
         val member = memberRepository.findByEmailWithAuthorities(email)
             ?: throw IllegalArgumentException("Member not found for email: $email")
 
-        if (!passwordEncoder.matches(password, member.password)) {
+        if (!passwordEncoder.matches(password, member.password!!)) {
             throw IllegalArgumentException("Password does not match")
         }
 
