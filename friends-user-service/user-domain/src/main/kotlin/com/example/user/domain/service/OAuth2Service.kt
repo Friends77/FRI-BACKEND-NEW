@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service
 @Service
 class OAuth2Service(
     private val oAuth2Fetcher: OAuth2Fetcher,
-    private val oAuth2DataExtractorFactory: OAuth2DataExtractorFactory
+    private val oAuth2DataExtractorFactory: OAuth2DataExtractorFactory,
 ) {
     fun getUserProfile(
         code: String,

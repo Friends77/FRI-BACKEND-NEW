@@ -29,3 +29,5 @@ class InvalidEmailVerificationCodeException : AuthBaseException(AuthErrorCode.IN
 class OAuth2FetchFailedException(oAuth2Provider: OAuth2Provider) : AuthBaseException(AuthErrorCode.OAUTH2_FETCH_FAILED, oAuth2Provider.name)
 
 class AlreadyRegisteredAnotherMethodException : AuthBaseException(AuthErrorCode.ALREADY_REGISTERED_ANOTHER_METHOD)
+
+class InvalidOAuth2ProviderException : AuthBaseException(AuthErrorCode.INVALID_OAUTH2_PROVIDER)
