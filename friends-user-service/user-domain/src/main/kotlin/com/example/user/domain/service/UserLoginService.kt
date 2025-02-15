@@ -4,10 +4,8 @@ import com.example.user.domain.repository.MemberRepository
 import com.example.user.domain.util.PasswordEncoder
 import com.example.user.domain.valueobject.AtRt
 import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
 
 @Service
-@Transactional(readOnly = true)
 class UserLoginService(
     private val atRtService: AtRtService,
     private val memberRepository: MemberRepository,
