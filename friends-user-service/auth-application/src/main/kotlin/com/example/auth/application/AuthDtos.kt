@@ -1,5 +1,6 @@
 package com.example.auth.application
 
+import com.example.user.domain.valueobject.OAuth2Provider
 import java.util.UUID
 
 data class AtRtDto(
@@ -22,6 +23,11 @@ data class UserDto(
 data class LoginDto(
     val email : String,
     val password : String
+)
+
+data class OAuth2LoginDto(
+    val authorizationCode : String,
+    val oAuth2Provider: OAuth2Provider
 )
 
 data class ValidateEmailAuthTokenDto(
