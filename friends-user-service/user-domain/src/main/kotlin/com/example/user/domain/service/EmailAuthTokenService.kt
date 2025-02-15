@@ -10,10 +10,15 @@ class EmailAuthTokenService(
     private val jwtUtil: JwtUtil,
     @Value("\${auth.email-jwt-expiration}") private val emailJwtExpiration: Long,
 ) {
+    companion object {
+        private const val EMAIL = "email"
+        private const val TYPE = "type"
+    }
+
     fun createEmailVerifyToken(email: String): String =
         jwtUtil.createToken(
-            "email" to email,
-            "type" to JwtType.EMAIL_VERIFY,
+            EMAIL to email,
+            TYPE to JwtType.EMAIL_VERIFY,
             expirationSeconds = emailJwtExpiration,
         )
 
@@ -41,8 +46,8 @@ class EmailAuthTokenService(
         return true
     }
 
-    private fun getEmail(token: String): String? = jwtUtil.getClaim(token, "email", String::class.java)
+    private fun getEmail(token: String): String? = jwtUtil.getClaim(token, EMAIL, String::class.java)
 
-    private fun getType(token: String): String? = jwtUtil.getClaim(token, "type", String::class.java)
+    private fun getType(token: String): String? = jwtUtil.getClaim(token, TYPE, String::class.java)
 
 }

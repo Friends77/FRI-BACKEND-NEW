@@ -16,8 +16,9 @@ class AtRtService(
     @Value("\${jwt.refresh-token-expiration}") private val refreshTokenExpiration: Long,
 ) {
     companion object {
-        const val MEMBER_ID = "memberId"
-        const val AUTHORITIES = "authorities"
+        private const val MEMBER_ID = "memberId"
+        private const val AUTHORITIES = "authorities"
+        private const val TYPE = "type"
     }
 
     fun createAtRt(
@@ -34,9 +35,9 @@ class AtRtService(
         authorities: Collection<AuthorityRole>,
     ): String =
         jwtUtil.createToken(
-            "memberId" to memberId,
-            "authorities" to authorities.map { it.name },
-            "type" to JwtType.ACCESS,
+            MEMBER_ID to memberId,
+            AUTHORITIES to authorities.map { it.name },
+            TYPE to JwtType.ACCESS,
             expirationSeconds = accessTokenExpiration,
         )
 
@@ -45,9 +46,9 @@ class AtRtService(
         authorities: Collection<AuthorityRole>,
     ): String =
         jwtUtil.createToken(
-            "memberId" to memberId,
-            "authorities" to authorities.map { it.name },
-            "type" to JwtType.REFRESH,
+            MEMBER_ID to memberId,
+            AUTHORITIES to authorities.map { it.name },
+            TYPE to JwtType.REFRESH,
             expirationSeconds = refreshTokenExpiration,
         )
 }
