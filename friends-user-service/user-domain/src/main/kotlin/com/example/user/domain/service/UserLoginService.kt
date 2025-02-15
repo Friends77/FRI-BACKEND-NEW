@@ -1,5 +1,6 @@
 package com.example.user.domain.service
 
+import com.example.user.domain.exception.LoginFailedException
 import com.example.user.domain.repository.MemberRepository
 import com.example.user.domain.util.PasswordEncoder
 import com.example.user.domain.valueobject.AtRt
@@ -15,12 +16,9 @@ class UserLoginService(
         email: String,
         password: String,
     ) : AtRt{
-        val member = memberRepository.findByEmailWithAuthorities(email)
-            ?: throw IllegalArgumentException("Member not found for email: $email")
+        val member = memberRepository.findByEmailWithAuthorities(email) ?: throw LoginFailedException()
 
-        if (!passwordEncoder.matches(password, member.password!!)) {
-            throw IllegalArgumentException("Password does not match")
-        }
+        if (!passwordEncoder.matches(password, member.password!!)) throw LoginFailedException()
 
         val memberId = member.id
         val authorities = member.authorities.map { it.role }

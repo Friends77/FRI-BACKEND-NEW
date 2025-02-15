@@ -2,8 +2,6 @@ package com.example.auth.application.service
 
 import com.example.auth.application.CreateEmailAuthTokenDto
 import com.example.auth.application.EmailAuthTokenDto
-import com.example.auth.application.exception.EmailSendFailedException
-import com.example.auth.application.exception.InvalidEmailVerificationCodeException
 import com.example.user.domain.service.EmailAuthTokenService
 import com.example.user.domain.service.EmailVerificationService
 import org.springframework.stereotype.Service
@@ -17,20 +15,16 @@ class AuthMailUseCase(
 ) {
     fun sendEmailVerifyCodeAsync(email : String) {
         executorService.submit {
-            try {
-                emailVerificationService.sendVerificationMail(email)
-            } catch (e: Exception) {
-                throw EmailSendFailedException()
-            }
+            emailVerificationService.sendVerificationMail(email)
         }
     }
 
     fun createEmailAuthToken(createEmailAuthTokenDto: CreateEmailAuthTokenDto) : EmailAuthTokenDto {
         val email = createEmailAuthTokenDto.email
         val code = createEmailAuthTokenDto.code
-        if (!emailVerificationService.isValidEmailCode(email, code)) {
-            throw InvalidEmailVerificationCodeException()
-        }
+
+        emailVerificationService.validateEmailCode(email, code)
+
         val token = emailAuthTokenService.createEmailVerifyToken(email)
         return EmailAuthTokenDto(token)
     }

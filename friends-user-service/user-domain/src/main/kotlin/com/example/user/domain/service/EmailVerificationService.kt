@@ -1,5 +1,7 @@
 package com.example.user.domain.service
 
+import com.example.user.domain.exception.EmailSendFailedException
+import com.example.user.domain.exception.InvalidEmailVerificationCodeException
 import com.example.user.domain.repository.EmailVerificationCodeRepository
 import com.example.user.domain.util.HtmlUtil
 import com.example.user.domain.util.MailUtil
@@ -20,23 +22,26 @@ class EmailVerificationService(
         private const val TEAM_NAME = "Friends"
     }
 
-    fun isValidEmailCode(
+    fun validateEmailCode(
         email: String,
         code: String,
-    ): Boolean {
-        val savedCode = emailVerificationCodeRepository.getCode(email) ?: return false
-        if (savedCode == code) {
-            emailVerificationCodeRepository.deleteCode(email)
-            return true
+    ) {
+        val savedCode = emailVerificationCodeRepository.getCode(email) ?: throw InvalidEmailVerificationCodeException()
+        if (savedCode != code) {
+            throw InvalidEmailVerificationCodeException()
         }
-        return false
     }
 
     fun sendVerificationMail(to: String) {
-        val code = createVerifyCode()
-        emailVerificationCodeRepository.saveCode(email = to, code = code)
-        val html = createMailHtml(code = code, team = TEAM_NAME)
-        mailUtil.sendHtml(to = to, subject = EMAIL_VERIFY_SUBJECT, html = html)
+        try {
+            val code = createVerifyCode()
+            emailVerificationCodeRepository.saveCode(email = to, code = code)
+            val html = createMailHtml(code = code, team = TEAM_NAME)
+            mailUtil.sendHtml(to = to, subject = EMAIL_VERIFY_SUBJECT, html = html)
+        } catch (e: Exception) {
+            throw EmailSendFailedException()
+        }
+
     }
 
     private fun createMailHtml(
