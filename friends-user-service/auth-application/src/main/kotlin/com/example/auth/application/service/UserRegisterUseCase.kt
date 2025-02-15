@@ -1,13 +1,7 @@
 package com.example.auth.application.service
 
-import com.example.auth.application.AuthMapper
 import com.example.auth.application.RegisterDto
 import com.example.auth.application.UserDto
-import com.example.auth.application.exception.EmailAlreadyExistsException
-import com.example.auth.application.exception.InvalidEmailJwtException
-import com.example.auth.application.exception.InvalidEmailPatternException
-import com.example.auth.application.exception.InvalidNicknamePatternException
-import com.example.auth.application.exception.InvalidPasswordPatternException
 import com.example.user.domain.service.EmailAuthTokenService
 import com.example.user.domain.service.UserRegisterService
 import com.example.user.domain.validator.UserRegisterValidator
@@ -28,23 +22,13 @@ class UserRegisterUseCase(
         val emailAuthToken = registerDto.emailAuthToken
 
         // 이메일 인증 토큰 검사
-        if (!emailAuthTokenService.isValidEmailAuthToken(emailAuthToken, email)) {
-            throw InvalidEmailJwtException()
-        }
+        emailAuthTokenService.validateEmailAuthToken(emailAuthToken, email)
 
         // 회원가입 정보 검사 (이메일 중복, 이메일 패턴, 닉네임 패턴, 비밀번호 패턴)
-        if (userRegisterValidator.isEmailExists(email)) {
-            throw EmailAlreadyExistsException()
-        }
-        if (!userRegisterValidator.isValidNicknamePattern(nickname)) {
-            throw InvalidNicknamePatternException()
-        }
-        if (!userRegisterValidator.isValidEmailPattern(email)) {
-            throw InvalidEmailPatternException()
-        }
-        if (!userRegisterValidator.isValidPasswordPattern(password)) {
-            throw InvalidPasswordPatternException()
-        }
+        userRegisterValidator.validateUniqueEmail(email)
+        userRegisterValidator.validateNicknamePattern(nickname)
+        userRegisterValidator.validateEmailPattern(email)
+        userRegisterValidator.validatePasswordPattern(password)
 
         val createdUser = userRegisterService.registerUser(
             nickname = nickname,

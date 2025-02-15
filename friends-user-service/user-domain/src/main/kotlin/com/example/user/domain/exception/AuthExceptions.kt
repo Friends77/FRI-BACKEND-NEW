@@ -2,6 +2,10 @@ package com.example.user.domain.exception
 
 import com.example.user.domain.valueobject.OAuth2Provider
 
+class MissingJwtPayloadException(
+    payloadMissed: String,
+) : BaseException(ErrorCode.MISSING_JWT_PAYLOAD, payloadMissed)
+
 class InvalidEmailJwtException : BaseException(ErrorCode.INVALID_EMAIL_JWT)
 
 class EmailAlreadyExistsException : BaseException(ErrorCode.EMAIL_ALREADY_EXISTS)
