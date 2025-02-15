@@ -2,6 +2,7 @@ package com.example.user.domain.service
 
 import com.example.user.domain.entity.Member
 import com.example.user.domain.entity.Profile
+import com.example.user.domain.exception.AlreadyRegisteredAnotherMethodException
 import com.example.user.domain.repository.MemberRepository
 import com.example.user.domain.repository.ProfileRepository
 import com.example.user.domain.valueobject.AtRt
@@ -22,7 +23,7 @@ class UserOAuth2LoginService(
         val member = memberRepository.findByEmailWithAuthorities(email) ?: registerUserByOAuth2(nickname, email, oAuth2Provider)
 
         if (member.oAuth2Provider != oAuth2Provider) {
-            throw IllegalArgumentException("Member is registered by another method")
+            throw AlreadyRegisteredAnotherMethodException()
         }
 
         val memberId = member.id

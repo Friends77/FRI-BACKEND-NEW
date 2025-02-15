@@ -23,7 +23,8 @@ enum class ErrorCode(
     INVALID_EMAIL_VERIFICATION_CODE(HttpStatus.BAD_REQUEST, -10012, "유효하지 않은 이메일 인증 코드입니다."),
     OAUTH2_FETCH_FAILED(HttpStatus.UNAUTHORIZED, -10013, "[%s] OAuth2 정보를 가져오는데 실패하였습니다."),
     ALREADY_REGISTERED_ANOTHER_METHOD(HttpStatus.BAD_REQUEST, -10014, "이미 다른 방식으로 가입된 이메일입니다."),
-    INVALID_OAUTH2_PROVIDER(HttpStatus.BAD_REQUEST, -10015, "유효하지 않은 OAuth2 서비스입니다.");
+    INVALID_OAUTH2_PROVIDER(HttpStatus.BAD_REQUEST, -10015, "유효하지 않은 OAuth2 서비스입니다."),
+    OAUTH2_DATA_EXTRACT_FAILED(HttpStatus.UNAUTHORIZED, -10016, "OAuth2 정보 추출에 실패하였습니다.")
 
     ;
     fun formatErrorMessage(vararg args: Any): String =

@@ -1,5 +1,7 @@
 package com.example.user.domain.service
 
+import com.example.user.domain.exception.OAuth2DataExtractException
+import com.example.user.domain.exception.OAuth2FetchFailedException
 import com.example.user.domain.oauth2.OAuth2DataExtractorFactory
 import com.example.user.domain.oauth2.OAuth2Fetcher
 import com.example.user.domain.valueobject.OAuth2ProfileData
@@ -15,10 +17,16 @@ class OAuth2Service(
         code: String,
         oAuth2Provider: OAuth2Provider
     ): OAuth2ProfileData {
-        val accessToken = oAuth2Fetcher.getAccessToken(code, oAuth2Provider) ?: throw RuntimeException("Failed to get access token")
-        val attributes = oAuth2Fetcher.getUserAttributes(accessToken, oAuth2Provider) ?: throw RuntimeException("Failed to get user attributes")
+        val accessToken = oAuth2Fetcher.getAccessToken(code, oAuth2Provider)
+            ?: throw OAuth2FetchFailedException(oAuth2Provider)
+        val attributes = oAuth2Fetcher.getUserAttributes(accessToken, oAuth2Provider)
+            ?: throw OAuth2FetchFailedException(oAuth2Provider)
 
-        val extractor = oAuth2DataExtractorFactory.getExtractor(oAuth2Provider)
+        val extractor = try {
+            oAuth2DataExtractorFactory.getExtractor(oAuth2Provider)
+        } catch (e: Exception) {
+            throw OAuth2DataExtractException()
+        }
         return extractor.extract(attributes)
     }
 }
