@@ -1,16 +1,13 @@
-package com.example.auth.application.exception
+package com.example.user.domain.exception
 
 import org.springframework.http.HttpStatus
 
-/**
- * 10000 ~ 10999 : 인증 관련 에러 코드
- */
-enum class AuthErrorCode(
+enum class ErrorCode(
     val httpStatus: HttpStatus,
     val code: Int,
     private val errorMessageTemplate: String,
 ) {
-
+    // 인증 관련 에러 코드 10000 ~ 10999
     UNAUTHORIZED(HttpStatus.UNAUTHORIZED, -10000, "인증되지 않은 사용자입니다."),
     FORBIDDEN(HttpStatus.FORBIDDEN, -10001, "권한이 없습니다."),
     MISSING_JWT_PAYLOAD(HttpStatus.UNAUTHORIZED, -10002, "JWT 토큰에 %s가 존재하지 않습니다."),

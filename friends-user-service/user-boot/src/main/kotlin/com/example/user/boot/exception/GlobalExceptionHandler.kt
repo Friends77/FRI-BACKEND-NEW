@@ -1,9 +1,10 @@
-package com.example.user.adapter.exception
+package com.example.user.boot.exception
 
 import com.example.auth.application.exception.AuthBaseException
 import com.example.auth.application.exception.AuthErrorResponse
 import com.example.user.application.exception.UserBaseException
 import com.example.user.application.exception.UserErrorResponse
+import com.example.user.domain.exception.BaseException
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -16,8 +17,8 @@ class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
 
     private val log = LoggerFactory.getLogger(GlobalExceptionHandler::class.java)
 
-    @ExceptionHandler(UserBaseException::class)
-    fun handleCustomException(ex: UserBaseException): ResponseEntity<Any> {
+    @ExceptionHandler(BaseException::class)
+    fun handleCustomException(ex: BaseException): ResponseEntity<Any> {
         log.info(ex.message)
         return ResponseEntity
             .status(ex.errorCode.httpStatus)
