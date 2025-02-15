@@ -28,6 +28,7 @@ class EmailAuthTokenService(
         emailAuthToken: String,
         email: String,
     ) {
+        if (!jwtUtil.isValid(emailAuthToken)) throw InvalidEmailJwtException()
 
         val emailInToken = getEmail(emailAuthToken) ?: throw MissingJwtPayloadException(EMAIL)
         val typeStr = getType(emailAuthToken) ?: throw MissingJwtPayloadException(TYPE)
@@ -37,7 +38,7 @@ class EmailAuthTokenService(
             throw InvalidEmailJwtException()
         }
 
-        if (!jwtUtil.isValid(emailAuthToken) || type != JwtType.EMAIL_VERIFY || emailInToken != email) throw InvalidEmailJwtException()
+        if (type != JwtType.EMAIL_VERIFY || emailInToken != email) throw InvalidEmailJwtException()
     }
 
     private fun getEmail(token: String): String? = jwtUtil.getClaim(token, EMAIL, String::class.java)

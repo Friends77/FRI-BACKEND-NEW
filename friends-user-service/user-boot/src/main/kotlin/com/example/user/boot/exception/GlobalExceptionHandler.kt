@@ -1,10 +1,7 @@
 package com.example.user.boot.exception
 
-import com.example.auth.application.exception.AuthBaseException
-import com.example.auth.application.exception.AuthErrorResponse
-import com.example.user.application.exception.UserBaseException
-import com.example.user.application.exception.UserErrorResponse
 import com.example.user.domain.exception.BaseException
+import com.example.user.domain.exception.ErrorResponse
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -22,15 +19,7 @@ class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
         log.info(ex.message)
         return ResponseEntity
             .status(ex.errorCode.httpStatus)
-            .body(UserErrorResponse.of(ex.errorCode, ex.message))
-    }
-
-    @ExceptionHandler(AuthBaseException::class)
-    fun handleAuthBaseException(ex: AuthBaseException): ResponseEntity<Any> {
-        log.info(ex.message)
-        return ResponseEntity
-            .status(ex.errorCode.httpStatus)
-            .body(AuthErrorResponse.of(ex.errorCode, ex.message))
+            .body(ErrorResponse.of(ex.errorCode, ex.message))
     }
 
     @ExceptionHandler(Exception::class)
