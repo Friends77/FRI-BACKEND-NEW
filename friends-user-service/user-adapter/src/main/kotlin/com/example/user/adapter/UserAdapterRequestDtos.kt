@@ -12,6 +12,11 @@ data class LoginRequestDto(
     val password: String,
 )
 
+data class OAuth2LoginRequestDto(
+    val authorizationCode : String,
+    val oauth2Provider: String
+)
+
 data class EmailVerifyCodeRequestDto(
     val email: String,
 )
