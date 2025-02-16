@@ -2,12 +2,10 @@ package com.example.user.adapter.controller
 
 import com.example.auth.application.RefreshDto
 import com.example.auth.application.service.UserLoginUseCase
-import com.example.auth.application.service.UserOAuth2LoginUserCase
 import com.example.auth.application.service.UserRegisterUseCase
 import com.example.user.adapter.AdapterMapper
 import com.example.user.adapter.LoginRequestDto
 import com.example.user.adapter.LoginResponseDto
-import com.example.user.adapter.OAuth2LoginRequestDto
 import com.example.user.adapter.RegisterRequestDto
 import com.example.user.adapter.RegisterResponseDto
 import org.springframework.http.HttpStatus
@@ -23,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController
 class AuthController (
     private val userRegisterUseCase: UserRegisterUseCase,
     private val userLoginUseCase: UserLoginUseCase,
-    private val userOAuth2LoginUserCase: UserOAuth2LoginUserCase
 ){
     @PostMapping("/register")
     fun register(@RequestBody registerRegisterDto: RegisterRequestDto) : ResponseEntity<RegisterResponseDto>{
@@ -51,13 +48,6 @@ class AuthController (
         return ResponseEntity.ok(loginResponseDto)
     }
 
-    @PostMapping("/oauth2-login")
-    fun oauth2Login(@RequestBody oauth2LoginRequestDto: OAuth2LoginRequestDto) : ResponseEntity<LoginResponseDto> {
-        val oAuth2LoginDto = AdapterMapper.oauth2LoginRequestDtoToOAuth2LoginDto(oauth2LoginRequestDto)
-        val atRtDto = userOAuth2LoginUserCase.loginByOAuth2(oAuth2LoginDto)
-        val loginResponseDto = AdapterMapper.atRtDtoToLoginResponseDto(atRtDto)
-        return ResponseEntity.ok(loginResponseDto)
-    }
 
 
 }
