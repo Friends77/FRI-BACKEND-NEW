@@ -1,6 +1,7 @@
 package com.example.user.adapter.controller
 
 import com.example.auth.application.dto.ChangeBirthDto
+import com.example.auth.application.dto.ChangeCategoriesDto
 import com.example.auth.application.dto.ChangeGenderDto
 import com.example.auth.application.dto.ChangeLocationDto
 import com.example.auth.application.dto.ChangeMbtiDto
@@ -8,6 +9,7 @@ import com.example.auth.application.dto.ChangeNicknameDto
 import com.example.auth.application.dto.ChangeProfileImageDto
 import com.example.auth.application.service.ProfileChangeUseCase
 import com.example.user.adapter.ChangeBirthRequestDto
+import com.example.user.adapter.ChangeCategoriesRequestDto
 import com.example.user.adapter.ChangeGenderRequestDto
 import com.example.user.adapter.ChangeLocationRequestDto
 import com.example.user.adapter.ChangeMbtiRequestDto
@@ -96,6 +98,18 @@ class ProfileController (
         val imageUrl = changeProfileImageRequestDto.imageUrl
         val changeProfileImageDto = ChangeProfileImageDto(memberId, imageUrl)
         profileChangeUseCase.changeProfileImage(changeProfileImageDto)
+        return ResponseEntity.ok().build()
+    }
+
+    @PutMapping("/categories")
+    fun changeCategories(
+        @RequestHeader("X-Member-Id") memberIdInHeader : String,
+        @RequestBody changeCategoriesRequestDto: ChangeCategoriesRequestDto
+    ) : ResponseEntity<String> {
+        val memberId = UUID.fromString(memberIdInHeader)
+        val categories = changeCategoriesRequestDto.categories
+        val changeCategoriesDto = ChangeCategoriesDto(memberId, categories)
+        profileChangeUseCase.changeCategories(changeCategoriesDto)
         return ResponseEntity.ok().build()
     }
 }
