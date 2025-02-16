@@ -1,7 +1,7 @@
 package com.example.auth.application.service
 
-import com.example.auth.application.RegisterDto
-import com.example.auth.application.UserDto
+import com.example.auth.application.dto.RegisterDto
+import com.example.auth.application.dto.UserDto
 import com.example.user.domain.service.UserRegisterService
 import com.example.user.domain.validator.EmailAuthTokenValidator
 import com.example.user.domain.validator.UserRegisterValidator

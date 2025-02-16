@@ -15,7 +15,6 @@ import jakarta.persistence.FetchType
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.OneToMany
 import jakarta.persistence.OneToOne
-import java.time.LocalDate
 
 @Entity
 class Profile(
@@ -52,7 +51,7 @@ class Profile(
         protected set
 
     @Column(nullable = true)
-    var imageUrl: String? = null
+    var profileImageUrl: String? = null
         protected set
 
     @OneToMany(mappedBy = "profile", cascade = [CascadeType.ALL], orphanRemoval = true)
@@ -86,7 +85,7 @@ class Profile(
 
     // nullable 로 설정하여 기본 이미지 (null) 로 변경 가능
     fun changeImageUrl(imageUrl : String?) {
-        this.imageUrl = imageUrl
+        this.profileImageUrl = imageUrl
     }
 
     fun changeCategories(categories : List<Category>) {

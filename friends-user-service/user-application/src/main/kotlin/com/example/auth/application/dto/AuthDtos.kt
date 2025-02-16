@@ -1,4 +1,4 @@
-package com.example.auth.application
+package com.example.auth.application.dto
 
 import java.util.UUID
 

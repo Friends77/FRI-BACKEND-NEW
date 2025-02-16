@@ -1,6 +1,6 @@
 package com.example.user.adapter.controller
 
-import com.example.auth.application.RefreshDto
+import com.example.auth.application.dto.RefreshDto
 import com.example.auth.application.service.UserLoginUseCase
 import com.example.auth.application.service.UserPasswordUseCase
 import com.example.auth.application.service.UserRegisterUseCase

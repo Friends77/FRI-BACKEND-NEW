@@ -1,5 +1,8 @@
 package com.example.auth.application
 
+import com.example.auth.application.dto.AtRtDto
+import com.example.auth.application.dto.RegisterDto
+import com.example.auth.application.dto.ValidateEmailAuthTokenDto
 import com.example.user.domain.valueobject.AtRt
 
 object AuthMapper {

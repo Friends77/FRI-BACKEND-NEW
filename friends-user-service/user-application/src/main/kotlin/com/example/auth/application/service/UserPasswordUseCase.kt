@@ -1,6 +1,6 @@
 package com.example.auth.application.service
 
-import com.example.auth.application.ResetPasswordDto
+import com.example.auth.application.dto.ResetPasswordDto
 import com.example.user.domain.service.UserPasswordService
 import com.example.user.domain.validator.EmailAuthTokenValidator
 import com.example.user.domain.validator.UserRegisterValidator

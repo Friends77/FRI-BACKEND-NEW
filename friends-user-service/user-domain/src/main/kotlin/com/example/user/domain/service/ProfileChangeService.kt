@@ -9,15 +9,16 @@ import com.example.user.domain.valueobject.Category
 import com.example.user.domain.valueobject.Gender
 import com.example.user.domain.valueobject.Location
 import com.example.user.domain.valueobject.MBTI
+import org.springframework.stereotype.Service
 import java.time.LocalDate
 import java.util.UUID
 
+@Service
 class ProfileChangeService (
     private val profileRepository: ProfileRepository,
     private val userRegisterValidator: UserRegisterValidator,
 ){
     // TODO : 추천 시스템에 프로필 변경 이벤트 전달
-
 
     fun changeNickname(memberId : UUID, nickname : String){
         userRegisterValidator.validateNicknamePattern(nickname)
@@ -65,12 +66,15 @@ class ProfileChangeService (
         profile.changeSelfDescription(selfDescription)
     }
 
-    fun changeImageUrl(memberId: UUID, imageUrl: String?){
+    fun changeProfileImage(memberId: UUID, imageUrl: String?){
         val profile = profileRepository.findByMemberId(memberId) ?: throw ProfileNotFoundByMemberIdException()
         profile.changeImageUrl(imageUrl)
     }
 
     fun changeCategories(memberId: UUID, categoryList : List<String>){
+        if (categoryList.size > 5) {
+            throw InvalidProfilePropertyException("카테고리는 5개 이하로 선택해주세요.")
+        }
         val categories : MutableList<Category> = mutableListOf()
         for (category in categoryList){
             val categoryEnum = try {

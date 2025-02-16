@@ -1,12 +1,12 @@
 package com.example.user.adapter
 
-import com.example.auth.application.AtRtDto
-import com.example.auth.application.CreateEmailAuthTokenDto
-import com.example.auth.application.LoginDto
-import com.example.auth.application.OAuth2LoginDto
-import com.example.auth.application.RegisterDto
-import com.example.auth.application.ResetPasswordDto
-import com.example.auth.application.UserDto
+import com.example.auth.application.dto.AtRtDto
+import com.example.auth.application.dto.CreateEmailAuthTokenDto
+import com.example.auth.application.dto.LoginDto
+import com.example.auth.application.dto.OAuth2LoginDto
+import com.example.auth.application.dto.RegisterDto
+import com.example.auth.application.dto.ResetPasswordDto
+import com.example.auth.application.dto.UserDto
 
 
 object AdapterMapper {
