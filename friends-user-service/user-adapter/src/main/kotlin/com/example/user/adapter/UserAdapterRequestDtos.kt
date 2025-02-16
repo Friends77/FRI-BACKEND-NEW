@@ -1,5 +1,8 @@
 package com.example.user.adapter
 
+import org.springframework.format.annotation.DateTimeFormat
+import java.time.LocalDate
+
 data class RegisterRequestDto(
     val emailAuthToken: String,
     val nickname: String,
@@ -30,4 +33,34 @@ data class ResetPasswordRequestDto(
     val emailAuthToken : String,
     val email: String,
     val newPassword: String,
+)
+
+data class ChangeNicknameRequestDto(
+    val nickname : String
+)
+
+data class ChangeBirthRequestDto(
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    val localDate: LocalDate
+)
+
+data class ChangeGenderRequestDto(
+    val gender : String
+)
+
+data class ChangeLocationRequestDto(
+    val latitude : Double,
+    val longitude : Double
+)
+
+data class ChangeMbtiRequestDto(
+    val mbti : String
+)
+
+data class ChangeProfileImageRequestDto(
+    val imageUrl : String
+)
+
+data class ChangeCategoriesRequestDto(
+    val categories : List<String>
 )
