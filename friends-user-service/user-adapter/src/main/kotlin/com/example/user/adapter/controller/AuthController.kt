@@ -1,7 +1,5 @@
 package com.example.user.adapter.controller
 
-import com.example.auth.application.AtRtDto
-import com.example.auth.application.AuthMapper
 import com.example.auth.application.RefreshDto
 import com.example.auth.application.service.AuthMailUseCase
 import com.example.auth.application.service.UserLoginUseCase
@@ -70,7 +68,7 @@ class AuthController (
     fun sendEmailVerifyCode(@RequestBody emailVerifyCodeRequestDto: EmailVerifyCodeRequestDto) : ResponseEntity<String>{
         val email = emailVerifyCodeRequestDto.email
         authMailUseCase.sendEmailVerifyCodeAsync(email)
-        return ResponseEntity.ok("이메일 인증 코드 전송 (비동기)")
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body("이메일로 인증 코드를 전송했습니다.")
     }
 
     @PostMapping("/verify-email-code")
