@@ -4,7 +4,7 @@ import com.example.user.domain.exception.MemberNotFoundByEmailException
 import com.example.user.domain.exception.OAuth2UserPasswordChangeException
 import com.example.user.domain.exception.PasswordEqualLastPasswordException
 import com.example.user.domain.repository.MemberRepository
-import com.example.user.domain.util.PasswordEncoder
+import com.example.user.domain.entity.auth.PasswordEncoder
 import org.springframework.stereotype.Service
 
 @Service

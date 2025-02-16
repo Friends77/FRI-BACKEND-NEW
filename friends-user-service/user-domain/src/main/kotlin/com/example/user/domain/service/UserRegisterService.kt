@@ -4,7 +4,7 @@ import com.example.user.domain.entity.Member
 import com.example.user.domain.entity.Profile
 import com.example.user.domain.repository.MemberRepository
 import com.example.user.domain.repository.ProfileRepository
-import com.example.user.domain.util.PasswordEncoder
+import com.example.user.domain.entity.auth.PasswordEncoder
 import org.springframework.stereotype.Service
 
 @Service

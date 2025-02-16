@@ -2,22 +2,22 @@ package com.example.auth.application.service
 
 import com.example.auth.application.CreateEmailAuthTokenDto
 import com.example.auth.application.EmailAuthTokenDto
-import com.example.user.domain.service.EmailAuthTokenService
-import com.example.user.domain.service.EmailVerificationService
+import com.example.user.domain.entity.auth.EmailAuthTokenGenerator
+import com.example.user.domain.entity.auth.VerificationMailSender
 import com.example.user.domain.validator.EmailVerificationCodeValidator
 import org.springframework.stereotype.Service
 import java.util.concurrent.ExecutorService
 
 @Service
 class AuthMailUseCase(
-    private val emailVerificationService: EmailVerificationService,
+    private val verificationMailSender: VerificationMailSender,
     private val emailVerificationCodeValidator: EmailVerificationCodeValidator,
-    private val emailAuthTokenService: EmailAuthTokenService,
+    private val emailAuthTokenGenerator: EmailAuthTokenGenerator,
     private val executorService: ExecutorService
 ) {
     fun sendEmailVerifyCodeAsync(email : String) {
         executorService.submit {
-            emailVerificationService.sendVerificationMail(email)
+            verificationMailSender.sendVerificationMail(email)
         }
     }
 
@@ -27,7 +27,7 @@ class AuthMailUseCase(
 
         emailVerificationCodeValidator.validateEmailCode(email, code)
 
-        val token = emailAuthTokenService.createEmailVerifyToken(email)
+        val token = emailAuthTokenGenerator.createEmailAuthToken(email)
         return EmailAuthTokenDto(token)
     }
 }

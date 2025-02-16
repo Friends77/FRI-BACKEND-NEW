@@ -1,4 +1,4 @@
-package com.example.user.domain.util
+package com.example.user.domain.entity.auth
 
 interface PasswordEncoder {
     fun encode(rawPassword: String): String
