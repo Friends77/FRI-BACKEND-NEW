@@ -8,6 +8,4 @@ jar.enabled = true
 
 dependencies {
     implementation(project(":user-domain"))
-
-
 }

@@ -8,5 +8,4 @@ jar.enabled = true
 
 dependencies {
     implementation(project(":user-application"))
-    implementation(project(":auth-application"))
 }

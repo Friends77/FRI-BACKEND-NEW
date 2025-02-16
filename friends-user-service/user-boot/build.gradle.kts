@@ -7,7 +7,6 @@ bootJar.enabled = true
 dependencies {
     implementation(project(":user-adapter"))
     implementation(project(":user-application"))
-    implementation(project(":auth-application"))
     implementation(project(":user-domain"))
     implementation(project(":user-infrastructure"))
 
