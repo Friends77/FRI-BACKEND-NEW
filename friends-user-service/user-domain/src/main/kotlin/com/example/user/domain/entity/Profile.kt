@@ -1,6 +1,7 @@
 package com.example.user.domain.entity
 
 import com.example.user.domain.entity.base.BaseModifiableEntity
+import com.example.user.domain.valueobject.Birth
 import com.example.user.domain.valueobject.Category
 import com.example.user.domain.valueobject.Gender
 import com.example.user.domain.valueobject.Location
@@ -30,7 +31,7 @@ class Profile(
         protected set
 
     @Column(nullable = true)
-    var birth: LocalDate? = null
+    var birth: Birth? = null
         protected set
 
     @Column(nullable = true)
@@ -58,25 +59,37 @@ class Profile(
     protected val mutableProfileCategories: MutableList<ProfileCategory> = mutableListOf()
     val profileCategories: List<ProfileCategory> get() = mutableProfileCategories.toList()
 
+    // 한번 변경하면 다시 null 로 변경할 수 없도록 하기 위해 nullable 로 설정하지 않음
     fun changeNickname(nickname: String) {
         this.nickname = nickname
     }
 
-    fun updateProfile(
-        birth: LocalDate?,
-        gender: Gender?,
-        location: Location?,
-        mbti: MBTI?,
-        selfDescription: String?,
-        imageUrl: String?,
-        categories: List<Category>,
-    ) {
+    fun changeBirth(birth: Birth) {
         this.birth = birth
+    }
+
+    fun changeGender(gender : Gender) {
         this.gender = gender
+    }
+
+    fun changeLocation(location : Location) {
         this.location = location
+    }
+
+    fun changeMbti(mbti : MBTI) {
         this.mbti = mbti
+    }
+
+    fun changeSelfDescription(selfDescription : String) {
         this.selfDescription = selfDescription
+    }
+
+    // nullable 로 설정하여 기본 이미지 (null) 로 변경 가능
+    fun changeImageUrl(imageUrl : String?) {
         this.imageUrl = imageUrl
+    }
+
+    fun changeCategories(categories : List<Category>) {
         mutableProfileCategories.clear()
         categories.forEach { addProfileCategory(it) }
     }
