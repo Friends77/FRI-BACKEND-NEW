@@ -6,6 +6,7 @@ import com.example.user.domain.exception.MissingJwtPayloadException
 import com.example.user.domain.util.JwtUtil
 import com.example.user.domain.valueobject.AtRt
 import com.example.user.domain.valueobject.AuthorityRole
+import com.example.user.domain.valueobject.JwtKey
 import com.example.user.domain.valueobject.JwtType
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
@@ -17,11 +18,6 @@ class AtRtService(
     @Value("\${jwt.access-token-expiration}") private val accessTokenExpiration: Long,
     @Value("\${jwt.refresh-token-expiration}") private val refreshTokenExpiration: Long,
 ) {
-    companion object {
-        private const val MEMBER_ID = "memberId"
-        private const val AUTHORITIES = "authorities"
-        private const val TYPE = "type"
-    }
 
     fun createAtRt(
         memberId: UUID,
@@ -33,22 +29,22 @@ class AtRtService(
     }
 
     fun getMemberId(refreshToken: String): UUID {
-        val memberIdStr = jwtUtil.getClaim(refreshToken, MEMBER_ID, String::class.java)
-            ?: throw MissingJwtPayloadException(MEMBER_ID)
+        val memberIdStr = jwtUtil.getClaim(refreshToken, JwtKey.MEMBER_ID.value, String::class.java)
+            ?: throw MissingJwtPayloadException(JwtKey.MEMBER_ID.value)
         return try {
             UUID.fromString(memberIdStr)
         } catch (e: Exception) {
-            throw MissingJwtPayloadException(MEMBER_ID)
+            throw MissingJwtPayloadException(JwtKey.MEMBER_ID.value)
         }
     }
 
     fun getAuthorities(accessToken: String): Collection<AuthorityRole> {
-        val authorities = jwtUtil.getClaim(accessToken, AUTHORITIES, List::class.javaObjectType)?.filterIsInstance<String>()
-            ?: throw MissingJwtPayloadException(AUTHORITIES)
+        val authorities = jwtUtil.getClaim(accessToken, JwtKey.AUTHORITIES.value, List::class.javaObjectType)?.filterIsInstance<String>()
+            ?: throw MissingJwtPayloadException(JwtKey.AUTHORITIES.value)
         return try {
             authorities.map { AuthorityRole.valueOf(it) }
         } catch (e: Exception) {
-            throw MissingJwtPayloadException(AUTHORITIES)
+            throw MissingJwtPayloadException(JwtKey.AUTHORITIES.value)
         }
     }
 
@@ -59,12 +55,12 @@ class AtRtService(
     }
 
     private fun getType(token : String) : JwtType {
-        val typeStr = jwtUtil.getClaim(token, TYPE, String::class.java)
-            ?: throw MissingJwtPayloadException(TYPE)
+        val typeStr = jwtUtil.getClaim(token, JwtKey.TYPE.value, String::class.java)
+            ?: throw MissingJwtPayloadException(JwtKey.TYPE.value)
         return try {
             JwtType.valueOf(typeStr)
         } catch (e: Exception) {
-            throw MissingJwtPayloadException(TYPE)
+            throw MissingJwtPayloadException(JwtKey.TYPE.value)
         }
     }
 
@@ -74,9 +70,9 @@ class AtRtService(
         authorities: Collection<AuthorityRole>,
     ): String =
         jwtUtil.createToken(
-            MEMBER_ID to memberId,
-            AUTHORITIES to authorities.map { it.name },
-            TYPE to JwtType.ACCESS,
+            JwtKey.MEMBER_ID.value to memberId,
+            JwtKey.AUTHORITIES.value to authorities.map { it.name },
+            JwtKey.TYPE.value to JwtType.ACCESS,
             expirationSeconds = accessTokenExpiration,
         )
 
@@ -85,9 +81,9 @@ class AtRtService(
         authorities: Collection<AuthorityRole>,
     ): String =
         jwtUtil.createToken(
-            MEMBER_ID to memberId,
-            AUTHORITIES to authorities.map { it.name },
-            TYPE to JwtType.REFRESH,
+            JwtKey.MEMBER_ID.value to memberId,
+            JwtKey.AUTHORITIES.value to authorities.map { it.name },
+            JwtKey.TYPE.value to JwtType.REFRESH,
             expirationSeconds = refreshTokenExpiration,
         )
 }
