@@ -13,7 +13,7 @@ interface AtRtSupporter{
         authorities : Collection<AuthorityRole>
     ): AtRt
 
-    fun getMemberId(refreshToken: String): UUID
+    fun getMemberId(token: String): UUID
 
-    fun getAuthorities(accessToken: String): Collection<AuthorityRole>
+    fun getAuthorities(token: String): Collection<AuthorityRole>
 }
