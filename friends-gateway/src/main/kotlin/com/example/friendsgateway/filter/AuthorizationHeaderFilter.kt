@@ -67,7 +67,20 @@ abstract class AuthorizationHeaderFilter(
                     throw Exception("Insufficient Authorities")
                 }
 
-                return@GatewayFilter chain.filter(exchange)
+                // accessToken 에서 memberId 추출
+                val memberId = jwtUtil.getClaim(accessToken, "memberId", String::class.java)
+                if (memberId == null) {
+                    exchange.response.statusCode = HttpStatus.UNAUTHORIZED
+                    throw Exception("JWT에 memberId 클레임이 없습니다.")
+                }
+
+                val mutatedRequest = exchange.request.mutate()
+                    .header("X-Member-Id", memberId) // 사용자 정의 헤더 이름
+                    .build()
+
+                val mutatedExchange = exchange.mutate().request(mutatedRequest).build()
+
+                return@GatewayFilter chain.filter(mutatedExchange)
             } catch (e: Exception) {
                 logger.info("Error: ${e.message}")
                 return@GatewayFilter exchange.response.setComplete()
