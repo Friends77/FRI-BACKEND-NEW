@@ -1,7 +1,7 @@
 package com.example.user.domain.exception
 
 class ErrorResponse private constructor(
-    val errorCode: Int,
+    val errorCode: String,
     val errorMessage: String
 ) {
     companion object {
@@ -9,7 +9,7 @@ class ErrorResponse private constructor(
             errorCode: ErrorCode,
             errorMessage: String?,
         ) = ErrorResponse(
-            errorCode.code,
+            errorCode.name,
             errorMessage ?: errorCode.formatErrorMessage()
         )
     }
