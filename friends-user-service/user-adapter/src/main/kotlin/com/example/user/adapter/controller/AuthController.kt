@@ -1,14 +1,10 @@
 package com.example.user.adapter.controller
 
 import com.example.auth.application.RefreshDto
-import com.example.auth.application.service.AuthMailUseCase
 import com.example.auth.application.service.UserLoginUseCase
 import com.example.auth.application.service.UserOAuth2LoginUserCase
 import com.example.auth.application.service.UserRegisterUseCase
 import com.example.user.adapter.AdapterMapper
-import com.example.user.adapter.EmailAuthTokenRequestDto
-import com.example.user.adapter.EmailAuthTokenResponseDto
-import com.example.user.adapter.EmailVerifyCodeRequestDto
 import com.example.user.adapter.LoginRequestDto
 import com.example.user.adapter.LoginResponseDto
 import com.example.user.adapter.OAuth2LoginRequestDto
@@ -25,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/global/auth")
 class AuthController (
-    private val authMailUseCase: AuthMailUseCase,
     private val userRegisterUseCase: UserRegisterUseCase,
     private val userLoginUseCase: UserLoginUseCase,
     private val userOAuth2LoginUserCase: UserOAuth2LoginUserCase
@@ -64,19 +59,5 @@ class AuthController (
         return ResponseEntity.ok(loginResponseDto)
     }
 
-    @PostMapping("/send-email-verify-code")
-    fun sendEmailVerifyCode(@RequestBody emailVerifyCodeRequestDto: EmailVerifyCodeRequestDto) : ResponseEntity<String>{
-        val email = emailVerifyCodeRequestDto.email
-        authMailUseCase.sendEmailVerifyCodeAsync(email)
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body("이메일로 인증 코드를 전송했습니다.")
-    }
 
-    @PostMapping("/verify-email-code")
-    fun verifyEmailCode(@RequestBody emailAuthTokenRequestDto: EmailAuthTokenRequestDto) : ResponseEntity<EmailAuthTokenResponseDto>{
-        val createEmailAuthTokenDto =
-            AdapterMapper.emailAuthTokenRequestDtoToCreateEmailAuthTokenDto(emailAuthTokenRequestDto)
-        val emailAuthToken = authMailUseCase.createEmailAuthToken(createEmailAuthTokenDto)
-        val emailAuthTokenResponseDto = EmailAuthTokenResponseDto(emailAuthToken.emailAuthToken)
-        return ResponseEntity.ok(emailAuthTokenResponseDto)
-    }
 }
