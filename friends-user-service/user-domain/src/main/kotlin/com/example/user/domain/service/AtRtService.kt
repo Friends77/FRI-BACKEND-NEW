@@ -48,23 +48,6 @@ class AtRtService(
         }
     }
 
-    fun validateRefreshToken(refreshToken: String) {
-        if (!jwtUtil.isValid(refreshToken) || getType(refreshToken) != JwtType.REFRESH) {
-            throw InvalidRefreshTokenException()
-        }
-    }
-
-    private fun getType(token : String) : JwtType {
-        val typeStr = jwtUtil.getClaim(token, JwtKey.TYPE.value, String::class.java)
-            ?: throw MissingJwtPayloadException(JwtKey.TYPE.value)
-        return try {
-            JwtType.valueOf(typeStr)
-        } catch (e: Exception) {
-            throw MissingJwtPayloadException(JwtKey.TYPE.value)
-        }
-    }
-
-
     private fun createAccessToken(
         memberId: UUID,
         authorities: Collection<AuthorityRole>,

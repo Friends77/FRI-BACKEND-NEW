@@ -29,8 +29,6 @@ class UserLoginService(
     fun refresh(
         refreshToken: String
     ) : AtRt {
-        atRtService.validateRefreshToken(refreshToken)
-
         val memberId = atRtService.getMemberId(refreshToken)
         val authorities = atRtService.getAuthorities(refreshToken)
         return atRtService.createAtRt(memberId, authorities)
