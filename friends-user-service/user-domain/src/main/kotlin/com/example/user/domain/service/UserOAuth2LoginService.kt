@@ -2,6 +2,7 @@ package com.example.user.domain.service
 
 import com.example.user.domain.entity.Member
 import com.example.user.domain.entity.Profile
+import com.example.user.domain.entity.auth.AtRtSupporter
 import com.example.user.domain.exception.AlreadyRegisteredAnotherMethodException
 import com.example.user.domain.repository.MemberRepository
 import com.example.user.domain.repository.ProfileRepository
