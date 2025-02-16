@@ -1,7 +1,6 @@
 package com.example.user.domain.service
 
 
-import com.example.user.domain.exception.InvalidRefreshTokenException
 import com.example.user.domain.exception.MissingJwtPayloadException
 import com.example.user.domain.util.JwtUtil
 import com.example.user.domain.valueobject.AtRt
@@ -13,7 +12,7 @@ import org.springframework.stereotype.Service
 import java.util.UUID
 
 @Service
-class AtRtService(
+class AtRtSupporter(
     private val jwtUtil: JwtUtil,
     @Value("\${jwt.access-token-expiration}") private val accessTokenExpiration: Long,
     @Value("\${jwt.refresh-token-expiration}") private val refreshTokenExpiration: Long,

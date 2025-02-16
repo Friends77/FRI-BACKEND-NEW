@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service
 class UserOAuth2LoginService(
     private val memberRepository: MemberRepository,
     private val profileRepository: ProfileRepository,
-    private val atRtService: AtRtService
+    private val atRtSupporter: AtRtSupporter
 ) {
     fun loginByOAuth2(
         nickname: String,
@@ -29,7 +29,7 @@ class UserOAuth2LoginService(
         val memberId = member.id
         val authorities = member.authorities.map { it.role }
 
-        return atRtService.createAtRt(memberId, authorities)
+        return atRtSupporter.createAtRt(memberId, authorities)
     }
 
     private fun registerUserByOAuth2(

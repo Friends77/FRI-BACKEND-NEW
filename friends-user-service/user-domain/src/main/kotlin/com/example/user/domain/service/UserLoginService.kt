@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class UserLoginService(
-    private val atRtService: AtRtService,
+    private val atRtSupporter: AtRtSupporter,
     private val memberRepository: MemberRepository,
     private val passwordEncoder: PasswordEncoder
 ) {
@@ -23,14 +23,14 @@ class UserLoginService(
         val memberId = member.id
         val authorities = member.authorities.map { it.role }
 
-        return atRtService.createAtRt(memberId, authorities)
+        return atRtSupporter.createAtRt(memberId, authorities)
     }
 
     fun refresh(
         refreshToken: String
     ) : AtRt {
-        val memberId = atRtService.getMemberId(refreshToken)
-        val authorities = atRtService.getAuthorities(refreshToken)
-        return atRtService.createAtRt(memberId, authorities)
+        val memberId = atRtSupporter.getMemberId(refreshToken)
+        val authorities = atRtSupporter.getAuthorities(refreshToken)
+        return atRtSupporter.createAtRt(memberId, authorities)
     }
 }
