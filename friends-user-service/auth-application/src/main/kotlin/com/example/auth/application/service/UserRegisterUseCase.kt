@@ -4,6 +4,7 @@ import com.example.auth.application.RegisterDto
 import com.example.auth.application.UserDto
 import com.example.user.domain.service.EmailAuthTokenService
 import com.example.user.domain.service.UserRegisterService
+import com.example.user.domain.validator.EmailAuthTokenValidator
 import com.example.user.domain.validator.UserRegisterValidator
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -12,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional
 class UserRegisterUseCase(
     private val userRegisterService: UserRegisterService,
     private val userRegisterValidator: UserRegisterValidator,
-    private val emailAuthTokenService: EmailAuthTokenService,
+    private val emailAuthTokenValidator: EmailAuthTokenValidator
 ) {
     @Transactional
     fun register(registerDto: RegisterDto) : UserDto {
@@ -22,7 +23,7 @@ class UserRegisterUseCase(
         val emailAuthToken = registerDto.emailAuthToken
 
         // 이메일 인증 토큰 검사
-        emailAuthTokenService.validateEmailAuthToken(emailAuthToken, email)
+        emailAuthTokenValidator.validateEmailAuthToken(emailAuthToken, email)
 
         // 회원가입 정보 검사 (이메일 중복, 이메일 패턴, 닉네임 패턴, 비밀번호 패턴)
         userRegisterValidator.validateUniqueEmail(email)

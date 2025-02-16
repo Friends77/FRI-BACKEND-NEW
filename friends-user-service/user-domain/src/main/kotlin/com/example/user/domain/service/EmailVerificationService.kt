@@ -22,16 +22,6 @@ class EmailVerificationService(
         private const val TEAM_NAME = "Friends"
     }
 
-    fun validateEmailCode(
-        email: String,
-        code: String,
-    ) {
-        val savedCode = emailVerificationCodeRepository.getCode(email) ?: throw InvalidEmailVerificationCodeException()
-        if (savedCode != code) {
-            throw InvalidEmailVerificationCodeException()
-        }
-    }
-
     fun sendVerificationMail(to: String) {
         try {
             val code = createVerifyCode()

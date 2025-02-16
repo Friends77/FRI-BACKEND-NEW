@@ -4,12 +4,14 @@ import com.example.auth.application.CreateEmailAuthTokenDto
 import com.example.auth.application.EmailAuthTokenDto
 import com.example.user.domain.service.EmailAuthTokenService
 import com.example.user.domain.service.EmailVerificationService
+import com.example.user.domain.validator.EmailVerificationCodeValidator
 import org.springframework.stereotype.Service
 import java.util.concurrent.ExecutorService
 
 @Service
 class AuthMailUseCase(
     private val emailVerificationService: EmailVerificationService,
+    private val emailVerificationCodeValidator: EmailVerificationCodeValidator,
     private val emailAuthTokenService: EmailAuthTokenService,
     private val executorService: ExecutorService
 ) {
@@ -23,7 +25,7 @@ class AuthMailUseCase(
         val email = createEmailAuthTokenDto.email
         val code = createEmailAuthTokenDto.code
 
-        emailVerificationService.validateEmailCode(email, code)
+        emailVerificationCodeValidator.validateEmailCode(email, code)
 
         val token = emailAuthTokenService.createEmailVerifyToken(email)
         return EmailAuthTokenDto(token)
