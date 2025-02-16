@@ -25,7 +25,13 @@ enum class ErrorCode(
     ALREADY_REGISTERED_ANOTHER_METHOD(HttpStatus.BAD_REQUEST, -10014, "이미 다른 방식으로 가입된 이메일입니다."),
     INVALID_OAUTH2_PROVIDER(HttpStatus.BAD_REQUEST, -10015, "유효하지 않은 OAuth2 서비스입니다."),
     OAUTH2_DATA_EXTRACT_FAILED(HttpStatus.UNAUTHORIZED, -10016, "OAuth2 정보 추출에 실패하였습니다."),
-    INVALID_REFRESH_TOKEN(HttpStatus.UNAUTHORIZED, -10017, "유효하지 않은 Refresh Token입니다.");
+    INVALID_REFRESH_TOKEN(HttpStatus.UNAUTHORIZED, -10017, "유효하지 않은 Refresh Token입니다."),
+    OAUTH2_USER_PASSWORD_CHANGE(HttpStatus.BAD_REQUEST, -10018, "OAuth2 유저의 비밀번호 변경은 불가능합니다."),
+    PASSWORD_EQUAL_LAST_PASSWORD(HttpStatus.BAD_REQUEST, -10019, "이전 비밀번호와 동일한 비밀번호는 사용할 수 없습니다."),
+
+
+    // 회원 관련 에러 코드 11000 ~ 11999
+    NOT_FOUND_MEMBER_BY_ID(HttpStatus.NOT_FOUND, -11000, "해당 ID의 유저가 존재하지 않습니다."),
 
     ;
     fun formatErrorMessage(vararg args: Any): String =

@@ -31,3 +31,7 @@ class InvalidOAuth2ProviderException : BaseException(ErrorCode.INVALID_OAUTH2_PR
 class OAuth2DataExtractException : BaseException(ErrorCode.OAUTH2_DATA_EXTRACT_FAILED)
 
 class InvalidRefreshTokenException : BaseException(ErrorCode.INVALID_REFRESH_TOKEN)
+
+class OAuth2UserPasswordChangeException : BaseException(ErrorCode.OAUTH2_USER_PASSWORD_CHANGE)
+
+class PasswordEqualLastPasswordException : BaseException(ErrorCode.PASSWORD_EQUAL_LAST_PASSWORD)

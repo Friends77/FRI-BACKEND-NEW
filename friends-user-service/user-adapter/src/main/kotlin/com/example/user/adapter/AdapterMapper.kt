@@ -5,6 +5,7 @@ import com.example.auth.application.CreateEmailAuthTokenDto
 import com.example.auth.application.LoginDto
 import com.example.auth.application.OAuth2LoginDto
 import com.example.auth.application.RegisterDto
+import com.example.auth.application.ResetPasswordDto
 import com.example.auth.application.UserDto
 
 
@@ -50,6 +51,14 @@ object AdapterMapper {
         return OAuth2LoginDto(
             authorizationCode = oauth2LoginRequestDto.authorizationCode,
             oAuth2Provider = oauth2LoginRequestDto.oauth2Provider
+        )
+    }
+
+    fun resetPasswordRequestDtoToResetPasswordDto(resetPasswordRequestDto: ResetPasswordRequestDto): ResetPasswordDto {
+        return ResetPasswordDto(
+            emailAuthToken = resetPasswordRequestDto.emailAuthToken,
+            email = resetPasswordRequestDto.email,
+            newPassword = resetPasswordRequestDto.newPassword
         )
     }
 }

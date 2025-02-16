@@ -13,6 +13,7 @@ import jakarta.persistence.OneToMany
 @Entity
 class Member private constructor(
     email: String,
+    isOAuth2User: Boolean
 ) : BaseModifiableEntity() {
     @Column(unique = true, nullable = false)
     val email: String = email
@@ -26,6 +27,8 @@ class Member private constructor(
     var oAuth2Provider: OAuth2Provider? = null
         protected set
 
+    @Column(nullable = false)
+    val isOAuth2User : Boolean = isOAuth2User
 
     @OneToMany(mappedBy = "member", cascade = [CascadeType.ALL], orphanRemoval = true)
     protected val mutableAuthorities: MutableList<Authority> = mutableListOf()
@@ -37,7 +40,7 @@ class Member private constructor(
             email: String,
             password: String,
         ): Member {
-            val member = Member(email = email)
+            val member = Member(email = email, isOAuth2User = false)
             member.password = password
             member.addAuthority(AuthorityRole.ROLE_USER)
             return member
@@ -47,7 +50,7 @@ class Member private constructor(
             email: String,
             oAuth2Provider: OAuth2Provider,
         ): Member {
-            val member = Member(email = email)
+            val member = Member(email = email, isOAuth2User = true)
             member.oAuth2Provider = oAuth2Provider
             member.addAuthority(AuthorityRole.ROLE_USER)
             return member
@@ -58,7 +61,7 @@ class Member private constructor(
             email: String,
             password: String,
         ): Member {
-            val member = Member(email = email)
+            val member = Member(email = email, isOAuth2User = false)
             member.password = password
             member.addAuthority(AuthorityRole.ROLE_ADMIN)
             return member

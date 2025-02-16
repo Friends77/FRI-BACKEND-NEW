@@ -2,12 +2,14 @@ package com.example.user.adapter.controller
 
 import com.example.auth.application.RefreshDto
 import com.example.auth.application.service.UserLoginUseCase
+import com.example.auth.application.service.UserPasswordUseCase
 import com.example.auth.application.service.UserRegisterUseCase
 import com.example.user.adapter.AdapterMapper
 import com.example.user.adapter.LoginRequestDto
 import com.example.user.adapter.LoginResponseDto
 import com.example.user.adapter.RegisterRequestDto
 import com.example.user.adapter.RegisterResponseDto
+import com.example.user.adapter.ResetPasswordRequestDto
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.CookieValue
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController
 class AuthController (
     private val userRegisterUseCase: UserRegisterUseCase,
     private val userLoginUseCase: UserLoginUseCase,
+    private val userPasswordUseCase: UserPasswordUseCase
 ){
     @PostMapping("/register")
     fun register(@RequestBody registerRegisterDto: RegisterRequestDto) : ResponseEntity<RegisterResponseDto>{
@@ -48,6 +51,12 @@ class AuthController (
         return ResponseEntity.ok(loginResponseDto)
     }
 
-
-
+    @PostMapping("/reset-password")
+    fun resetPassword(
+        @RequestBody resetPasswordRequestDto: ResetPasswordRequestDto
+    ) : ResponseEntity<String>{
+        val resetPasswordDto = AdapterMapper.resetPasswordRequestDtoToResetPasswordDto(resetPasswordRequestDto)
+        userPasswordUseCase.resetPassword(resetPasswordDto)
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build()
+    }
 }

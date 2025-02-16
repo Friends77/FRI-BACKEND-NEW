@@ -25,3 +25,9 @@ data class EmailAuthTokenRequestDto(
     val email: String,
     val code: String,
 )
+
+data class ResetPasswordRequestDto(
+    val emailAuthToken : String,
+    val email: String,
+    val newPassword: String,
+)
