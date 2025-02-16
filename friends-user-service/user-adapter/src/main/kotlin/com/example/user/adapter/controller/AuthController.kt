@@ -2,6 +2,7 @@ package com.example.user.adapter.controller
 
 import com.example.auth.application.AtRtDto
 import com.example.auth.application.AuthMapper
+import com.example.auth.application.RefreshDto
 import com.example.auth.application.service.AuthMailUseCase
 import com.example.auth.application.service.UserLoginUseCase
 import com.example.auth.application.service.UserOAuth2LoginUserCase
@@ -17,6 +18,7 @@ import com.example.user.adapter.RegisterRequestDto
 import com.example.user.adapter.RegisterResponseDto
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.CookieValue
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -42,6 +44,16 @@ class AuthController (
     fun login(@RequestBody loginRequestDto: LoginRequestDto) : ResponseEntity<LoginResponseDto>{
         val loginDto = AdapterMapper.loginRequestDtoToLoginDto(loginRequestDto)
         val atRtDto = userLoginUseCase.login(loginDto)
+        val loginResponseDto = AdapterMapper.atRtDtoToLoginResponseDto(atRtDto)
+        return ResponseEntity.ok(loginResponseDto)
+    }
+
+    @PostMapping("/refresh")
+    fun refresh(
+        @CookieValue("refreshToken") refreshToken: String
+    ) : ResponseEntity<LoginResponseDto>{
+        val refreshDto = RefreshDto(refreshToken)
+        val atRtDto = userLoginUseCase.refresh(refreshDto)
         val loginResponseDto = AdapterMapper.atRtDtoToLoginResponseDto(atRtDto)
         return ResponseEntity.ok(loginResponseDto)
     }

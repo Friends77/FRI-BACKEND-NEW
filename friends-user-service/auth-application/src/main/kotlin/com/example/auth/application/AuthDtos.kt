@@ -42,3 +42,7 @@ data class CreateEmailAuthTokenDto(
 data class EmailAuthTokenDto(
     val emailAuthToken : String
 )
+
+data class RefreshDto(
+    val refreshToken : String
+)

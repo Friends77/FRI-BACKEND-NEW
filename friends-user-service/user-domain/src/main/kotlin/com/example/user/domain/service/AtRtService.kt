@@ -1,6 +1,8 @@
 package com.example.user.domain.service
 
 
+import com.example.user.domain.exception.InvalidRefreshTokenException
+import com.example.user.domain.exception.MissingJwtPayloadException
 import com.example.user.domain.util.JwtUtil
 import com.example.user.domain.valueobject.AtRt
 import com.example.user.domain.valueobject.AuthorityRole
@@ -29,6 +31,43 @@ class AtRtService(
         val refreshToken = createRefreshToken(memberId, authorities)
         return AtRt(accessToken = accessToken, refreshToken = refreshToken)
     }
+
+    fun getMemberId(refreshToken: String): UUID {
+        val memberIdStr = jwtUtil.getClaim(refreshToken, MEMBER_ID, String::class.java)
+            ?: throw MissingJwtPayloadException(MEMBER_ID)
+        return try {
+            UUID.fromString(memberIdStr)
+        } catch (e: Exception) {
+            throw MissingJwtPayloadException(MEMBER_ID)
+        }
+    }
+
+    fun getAuthorities(accessToken: String): Collection<AuthorityRole> {
+        val authorities = jwtUtil.getClaim(accessToken, AUTHORITIES, List::class.javaObjectType)?.filterIsInstance<String>()
+            ?: throw MissingJwtPayloadException(AUTHORITIES)
+        return try {
+            authorities.map { AuthorityRole.valueOf(it) }
+        } catch (e: Exception) {
+            throw MissingJwtPayloadException(AUTHORITIES)
+        }
+    }
+
+    fun validateRefreshToken(refreshToken: String) {
+        if (!jwtUtil.isValid(refreshToken) || getType(refreshToken) != JwtType.REFRESH) {
+            throw InvalidRefreshTokenException()
+        }
+    }
+
+    private fun getType(token : String) : JwtType {
+        val typeStr = jwtUtil.getClaim(token, TYPE, String::class.java)
+            ?: throw MissingJwtPayloadException(TYPE)
+        return try {
+            JwtType.valueOf(typeStr)
+        } catch (e: Exception) {
+            throw MissingJwtPayloadException(TYPE)
+        }
+    }
+
 
     private fun createAccessToken(
         memberId: UUID,

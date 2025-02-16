@@ -29,3 +29,5 @@ class AlreadyRegisteredAnotherMethodException : BaseException(ErrorCode.ALREADY_
 class InvalidOAuth2ProviderException : BaseException(ErrorCode.INVALID_OAUTH2_PROVIDER)
 
 class OAuth2DataExtractException : BaseException(ErrorCode.OAUTH2_DATA_EXTRACT_FAILED)
+
+class InvalidRefreshTokenException : BaseException(ErrorCode.INVALID_REFRESH_TOKEN)
