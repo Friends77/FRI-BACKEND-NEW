@@ -1,15 +1,21 @@
 package com.example.user.domain.service
 
-import com.example.user.domain.entity.auth.AtRtSupporter
+import com.example.user.domain.entity.auth.AtRtGenerator
+import com.example.user.domain.entity.auth.JwtClaimReader
 import com.example.user.domain.exception.LoginFailedException
 import com.example.user.domain.repository.MemberRepository
 import com.example.user.domain.entity.auth.PasswordEncoder
+import com.example.user.domain.exception.MissingJwtPayloadException
+import com.example.user.domain.validator.AtRtValidator
 import com.example.user.domain.valueobject.AtRt
+import com.example.user.domain.valueobject.JwtKey
 import org.springframework.stereotype.Service
 
 @Service
 class UserLoginService(
-    private val atRtSupporter: AtRtSupporter,
+    private val atRtGenerator: AtRtGenerator,
+    private val atRtValidator: AtRtValidator,
+    private val jwtClaimReader: JwtClaimReader,
     private val memberRepository: MemberRepository,
     private val passwordEncoder: PasswordEncoder
 ) {
@@ -24,14 +30,17 @@ class UserLoginService(
         val memberId = member.id
         val authorities = member.authorities.map { it.role }
 
-        return atRtSupporter.createAtRt(memberId, authorities)
+        return atRtGenerator.createAtRt(memberId, authorities)
     }
 
     fun refresh(
         refreshToken: String
     ) : AtRt {
-        val memberId = atRtSupporter.getMemberId(refreshToken)
-        val authorities = atRtSupporter.getAuthorities(refreshToken)
-        return atRtSupporter.createAtRt(memberId, authorities)
+        atRtValidator.validateRefreshToken(refreshToken)
+
+        val memberId = jwtClaimReader.getMemberId(refreshToken) ?: throw MissingJwtPayloadException(JwtKey.MEMBER_ID.value)
+        val authorities = jwtClaimReader.getAuthorities(refreshToken) ?: throw MissingJwtPayloadException(JwtKey.AUTHORITIES.value)
+
+        return atRtGenerator.createAtRt(memberId, authorities)
     }
 }

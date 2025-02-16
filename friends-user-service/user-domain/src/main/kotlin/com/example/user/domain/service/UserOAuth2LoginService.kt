@@ -2,7 +2,7 @@ package com.example.user.domain.service
 
 import com.example.user.domain.entity.Member
 import com.example.user.domain.entity.Profile
-import com.example.user.domain.entity.auth.AtRtSupporter
+import com.example.user.domain.entity.auth.AtRtGenerator
 import com.example.user.domain.exception.AlreadyRegisteredAnotherMethodException
 import com.example.user.domain.repository.MemberRepository
 import com.example.user.domain.repository.ProfileRepository
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service
 class UserOAuth2LoginService(
     private val memberRepository: MemberRepository,
     private val profileRepository: ProfileRepository,
-    private val atRtSupporter: AtRtSupporter
+    private val atRtGenerator: AtRtGenerator
 ) {
     fun loginByOAuth2(
         nickname: String,
@@ -30,7 +30,7 @@ class UserOAuth2LoginService(
         val memberId = member.id
         val authorities = member.authorities.map { it.role }
 
-        return atRtSupporter.createAtRt(memberId, authorities)
+        return atRtGenerator.createAtRt(memberId, authorities)
     }
 
     private fun registerUserByOAuth2(

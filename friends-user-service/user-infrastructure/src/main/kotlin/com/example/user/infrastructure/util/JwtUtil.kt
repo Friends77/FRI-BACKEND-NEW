@@ -1,6 +1,5 @@
 package com.example.user.infrastructure.util
 
-import com.example.user.domain.util.JwtUtil
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.security.Keys
 import org.springframework.beans.factory.annotation.Value
@@ -9,14 +8,14 @@ import java.util.Date
 import javax.crypto.SecretKey
 
 @Component
-class JwtUtilImpl (
+class JwtUtil (
     @Value("\${jwt.secret-key}") private val secret: String,
-) : JwtUtil {
+) {
     private val secretKey: SecretKey =  Keys.hmacShaKeyFor(secret.toByteArray())
 
     private fun getDateAfterSeconds(seconds: Long) = Date(System.currentTimeMillis() + seconds * 1000)
 
-    override fun createToken(
+    fun createToken(
         vararg claims: Pair<String, Any>,
         expirationSeconds: Long,
     ): String {
@@ -31,7 +30,7 @@ class JwtUtilImpl (
             .compact()
     }
 
-    override fun <T> getClaim(
+    fun <T> getClaim(
         token: String,
         key: String,
         type: Class<T>,
@@ -44,7 +43,7 @@ class JwtUtilImpl (
             .payload
             .get(key, type)
 
-    override fun isValid(token: String): Boolean =
+    fun isValid(token: String): Boolean =
         try {
             Jwts
                 .parser()
