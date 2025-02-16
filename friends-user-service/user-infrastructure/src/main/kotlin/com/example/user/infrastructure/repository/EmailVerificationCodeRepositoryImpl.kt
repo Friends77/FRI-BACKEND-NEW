@@ -1,4 +1,4 @@
-package com.example.user.infrastructure
+package com.example.user.infrastructure.repository
 
 import com.example.user.domain.repository.EmailVerificationCodeRepository
 import org.springframework.beans.factory.annotation.Value

@@ -1,7 +1,6 @@
 package com.example.user.domain.service
 
 import com.example.user.domain.exception.EmailSendFailedException
-import com.example.user.domain.exception.InvalidEmailVerificationCodeException
 import com.example.user.domain.repository.EmailVerificationCodeRepository
 import com.example.user.domain.util.HtmlUtil
 import com.example.user.domain.util.MailUtil

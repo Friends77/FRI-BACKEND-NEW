@@ -1,4 +1,4 @@
-package com.example.user.infrastructure
+package com.example.user.infrastructure.repository
 
 import com.example.user.domain.entity.Profile
 import com.example.user.domain.repository.ProfileRepository
