@@ -8,4 +8,7 @@ jar.enabled = true
 
 dependencies {
     implementation(project(":chat-domain"))
+
+    // postgresql
+    runtimeOnly("org.postgresql:postgresql")
 }

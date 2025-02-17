@@ -1,0 +1,22 @@
+package com.example.chat.domain.entity
+
+import com.example.chat.domain.entity.base.BaseTimeEntity
+import jakarta.persistence.Entity
+import jakarta.persistence.FetchType
+import jakarta.persistence.JoinColumn
+import jakarta.persistence.ManyToOne
+import jakarta.persistence.Column
+import java.util.UUID
+
+@Entity
+class ChatRoomMember(
+    chatRoom: ChatRoom,
+    memberId : UUID
+) : BaseTimeEntity() {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "chat_room_id", updatable = false, nullable = false)
+    val chatRoom: ChatRoom = chatRoom
+
+    @Column(name = "member_id", nullable = false)
+    val memberId: UUID = memberId
+}

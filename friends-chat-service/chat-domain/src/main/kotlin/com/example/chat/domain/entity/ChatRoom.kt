@@ -29,6 +29,10 @@ class ChatRoom(
         categories.map { ChatRoomCategory(this, it) }.toMutableList()
     val chatRoomCategories: List<ChatRoomCategory> get() = mutableChatRoomCategories.toList()
 
+    @OneToMany(mappedBy = "chatRoom", cascade = [CascadeType.ALL], orphanRemoval = true)
+    protected val mutableChatRoomMembers: MutableList<ChatRoomMember> = mutableListOf()
+    val chatRoomMembers: List<ChatRoomMember> get() = mutableChatRoomMembers.toList()
+
     var description: String? = null
         private set
 
@@ -71,4 +75,7 @@ class ChatRoom(
         mutableChatRoomCategories.add(ChatRoomCategory(this, category))
     }
 
+    fun addChatRoomMember(memberId: UUID) {
+        mutableChatRoomMembers.add(ChatRoomMember(this, memberId))
+    }
 }
