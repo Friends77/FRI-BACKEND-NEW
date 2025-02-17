@@ -8,4 +8,7 @@ jar.enabled = true
 
 dependencies {
     implementation(project(":message-domain"))
+
+    // postgres
+    runtimeOnly("org.postgresql:postgresql")
 }
