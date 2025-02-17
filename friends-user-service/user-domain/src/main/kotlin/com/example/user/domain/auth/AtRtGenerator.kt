@@ -1,4 +1,4 @@
-package com.example.user.domain.entity.auth
+package com.example.user.domain.auth
 
 import com.example.user.domain.valueobject.AtRt
 import com.example.user.domain.valueobject.AuthorityRole

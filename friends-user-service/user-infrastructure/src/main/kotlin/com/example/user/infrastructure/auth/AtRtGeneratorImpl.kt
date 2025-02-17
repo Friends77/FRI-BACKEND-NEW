@@ -1,6 +1,6 @@
 package com.example.user.infrastructure.auth
 
-import com.example.user.domain.entity.auth.AtRtGenerator
+import com.example.user.domain.auth.AtRtGenerator
 import com.example.user.domain.valueobject.AtRt
 import com.example.user.domain.valueobject.AuthorityRole
 import com.example.user.domain.valueobject.JwtKey

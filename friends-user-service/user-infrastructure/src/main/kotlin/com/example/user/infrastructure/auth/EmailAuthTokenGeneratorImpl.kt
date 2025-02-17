@@ -1,6 +1,6 @@
 package com.example.user.infrastructure.auth
 
-import com.example.user.domain.entity.auth.EmailAuthTokenGenerator
+import com.example.user.domain.auth.EmailAuthTokenGenerator
 import com.example.user.domain.valueobject.JwtKey
 import com.example.user.domain.valueobject.JwtType
 import com.example.user.infrastructure.util.JwtUtil

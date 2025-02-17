@@ -1,10 +1,10 @@
 package com.example.user.domain.service
 
-import com.example.user.domain.entity.auth.AtRtGenerator
-import com.example.user.domain.entity.auth.JwtClaimReader
+import com.example.user.domain.auth.AtRtGenerator
+import com.example.user.domain.auth.JwtClaimReader
 import com.example.user.domain.exception.LoginFailedException
 import com.example.user.domain.repository.MemberRepository
-import com.example.user.domain.entity.auth.PasswordEncoder
+import com.example.user.domain.auth.PasswordEncoder
 import com.example.user.domain.exception.MissingJwtPayloadException
 import com.example.user.domain.validator.AtRtValidator
 import com.example.user.domain.valueobject.AtRt

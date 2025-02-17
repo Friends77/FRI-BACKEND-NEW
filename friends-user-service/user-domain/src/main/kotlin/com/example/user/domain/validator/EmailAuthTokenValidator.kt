@@ -1,6 +1,6 @@
 package com.example.user.domain.validator
 
-import com.example.user.domain.entity.auth.JwtClaimReader
+import com.example.user.domain.auth.JwtClaimReader
 import com.example.user.domain.exception.InvalidEmailJwtException
 import com.example.user.domain.exception.MissingJwtPayloadException
 import com.example.user.domain.valueobject.JwtKey

@@ -1,4 +1,4 @@
-package com.example.user.domain.entity.auth
+package com.example.user.domain.auth
 
 import org.springframework.stereotype.Service
 

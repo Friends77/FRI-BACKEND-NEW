@@ -1,7 +1,7 @@
 package com.example.user.infrastructure.auth
 
 import com.example.user.domain.exception.EmailSendFailedException
-import com.example.user.domain.entity.auth.VerificationMailSender
+import com.example.user.domain.auth.VerificationMailSender
 import com.example.user.infrastructure.repository.EmailVerificationCodeRepositoryImpl
 import com.example.user.infrastructure.util.HtmlUtil
 import com.example.user.infrastructure.util.MailUtil

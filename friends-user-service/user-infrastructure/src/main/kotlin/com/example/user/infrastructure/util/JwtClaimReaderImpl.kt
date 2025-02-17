@@ -1,6 +1,6 @@
 package com.example.user.infrastructure.util
 
-import com.example.user.domain.entity.auth.JwtClaimReader
+import com.example.user.domain.auth.JwtClaimReader
 import com.example.user.domain.valueobject.AuthorityRole
 import com.example.user.domain.valueobject.JwtKey
 import com.example.user.domain.valueobject.JwtType

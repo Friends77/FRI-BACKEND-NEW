@@ -1,6 +1,6 @@
 package com.example.user.infrastructure.util
 
-import com.example.user.domain.entity.auth.PasswordEncoder
+import com.example.user.domain.auth.PasswordEncoder
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Component
 
