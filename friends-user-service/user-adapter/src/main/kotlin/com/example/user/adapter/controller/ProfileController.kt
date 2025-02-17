@@ -7,7 +7,9 @@ import com.example.auth.application.dto.ChangeLocationDto
 import com.example.auth.application.dto.ChangeMbtiDto
 import com.example.auth.application.dto.ChangeNicknameDto
 import com.example.auth.application.dto.ChangeProfileImageDto
+import com.example.auth.application.dto.ProfileDto
 import com.example.auth.application.service.ProfileChangeUseCase
+import com.example.auth.application.service.ProfileQueryUseCase
 import com.example.user.adapter.ChangeBirthRequestDto
 import com.example.user.adapter.ChangeCategoriesRequestDto
 import com.example.user.adapter.ChangeGenderRequestDto
@@ -16,6 +18,8 @@ import com.example.user.adapter.ChangeMbtiRequestDto
 import com.example.user.adapter.ChangeNicknameRequestDto
 import com.example.user.adapter.ChangeProfileImageRequestDto
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestHeader
@@ -26,8 +30,26 @@ import java.util.UUID
 @RestController
 @RequestMapping("/api/user/profile")
 class ProfileController (
-    private val profileChangeUseCase: ProfileChangeUseCase
+    private val profileChangeUseCase: ProfileChangeUseCase,
+    private val profileQueryUseCase: ProfileQueryUseCase
 ){
+    @GetMapping
+    fun getMyProfile(
+        @RequestHeader("X-Member-Id") memberIdInHeader : String
+    ) : ResponseEntity<ProfileDto> {
+        val memberId = UUID.fromString(memberIdInHeader)
+        val profileDto = profileQueryUseCase.getMyProfile(memberId)
+        return ResponseEntity.ok(profileDto)
+    }
+
+    @GetMapping("/{memberId}")
+    fun getProfile(
+        @PathVariable memberId: UUID
+    ) : ResponseEntity<ProfileDto> {
+        val profileDto = profileQueryUseCase.getMyProfile(memberId)
+        return ResponseEntity.ok(profileDto)
+    }
+
     @PutMapping("/nickname")
     fun changeNickname(
         @RequestHeader("X-Member-Id") memberIdInHeader : String,
