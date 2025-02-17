@@ -6,6 +6,7 @@ enum class ErrorCode(
     val httpStatus: HttpStatus,
     private val errorMessageTemplate: String,
 ) {
+    INVALID_CHAT_ROOM_PROPERTY(HttpStatus.BAD_REQUEST, "%s"),
 
     ;
     fun formatErrorMessage(vararg args: Any): String =
