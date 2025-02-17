@@ -14,11 +14,7 @@ class ChatRoom(
     title : String,
     categories: List<Category>
 ) : BaseModifiableEntity() {
-    companion object {
-        fun of(
-
-        )
-    }
+    companion object
 
     @Column(nullable = false)
     var managerId = managerId
