@@ -30,7 +30,8 @@ class ChatRoom(
     val chatRoomCategories: List<ChatRoomCategory> get() = mutableChatRoomCategories.toList()
 
     @OneToMany(mappedBy = "chatRoom", cascade = [CascadeType.ALL], orphanRemoval = true)
-    protected val mutableChatRoomMembers: MutableList<ChatRoomMember> = mutableListOf()
+    protected val mutableChatRoomMembers: MutableList<ChatRoomMember> =
+        mutableListOf(ChatRoomMember(this, managerId))
     val chatRoomMembers: List<ChatRoomMember> get() = mutableChatRoomMembers.toList()
 
     var description: String? = null
