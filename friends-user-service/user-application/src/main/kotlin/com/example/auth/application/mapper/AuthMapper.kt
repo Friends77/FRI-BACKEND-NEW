@@ -1,4 +1,4 @@
-package com.example.auth.application
+package com.example.auth.application.mapper
 
 import com.example.auth.application.dto.AtRtDto
 import com.example.auth.application.dto.RegisterDto

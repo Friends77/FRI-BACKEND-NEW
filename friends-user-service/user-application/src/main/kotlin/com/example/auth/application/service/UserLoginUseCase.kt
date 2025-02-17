@@ -1,7 +1,7 @@
 package com.example.auth.application.service
 
 import com.example.auth.application.dto.AtRtDto
-import com.example.auth.application.AuthMapper
+import com.example.auth.application.mapper.AuthMapper
 import com.example.auth.application.dto.LoginDto
 import com.example.auth.application.dto.RefreshDto
 import com.example.user.domain.exception.InvalidRefreshTokenException

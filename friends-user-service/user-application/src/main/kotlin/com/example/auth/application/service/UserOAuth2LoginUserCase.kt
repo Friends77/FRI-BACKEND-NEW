@@ -1,7 +1,7 @@
 package com.example.auth.application.service
 
 import com.example.auth.application.dto.AtRtDto
-import com.example.auth.application.AuthMapper
+import com.example.auth.application.mapper.AuthMapper
 import com.example.auth.application.dto.OAuth2LoginDto
 import com.example.user.domain.exception.InvalidOAuth2ProviderException
 import com.example.user.domain.service.OAuth2Service

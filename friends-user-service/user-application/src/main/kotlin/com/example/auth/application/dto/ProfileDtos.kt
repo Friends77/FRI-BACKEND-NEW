@@ -3,38 +3,55 @@ package com.example.auth.application.dto
 import java.time.LocalDate
 import java.util.UUID
 
-class ChangeNicknameDto(
+data class ChangeNicknameDto(
     val memberId : UUID,
     val nickname : String
 )
 
-class ChangeBirthDto(
+data class ChangeBirthDto(
     val memberId : UUID,
     val localDate: LocalDate
 )
 
-class ChangeGenderDto(
+data class ChangeGenderDto(
     val memberId : UUID,
     val gender : String
 )
 
-class ChangeLocationDto(
+data class ChangeLocationDto(
     val memberId : UUID,
     val latitude : Double,
     val longitude : Double
 )
 
-class ChangeMbtiDto(
+data class ChangeMbtiDto(
     val memberId : UUID,
     val mbti : String
 )
 
-class ChangeProfileImageDto(
+data class ChangeProfileImageDto(
     val memberId : UUID,
     val imageUrl : String
 )
 
-class ChangeCategoriesDto(
+data class ChangeCategoriesDto(
     val memberId : UUID,
     val categories : List<String>
+)
+
+data class ProfileDto(
+    val memberId : UUID,
+    val nickname : String,
+    val birth : LocalDate?,
+    val gender: String?,
+    val location : LocationDto?,
+    val mbti : String?,
+    val profileImageUrl : String?,
+    val categories : List<String>,
+    val selfDescription : String?
+)
+
+data class LocationDto(
+    val latitude : Double,
+    val longitude : Double
 )
