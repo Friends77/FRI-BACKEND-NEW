@@ -7,6 +7,7 @@ import com.example.auth.application.dto.ChangeLocationDto
 import com.example.auth.application.dto.ChangeMbtiDto
 import com.example.auth.application.dto.ChangeNicknameDto
 import com.example.auth.application.dto.ChangeProfileImageDto
+import com.example.auth.application.dto.ChangeSelfDescriptionDto
 import com.example.auth.application.dto.ProfileDto
 import com.example.auth.application.service.ProfileChangeUseCase
 import com.example.auth.application.service.ProfileQueryUseCase

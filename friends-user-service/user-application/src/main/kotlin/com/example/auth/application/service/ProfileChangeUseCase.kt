@@ -7,6 +7,7 @@ import com.example.auth.application.dto.ChangeLocationDto
 import com.example.auth.application.dto.ChangeMbtiDto
 import com.example.auth.application.dto.ChangeNicknameDto
 import com.example.auth.application.dto.ChangeProfileImageDto
+import com.example.auth.application.dto.ChangeSelfDescriptionDto
 import com.example.user.domain.service.ProfileChangeService
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -60,7 +61,9 @@ class ProfileChangeUseCase (
         profileChangeService.changeCategories(memberId, categories)
     }
 
-    fun changeSelfDescription(memberId: UUID, selfDescription: String){
+    fun changeSelfDescription(changeSelfDescriptionDto: ChangeSelfDescriptionDto) {
+        val memberId = changeSelfDescriptionDto.memberId
+        val selfDescription = changeSelfDescriptionDto.selfDescription
         profileChangeService.changeSelfDescription(memberId, selfDescription)
     }
 }
