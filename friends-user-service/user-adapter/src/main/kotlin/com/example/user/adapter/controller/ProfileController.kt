@@ -17,6 +17,7 @@ import com.example.user.adapter.ChangeLocationRequestDto
 import com.example.user.adapter.ChangeMbtiRequestDto
 import com.example.user.adapter.ChangeNicknameRequestDto
 import com.example.user.adapter.ChangeProfileImageRequestDto
+import com.example.user.adapter.ChangeSelfDescriptionRequestDto
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -132,6 +133,18 @@ class ProfileController (
         val categories = changeCategoriesRequestDto.categories
         val changeCategoriesDto = ChangeCategoriesDto(memberId, categories)
         profileChangeUseCase.changeCategories(changeCategoriesDto)
+        return ResponseEntity.ok().build()
+    }
+
+    @PutMapping("/self-description")
+    fun changeSelfDescription(
+        @RequestHeader("X-Member-Id") memberIdInHeader : String,
+        @RequestBody changeSelfDescriptionRequestDto: ChangeSelfDescriptionRequestDto
+    ) : ResponseEntity<String> {
+        val memberId = UUID.fromString(memberIdInHeader)
+        val selfDescription = changeSelfDescriptionRequestDto.selfDescription
+        val changeSelfDescriptionDto = ChangeSelfDescriptionDto(memberId, selfDescription)
+        profileChangeUseCase.changeSelfDescription(changeSelfDescriptionDto)
         return ResponseEntity.ok().build()
     }
 }

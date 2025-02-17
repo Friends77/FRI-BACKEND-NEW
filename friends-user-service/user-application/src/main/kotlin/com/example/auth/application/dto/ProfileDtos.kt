@@ -39,6 +39,11 @@ data class ChangeCategoriesDto(
     val categories : List<String>
 )
 
+data class ChangeSelfDescriptionDto(
+    val memberId : UUID,
+    val selfDescription : String
+)
+
 data class ProfileDto(
     val memberId : UUID,
     val nickname : String,

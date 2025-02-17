@@ -35,7 +35,7 @@ data class ResetPasswordRequestDto(
     val newPassword: String,
 )
 
-data class ChangeNicknameRequestDto(
+data class  ChangeNicknameRequestDto(
     val nickname : String
 )
 
@@ -63,4 +63,8 @@ data class ChangeProfileImageRequestDto(
 
 data class ChangeCategoriesRequestDto(
     val categories : List<String>
+)
+
+data class ChangeSelfDescriptionRequestDto(
+    val selfDescription : String
 )
