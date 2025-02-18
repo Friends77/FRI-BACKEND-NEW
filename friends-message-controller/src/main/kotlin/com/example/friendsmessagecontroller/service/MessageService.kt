@@ -61,7 +61,7 @@ class MessageService(
         }
     }
 
-    fun saveMessage(messageSendEvent: MessageSendEvent) {
+    fun sendMessage(messageSendEvent: MessageSendEvent) {
         kafkaEventPublisher.publishMessageSendEvent(messageSendEvent)
     }
 }

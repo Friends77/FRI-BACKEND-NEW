@@ -15,6 +15,7 @@ class ChatWebSocketInterceptor : HandshakeInterceptor {
         wsHandler: WebSocketHandler,
         attributes: MutableMap<String, Any>
     ): Boolean {
+        // TODO : secondary token 방식으로 변경
         val memberId = request.headers.getFirst("X-Member-Id")
             ?: throw IllegalArgumentException("X-Member-Id 헤더가 필요합니다.")
         attributes["MEMBER_ID"] = memberId
