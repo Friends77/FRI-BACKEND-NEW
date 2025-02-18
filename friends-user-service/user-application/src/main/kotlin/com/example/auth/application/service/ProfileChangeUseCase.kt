@@ -8,6 +8,9 @@ import com.example.auth.application.dto.ChangeMbtiDto
 import com.example.auth.application.dto.ChangeNicknameDto
 import com.example.auth.application.dto.ChangeProfileImageDto
 import com.example.auth.application.dto.ChangeSelfDescriptionDto
+import com.example.user.domain.event.EventPublisher
+import com.example.user.domain.event.ProfileImageUrlChangedEvent
+import com.example.user.domain.event.ProfileNicknameChangedEvent
 import com.example.user.domain.service.ProfileChangeService
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -16,12 +19,16 @@ import java.util.UUID
 @Transactional
 @Service
 class ProfileChangeUseCase (
-    private val profileChangeService: ProfileChangeService
+    private val profileChangeService: ProfileChangeService,
+    private val eventPublisher: EventPublisher
 ){
     fun changeNickname(changeNicknameDto: ChangeNicknameDto) {
         val memberId = changeNicknameDto.memberId
         val nickname = changeNicknameDto.nickname
         profileChangeService.changeNickname(memberId, nickname)
+
+        val event = ProfileNicknameChangedEvent(memberId, nickname)
+        eventPublisher.publishProfileNicknameChangedEvent(event)
     }
 
     fun changeBirth(changeBirthDto: ChangeBirthDto) {
@@ -53,6 +60,9 @@ class ProfileChangeUseCase (
         val memberId = changeProfileImageDto.memberId
         val imageUrl = changeProfileImageDto.imageUrl
         profileChangeService.changeProfileImage(memberId, imageUrl)
+
+        val event = ProfileImageUrlChangedEvent(memberId, imageUrl)
+        eventPublisher.publishProfileImageUrlChangedEvent(event)
     }
 
     fun changeCategories(changeCategoriesDto: ChangeCategoriesDto) {
