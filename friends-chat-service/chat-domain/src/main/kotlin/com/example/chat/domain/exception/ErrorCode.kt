@@ -7,6 +7,7 @@ enum class ErrorCode(
     private val errorMessageTemplate: String,
 ) {
     INVALID_CHAT_ROOM_PROPERTY(HttpStatus.BAD_REQUEST, "%s"),
+    CHAT_ROOM_NOT_FOUND(HttpStatus.NOT_FOUND, "채팅방을 찾을 수 없습니다."),
 
     ;
     fun formatErrorMessage(vararg args: Any): String =

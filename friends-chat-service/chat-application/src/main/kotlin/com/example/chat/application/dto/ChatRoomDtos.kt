@@ -8,3 +8,8 @@ data class CreateChatRoomDto(
     val categories: List<String>,
     val managerId: UUID,
 )
+
+data class EnterChatRoomDto(
+    val chatRoomId: UUID,
+    val memberId: UUID,
+)

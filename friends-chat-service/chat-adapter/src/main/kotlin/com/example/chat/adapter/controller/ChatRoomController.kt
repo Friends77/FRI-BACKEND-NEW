@@ -2,9 +2,12 @@ package com.example.chat.adapter.controller
 
 import com.example.chat.adapter.dto.CreateChatRoomRequestDto
 import com.example.chat.application.dto.CreateChatRoomDto
+import com.example.chat.application.dto.EnterChatRoomDto
 import com.example.chat.application.usecase.ChatRoomCreateUseCase
+import com.example.chat.application.usecase.ChatRoomEnterUseCase
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestHeader
@@ -15,7 +18,8 @@ import java.util.UUID
 @RestController
 @RequestMapping("/api/user/chat-room")
 class ChatRoomController(
-    private val chatRoomCreateUseCase: ChatRoomCreateUseCase
+    private val chatRoomCreateUseCase: ChatRoomCreateUseCase,
+    private val chatRoomEnterUseCase: ChatRoomEnterUseCase
 ) {
     @PostMapping
     fun createChatRoom(
@@ -31,5 +35,19 @@ class ChatRoomController(
         )
         chatRoomCreateUseCase.createChatRoom(createChatRoomDto)
         return ResponseEntity.status(HttpStatus.CREATED).body("채팅방 생성")
+    }
+
+    @PostMapping("/enter/{chatRoomId}")
+    fun enterChatRoom(
+        @RequestHeader("X-Member-Id") memberIdInHeader : String,
+        @PathVariable chatRoomId: UUID,
+    ) : ResponseEntity<String> {
+        val memberId = UUID.fromString(memberIdInHeader)
+        val enterChatRoomDto = EnterChatRoomDto(
+            memberId,
+            chatRoomId
+        )
+        chatRoomEnterUseCase.enterChatRoom(enterChatRoomDto)
+        return ResponseEntity.ok("채팅방 입장")
     }
 }
