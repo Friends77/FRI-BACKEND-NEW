@@ -1,11 +1,11 @@
-package com.example.friendsmessageconroller
+package com.example.friendsmessagecontroller
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class FriendsMessageConrollerApplication
+class FriendsMessageControllerApplication
 
 fun main(args: Array<String>) {
-    runApplication<FriendsMessageConrollerApplication>(*args)
+    runApplication<FriendsMessageControllerApplication>(*args)
 }

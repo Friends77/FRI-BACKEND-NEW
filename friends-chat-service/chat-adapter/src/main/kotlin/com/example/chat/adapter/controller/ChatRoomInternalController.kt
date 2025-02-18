@@ -13,7 +13,7 @@ import java.util.UUID
 class ChatRoomInternalController(
     private val chatRoomMemberQueryUseCase: ChatRoomMemberQueryUseCase
 ) {
-    @GetMapping("/{memberId}/joined-chat-room-id")
+    @GetMapping("/{memberId}/chat-room-ids")
     fun getJoinedChatRoomIds(
         @PathVariable(value = "memberId") memberIdStr: String
     ) : ResponseEntity<List<String>>{
