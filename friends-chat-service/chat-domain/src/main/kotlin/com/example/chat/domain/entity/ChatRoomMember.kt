@@ -24,7 +24,16 @@ class ChatRoomMember(
     val memberId: UUID = memberId
 
     var isCustomProfile = false
+        protected set
 
     @Embedded
     var profile: Profile = profile
+
+    fun changeProfileNickname(nickname: String) {
+        profile.changeNickname(nickname)
+    }
+
+    fun changeProfileImageUrl(profileImage: String) {
+        profile.changeProfileImage(profileImage)
+    }
 }
