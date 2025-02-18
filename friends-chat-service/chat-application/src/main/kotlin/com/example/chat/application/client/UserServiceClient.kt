@@ -8,6 +8,7 @@ import java.util.UUID
 
 @FeignClient(name = "friends-user-service")
 interface UserServiceClient {
+    // TODO : api 호출 시 발생하는 예외 처리
     @GetMapping("/api/user/profile/{memberId}")
     fun getProfile(@PathVariable memberId: UUID): ProfileDto
 }
