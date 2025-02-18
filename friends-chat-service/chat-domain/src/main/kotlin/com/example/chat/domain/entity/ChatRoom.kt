@@ -30,8 +30,7 @@ class ChatRoom(
     val chatRoomCategories: List<ChatRoomCategory> get() = mutableChatRoomCategories.toList()
 
     @OneToMany(mappedBy = "chatRoom", cascade = [CascadeType.ALL], orphanRemoval = true)
-    protected val mutableChatRoomMembers: MutableList<ChatRoomMember> =
-        mutableListOf(ChatRoomMember(this, managerId))
+    protected val mutableChatRoomMembers: MutableList<ChatRoomMember> = mutableListOf()
     val chatRoomMembers: List<ChatRoomMember> get() = mutableChatRoomMembers.toList()
 
     var description: String? = null
@@ -60,7 +59,7 @@ class ChatRoom(
         this.description = description
     }
 
-    fun changeProfileImageUrl(profileImageUrl: String) {
+    fun changeProfileImageUrl(profileImageUrl: String?) {
         this.profileImageUrl = profileImageUrl
     }
 
@@ -76,7 +75,7 @@ class ChatRoom(
         mutableChatRoomCategories.add(ChatRoomCategory(this, category))
     }
 
-    fun addChatRoomMember(memberId: UUID) {
-        mutableChatRoomMembers.add(ChatRoomMember(this, memberId))
+    fun addChatRoomMember(chatRoomMember: ChatRoomMember) {
+        mutableChatRoomMembers.add(chatRoomMember)
     }
 }
