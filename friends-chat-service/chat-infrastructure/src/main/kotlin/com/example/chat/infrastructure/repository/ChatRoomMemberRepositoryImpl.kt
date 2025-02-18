@@ -8,5 +8,5 @@ import java.util.UUID
 
 interface ChatRoomMemberRepositoryImpl : JpaRepository<ChatRoomMember, UUID>, ChatRoomMemberRepository {
     @Query("SELECT crm FROM ChatRoomMember crm WHERE crm.memberId = :memberId AND crm.isCustomProfile = false")
-    override fun findByMemberIdHavingNotCustomProfile(memberId: UUID): List<ChatRoomMember>
+    override fun findAllByMemberIdHavingNotCustomProfile(memberId: UUID): List<ChatRoomMember>
 }

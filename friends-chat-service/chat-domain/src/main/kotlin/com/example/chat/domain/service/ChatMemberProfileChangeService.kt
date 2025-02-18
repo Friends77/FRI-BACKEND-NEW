@@ -9,12 +9,12 @@ class ChatMemberProfileChangeService (
     private val chatRoomMemberRepository: ChatRoomMemberRepository
 ){
     fun changeProfileNickname(memberId: UUID, newNickname: String) {
-        val chatRoomMembers = chatRoomMemberRepository.findByMemberIdHavingNotCustomProfile(memberId)
+        val chatRoomMembers = chatRoomMemberRepository.findAllByMemberIdHavingNotCustomProfile(memberId)
         chatRoomMembers.forEach { it.changeProfileNickname(newNickname) }
     }
 
     fun changeProfileImageUrl(memberId: UUID, newImageUrl: String) {
-        val chatRoomMembers = chatRoomMemberRepository.findByMemberIdHavingNotCustomProfile(memberId)
+        val chatRoomMembers = chatRoomMemberRepository.findAllByMemberIdHavingNotCustomProfile(memberId)
         chatRoomMembers.forEach { it.changeProfileImageUrl(newImageUrl) }
     }
 }
