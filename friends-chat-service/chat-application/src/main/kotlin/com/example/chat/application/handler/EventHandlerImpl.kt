@@ -5,8 +5,10 @@ import com.example.chat.domain.event.ProfileImageUrlChangedEvent
 import com.example.chat.domain.event.ProfileNicknameChangedEvent
 import com.example.chat.domain.service.ChatMemberProfileChangeService
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
+@Transactional
 class EventHandlerImpl(
     private val chatRoomProfileChangeService: ChatMemberProfileChangeService
 ) : EventHandler {
