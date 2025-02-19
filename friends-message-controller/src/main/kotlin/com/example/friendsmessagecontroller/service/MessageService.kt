@@ -40,7 +40,7 @@ class MessageService(
         userWebSocketSessions.computeIfAbsent(memberId) { ConcurrentHashMap.newKeySet() }.add(session)
 
         chatRoomIds.forEach { chatRoomId ->
-            logger.debug("$memberId 가 $chatRoomId 에 온라인으로 접속되었습니다.")
+            logger.info("$memberId 가 $chatRoomId 에 온라인으로 접속되었습니다.")
             chatOnlineUserIds.computeIfAbsent(chatRoomId) { ConcurrentHashMap.newKeySet() }.add(memberId)
         }
     }
@@ -50,13 +50,15 @@ class MessageService(
         val chatRoomIds = getJoinedChatRoomIds(memberId)
 
         chatRoomIds.forEach { chatRoomId ->
-            logger.debug("$memberId 가 $chatRoomId 에서 온라인 접속을 종료하였습니다.")
+            logger.info("$memberId 가 $chatRoomId 에서 온라인 접속을 종료하였습니다.")
             chatOnlineUserIds[chatRoomId]?.remove(memberId)
         }
     }
 
     private fun getJoinedChatRoomIds(memberId : String) : List<String> {
-        return chatServiceClient.getJoinedChatRoomIds(memberId)
+        val chatRoomIds = chatServiceClient.getJoinedChatRoomIds(memberId)
+        logger.info("$memberId 가 참여하고 있는 채팅방 목록 : $chatRoomIds")
+        return chatRoomIds
     }
 
     // 메세지를 받으면 메세지 저장 서비스에서 메세지를 저장하고, kafka를 통해 메세지를 재전송합니다.
@@ -70,7 +72,7 @@ class MessageService(
         onlineUserIds?.forEach {
             val sessions = userWebSocketSessions[it] ?: return@forEach
             sessions.forEach { session ->
-                logger.debug("$chatRoomId 에 메세지가 전송되었습니다 : $messageSendEvent")
+                logger.info("$chatRoomId 에 메세지가 전송되었습니다 : $messageSendEvent")
                 session.sendMessage(TextMessage(objectMapper.writeValueAsString(messageSendEvent)))
             }
         }
