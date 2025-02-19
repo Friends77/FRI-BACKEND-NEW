@@ -7,11 +7,13 @@ import com.example.friendsmessagecontroller.event.MessageSendEvent
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.socket.TextMessage
 import org.springframework.web.socket.WebSocketSession
 import java.util.concurrent.ConcurrentHashMap
 
 @Service
+@Transactional
 class MessageService(
     private val chatServiceClient: ChatServiceClient,
     private val kafkaEventPublisher: KafkaEventPublisher,

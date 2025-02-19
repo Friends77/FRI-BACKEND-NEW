@@ -4,6 +4,7 @@ import com.example.friendsmessagecontroller.controller.dto.MessageReceiveDto
 import com.example.friendsmessagecontroller.event.MessageReceiveEvent
 import com.example.friendsmessagecontroller.service.MessageService
 import com.fasterxml.jackson.databind.ObjectMapper
+import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 import org.springframework.web.socket.CloseStatus
 import org.springframework.web.socket.TextMessage
@@ -16,6 +17,8 @@ class ChatWebSocketHandler(
     private val messageService: MessageService,
     private val objectMapper: ObjectMapper
 ) : TextWebSocketHandler(){
+    private val logger = LoggerFactory.getLogger(this::class.java)
+
     companion object {
         private const val SEND_TIME_LIMIT = 2000 // 2초
         private const val BUFFER_SIZE_LIMIT = 1024 * 1024 // 1MB
@@ -32,7 +35,8 @@ class ChatWebSocketHandler(
         val messageReceiveDto = try {
             objectMapper.readValue(message.payload, MessageReceiveDto::class.java)
         } catch (e: Exception) {
-            session.sendMessage(TextMessage("메시지 파싱 에러"))
+            logger.error("메시지 파싱 에러", e)
+            session.sendMessage(TextMessage("메시지 파싱 에러 : ${e.message}"))
             return
         }
         val messageReceiveEvent = MessageReceiveEvent(
