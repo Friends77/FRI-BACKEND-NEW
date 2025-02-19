@@ -9,9 +9,9 @@ class KafkaEventPublisher(
     private val kafkaTemplate: KafkaTemplate<String, String>,
     private val objectMapper: ObjectMapper
 ) {
-    fun publishMessageSendEvent(event: MessageSendEvent) {
-        val key = event.chatRoomId.toString()
-        val topic = "message-send"
+    fun publishMessageReceiveEvent(event: MessageReceiveEvent) {
+        val key = event.chatRoomId
+        val topic = "chat-message-receive"
         val value = objectMapper.writeValueAsString(event)
         kafkaTemplate.send(topic, key, value)
     }
