@@ -11,4 +11,7 @@ dependencies {
 
     // postgres
     runtimeOnly("org.postgresql:postgresql")
+
+    // kafka
+    implementation("org.springframework.kafka:spring-kafka")
 }
