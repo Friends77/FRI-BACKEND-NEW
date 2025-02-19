@@ -1,5 +1,6 @@
 package com.example.friendsmessagecontroller.controller
 
+import com.example.friendsmessagecontroller.controller.dto.MessageReceiveDto
 import com.example.friendsmessagecontroller.event.MessageReceiveEvent
 import com.example.friendsmessagecontroller.service.MessageService
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -28,13 +29,19 @@ class ChatWebSocketHandler(
     }
 
     override fun handleTextMessage(session: WebSocketSession, message: TextMessage) {
-        val messageReceiveEvent = try {
-            objectMapper.readValue(message.payload, MessageReceiveEvent::class.java)
+        val messageReceiveDto = try {
+            objectMapper.readValue(message.payload, MessageReceiveDto::class.java)
         } catch (e: Exception) {
             session.sendMessage(TextMessage("메시지 파싱 에러"))
             return
         }
-
+        val messageReceiveEvent = MessageReceiveEvent(
+            clientMessageId = messageReceiveDto.clientMessageId,
+            chatRoomId = messageReceiveDto.chatRoomId,
+            senderId = getMemberId(session),
+            content = messageReceiveDto.content,
+            type = messageReceiveDto.type
+        )
         messageService.receiveMessage(messageReceiveEvent)
     }
 

@@ -1,4 +1,4 @@
-package com.example.friendsmessagecontroller.config
+package com.example.message.infrastructure.config
 
 import org.apache.kafka.clients.producer.ProducerConfig
 import org.apache.kafka.common.serialization.StringSerializer
@@ -22,9 +22,7 @@ class KafkaProducerConfig(
             ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG to StringSerializer::class.java,
             ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG to StringSerializer::class.java
         )
-        val factory = DefaultKafkaProducerFactory<String, String>(configProps)
-        factory.setTransactionIdPrefix("tx-") // 채팅 메세지 저장이 완료되면 카프카 메세지를 커밋하고 컨슈머는 커밋된 메세지만 읽기
-        return factory
+        return DefaultKafkaProducerFactory<String, String>(configProps)
     }
 
     @Bean

@@ -1,9 +1,8 @@
-package com.example.friendsmessagecontroller.event
+package com.example.friendsmessagecontroller.controller.dto
 
-data class MessageReceiveEvent(
+data class MessageReceiveDto (
     val clientMessageId: String,
     val chatRoomId: String,
-    val senderId: String,
     val content: String,
     val type: String
 )

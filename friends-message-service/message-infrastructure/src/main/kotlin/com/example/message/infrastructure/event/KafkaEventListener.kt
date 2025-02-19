@@ -1,4 +1,4 @@
-package com.exmaple.message.infrastructure.event
+package com.example.message.infrastructure.event
 
 import com.example.message.domain.event.EventHandler
 import com.example.message.domain.event.EventListener
