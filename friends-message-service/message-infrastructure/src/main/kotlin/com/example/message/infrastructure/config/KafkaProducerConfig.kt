@@ -20,9 +20,11 @@ class KafkaProducerConfig(
         val configProps: Map<String, Any> = mapOf(
             ProducerConfig.BOOTSTRAP_SERVERS_CONFIG to bootstrapServers,
             ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG to StringSerializer::class.java,
-            ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG to StringSerializer::class.java
+            ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG to StringSerializer::class.java,
         )
-        return DefaultKafkaProducerFactory<String, String>(configProps)
+        val factory = DefaultKafkaProducerFactory<String, String>(configProps)
+        factory.setTransactionIdPrefix("tx-") // 채팅 메세지 저장이 완료되면 카프카 메세지를 커밋하고 컨슈머는 커밋된 메세지만 읽기
+        return factory
     }
 
     @Bean

@@ -12,7 +12,7 @@ class KafkaEventPublisher(
     private val objectMapper: ObjectMapper
 ) : EventPublisher {
     override fun publishMessageSendEvent(event: MessageSendEvent) {
-        val key = event.clientMessageId
+        val key = event.senderId
         val topic = "chat-message-send"
         val value = objectMapper.writeValueAsString(event)
         kafkaTemplate.send(topic, key, value)

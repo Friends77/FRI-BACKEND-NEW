@@ -38,5 +38,11 @@ class Message(
         this.content = "삭제된 메시지입니다."
         this.type = MessageType.DELETED
     }
+
+    override fun toString(): String {
+        return "Message(chatRoomId=$chatRoomId, senderId=$senderId, content='$content', type=$type)"
+    }
+
+
 }
 
