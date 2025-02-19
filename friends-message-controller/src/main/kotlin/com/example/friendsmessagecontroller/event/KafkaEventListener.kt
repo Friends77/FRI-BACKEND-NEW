@@ -13,7 +13,7 @@ class KafkaEventListener(
 ) {
     val logger = LoggerFactory.getLogger(this::class.java)
     /**
-     * kafka 설정 필수 값 "auto.offset.reset = latest"
+     * kafka 설정 필수 값 "auto.offset.reset = latest" (default)
      * message-controller 인스턴스마다 다른 groupId를 사용해야 합니다
      */
     @KafkaListener(topics = ["chat-message-send"], groupId = "message-controller-0")

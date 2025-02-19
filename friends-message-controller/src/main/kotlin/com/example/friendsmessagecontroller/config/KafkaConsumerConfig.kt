@@ -18,7 +18,8 @@ class KafkaConsumerConfig(
         val config = mapOf(
             ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG to bootstrapServers,
             ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG to StringDeserializer::class.java,
-            ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG to StringDeserializer::class.java
+            ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG to StringDeserializer::class.java,
+            ConsumerConfig.ISOLATION_LEVEL_CONFIG to "read_committed", // 메세지가 저장 성공 후 커밋된 메세지만 읽기
         )
 
         return DefaultKafkaConsumerFactory(config)
