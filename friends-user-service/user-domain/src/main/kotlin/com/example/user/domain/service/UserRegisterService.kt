@@ -5,6 +5,8 @@ import com.example.user.domain.entity.Profile
 import com.example.user.domain.repository.MemberRepository
 import com.example.user.domain.repository.ProfileRepository
 import com.example.user.domain.auth.PasswordEncoder
+import com.example.user.domain.valueobject.Email
+import com.example.user.domain.valueobject.EncodedPassword
 import org.springframework.stereotype.Service
 
 @Service
@@ -18,7 +20,8 @@ class UserRegisterService(
         email: String,
         password : String,
     ) : Member {
-        val member = Member.createUser(email = email, password = passwordEncoder.encode(password))
+        val encodedPassword = EncodedPassword(passwordEncoder.encode(password))
+        val member = Member.createUser(Email(email), encodedPassword)
         val profile = Profile(member = member, nickname = nickname)
         memberRepository.save(member)
         profileRepository.save(profile)

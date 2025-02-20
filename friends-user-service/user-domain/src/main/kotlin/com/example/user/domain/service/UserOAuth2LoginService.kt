@@ -7,6 +7,7 @@ import com.example.user.domain.exception.AlreadyRegisteredAnotherMethodException
 import com.example.user.domain.repository.MemberRepository
 import com.example.user.domain.repository.ProfileRepository
 import com.example.user.domain.valueobject.AtRt
+import com.example.user.domain.valueobject.Email
 import com.example.user.domain.valueobject.OAuth2Provider
 import org.springframework.stereotype.Service
 
@@ -38,7 +39,7 @@ class UserOAuth2LoginService(
         email: String,
         oAuth2Provider: OAuth2Provider
     ) : Member {
-        val member = Member.createUserByOAuth2(email = email, oAuth2Provider = oAuth2Provider)
+        val member = Member.createUserByOAuth2(email = Email(email), oAuth2Provider = oAuth2Provider)
         val profile = Profile(member = member, nickname = nickname)
         memberRepository.save(member)
         profileRepository.save(profile)

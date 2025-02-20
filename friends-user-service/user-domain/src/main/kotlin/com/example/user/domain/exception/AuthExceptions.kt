@@ -35,3 +35,5 @@ class InvalidRefreshTokenException : BaseException(ErrorCode.INVALID_REFRESH_TOK
 class OAuth2UserPasswordChangeException : BaseException(ErrorCode.OAUTH2_USER_PASSWORD_CHANGE)
 
 class PasswordEqualLastPasswordException : BaseException(ErrorCode.PASSWORD_EQUAL_LAST_PASSWORD)
+
+class IllegalMemberArgumentException(message : String) : BaseException(ErrorCode.ILLEGAL_MEMBER_ARGUMENT, message)

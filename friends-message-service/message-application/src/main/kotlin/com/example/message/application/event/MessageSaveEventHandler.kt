@@ -45,7 +45,7 @@ class MessageSaveEventHandler(
             createdAt = message.createdAt.toString(),
             type = message.type.toString()
         )
-        
+
         eventPublisher.publishMessageSendEvent(messageSendEvent)
     }
 }

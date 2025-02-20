@@ -11,6 +11,7 @@ import com.example.auth.application.dto.ChangeSelfDescriptionDto
 import com.example.user.domain.event.EventPublisher
 import com.example.user.domain.event.ProfileImageUrlChangedEvent
 import com.example.user.domain.event.ProfileNicknameChangedEvent
+import com.example.user.domain.repository.ProfileRepository
 import com.example.user.domain.service.ProfileChangeService
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -19,6 +20,7 @@ import java.util.UUID
 @Transactional
 @Service
 class ProfileChangeUseCase (
+    private val profileRepository: ProfileRepository,
     private val profileChangeService: ProfileChangeService,
     private val eventPublisher: EventPublisher
 ){

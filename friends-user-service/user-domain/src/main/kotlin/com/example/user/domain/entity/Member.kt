@@ -2,9 +2,12 @@ package com.example.user.domain.entity
 
 import com.example.user.domain.entity.base.BaseModifiableEntity
 import com.example.user.domain.valueobject.AuthorityRole
+import com.example.user.domain.valueobject.Email
+import com.example.user.domain.valueobject.EncodedPassword
 import com.example.user.domain.valueobject.OAuth2Provider
 import jakarta.persistence.CascadeType
 import jakarta.persistence.Column
+import jakarta.persistence.Embedded
 import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
 import jakarta.persistence.Enumerated
@@ -12,14 +15,14 @@ import jakarta.persistence.OneToMany
 
 @Entity
 class Member private constructor(
-    email: String,
+    email: Email,
     isOAuth2User: Boolean
 ) : BaseModifiableEntity() {
-    @Column(unique = true, nullable = false)
-    val email: String = email
+    @Embedded
+    val email: Email = email
 
-    @Column(nullable = true)
-    var password: String? = null
+    @Embedded
+    var password: EncodedPassword? = null
         protected set
 
     @Column(nullable = true)
@@ -37,8 +40,8 @@ class Member private constructor(
 
     companion object {
         fun createUser(
-            email: String,
-            password: String,
+            email: Email,
+            password: EncodedPassword,
         ): Member {
             val member = Member(email = email, isOAuth2User = false)
             member.password = password
@@ -47,7 +50,7 @@ class Member private constructor(
         }
 
         fun createUserByOAuth2(
-            email: String,
+            email: Email,
             oAuth2Provider: OAuth2Provider,
         ): Member {
             val member = Member(email = email, isOAuth2User = true)
@@ -58,8 +61,8 @@ class Member private constructor(
 
 
         fun createAdmin(
-            email: String,
-            password: String,
+            email: Email,
+            password: EncodedPassword,
         ): Member {
             val member = Member(email = email, isOAuth2User = false)
             member.password = password
@@ -72,7 +75,7 @@ class Member private constructor(
         mutableAuthorities.add(Authority(role = role, member = this))
     }
 
-    fun changePassword(password: String) {
+    fun changePassword(password: EncodedPassword) {
         this.password = password
     }
 }
