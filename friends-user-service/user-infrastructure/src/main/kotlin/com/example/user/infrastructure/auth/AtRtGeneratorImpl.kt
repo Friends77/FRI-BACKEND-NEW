@@ -2,9 +2,9 @@ package com.example.user.infrastructure.auth
 
 import com.example.user.domain.auth.AtRtGenerator
 import com.example.user.domain.valueobject.AtRt
-import com.example.user.domain.valueobject.AuthorityRole
+import com.example.user.domain.valueobject.type.AuthorityRoleType
 import com.example.user.domain.valueobject.JwtKey
-import com.example.user.domain.valueobject.JwtType
+import com.example.user.domain.valueobject.type.JwtType
 import com.example.user.infrastructure.util.JwtUtil
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
@@ -18,7 +18,7 @@ class AtRtGeneratorImpl(
 ) : AtRtGenerator {
     override fun createAtRt(
         memberId: UUID,
-        authorities : Collection<AuthorityRole>
+        authorities : Collection<AuthorityRoleType>
     ): AtRt {
         val accessToken = createAccessToken(memberId, authorities)
         val refreshToken = createRefreshToken(memberId, authorities)
@@ -27,7 +27,7 @@ class AtRtGeneratorImpl(
 
     private fun createAccessToken(
         memberId: UUID,
-        authorities: Collection<AuthorityRole>,
+        authorities: Collection<AuthorityRoleType>,
     ): String =
         jwtUtil.createToken(
             JwtKey.MEMBER_ID.value to memberId,
@@ -38,7 +38,7 @@ class AtRtGeneratorImpl(
 
     private fun createRefreshToken(
         memberId: UUID,
-        authorities: Collection<AuthorityRole>,
+        authorities: Collection<AuthorityRoleType>,
     ): String =
         jwtUtil.createToken(
             JwtKey.MEMBER_ID.value to memberId,

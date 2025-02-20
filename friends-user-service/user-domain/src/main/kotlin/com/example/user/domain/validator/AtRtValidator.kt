@@ -1,7 +1,7 @@
 package com.example.user.domain.validator
 
 import com.example.user.domain.exception.InvalidRefreshTokenException
-import com.example.user.domain.valueobject.JwtType
+import com.example.user.domain.valueobject.type.JwtType
 import org.springframework.stereotype.Component
 
 @Component

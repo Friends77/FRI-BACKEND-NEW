@@ -8,7 +8,7 @@ import com.example.user.domain.exception.InvalidRefreshTokenException
 import com.example.user.domain.service.UserLoginService
 import com.example.user.domain.validator.JwtValidator
 import com.example.user.domain.valueobject.AtRt
-import com.example.user.domain.valueobject.JwtType
+import com.example.user.domain.valueobject.type.JwtType
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 

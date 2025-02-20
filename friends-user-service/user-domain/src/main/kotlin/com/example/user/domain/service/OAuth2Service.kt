@@ -5,7 +5,7 @@ import com.example.user.domain.exception.OAuth2FetchFailedException
 import com.example.user.domain.oauth2.OAuth2DataExtractorFactory
 import com.example.user.domain.oauth2.OAuth2Fetcher
 import com.example.user.domain.valueobject.OAuth2ProfileData
-import com.example.user.domain.valueobject.OAuth2Provider
+import com.example.user.domain.valueobject.type.OAuth2ProviderType
 import org.springframework.stereotype.Service
 
 @Service
@@ -15,15 +15,15 @@ class OAuth2Service(
 ) {
     fun getUserProfile(
         code: String,
-        oAuth2Provider: OAuth2Provider
+        oAuth2ProviderType: OAuth2ProviderType
     ): OAuth2ProfileData {
-        val accessToken = oAuth2Fetcher.getAccessToken(code, oAuth2Provider)
-            ?: throw OAuth2FetchFailedException(oAuth2Provider)
-        val attributes = oAuth2Fetcher.getUserAttributes(accessToken, oAuth2Provider)
-            ?: throw OAuth2FetchFailedException(oAuth2Provider)
+        val accessToken = oAuth2Fetcher.getAccessToken(code, oAuth2ProviderType)
+            ?: throw OAuth2FetchFailedException(oAuth2ProviderType)
+        val attributes = oAuth2Fetcher.getUserAttributes(accessToken, oAuth2ProviderType)
+            ?: throw OAuth2FetchFailedException(oAuth2ProviderType)
 
         val extractor = try {
-            oAuth2DataExtractorFactory.getExtractor(oAuth2Provider)
+            oAuth2DataExtractorFactory.getExtractor(oAuth2ProviderType)
         } catch (e: Exception) {
             throw OAuth2DataExtractException()
         }

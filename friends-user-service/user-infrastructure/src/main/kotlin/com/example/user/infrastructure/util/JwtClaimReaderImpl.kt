@@ -1,9 +1,9 @@
 package com.example.user.infrastructure.util
 
 import com.example.user.domain.auth.JwtClaimReader
-import com.example.user.domain.valueobject.AuthorityRole
+import com.example.user.domain.valueobject.type.AuthorityRoleType
 import com.example.user.domain.valueobject.JwtKey
-import com.example.user.domain.valueobject.JwtType
+import com.example.user.domain.valueobject.type.JwtType
 import org.springframework.stereotype.Component
 import java.util.UUID
 
@@ -25,11 +25,11 @@ class JwtClaimReaderImpl(
         }
     }
 
-    override fun getAuthorities(token: String): List<AuthorityRole>? {
+    override fun getAuthorities(token: String): List<AuthorityRoleType>? {
         val authorities = jwtUtil.getClaim(token, JwtKey.AUTHORITIES.value, List::class.javaObjectType)?.filterIsInstance<String>()
             ?: return null
         return try {
-            authorities.map { AuthorityRole.valueOf(it) }
+            authorities.map { AuthorityRoleType.valueOf(it) }
         } catch (e: Exception) {
             return null
         }

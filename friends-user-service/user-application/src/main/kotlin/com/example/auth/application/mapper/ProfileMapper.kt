@@ -13,8 +13,8 @@ object ProfileMapper {
             gender = profile.gender?.name,
             location = profile.location?.let { LocationDto(it.latitude, it.longitude) },
             mbti = profile.mbti?.name,
-            profileImageUrl = profile.profileImageUrl,
-            categories = profile.profileCategories.map { it.category.name },
+            profileImageUrl = profile.image,
+            categories = profile.profileCategories.map { it.categorySubType.name },
             selfDescription = profile.selfDescription
         )
     }

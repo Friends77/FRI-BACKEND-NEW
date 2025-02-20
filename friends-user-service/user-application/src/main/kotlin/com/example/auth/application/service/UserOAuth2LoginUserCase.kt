@@ -6,7 +6,7 @@ import com.example.auth.application.dto.OAuth2LoginDto
 import com.example.user.domain.exception.InvalidOAuth2ProviderException
 import com.example.user.domain.service.OAuth2Service
 import com.example.user.domain.service.UserOAuth2LoginService
-import com.example.user.domain.valueobject.OAuth2Provider
+import com.example.user.domain.valueobject.type.OAuth2ProviderType
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -30,9 +30,9 @@ class UserOAuth2LoginUserCase(
         return AuthMapper.atRtToAtRtDto(atRt)
     }
 
-    private fun getOauth2Provider(oAuth2Provider: String): OAuth2Provider {
+    private fun getOauth2Provider(oAuth2Provider: String): OAuth2ProviderType {
         return try {
-            OAuth2Provider.valueOf(oAuth2Provider)
+            OAuth2ProviderType.valueOf(oAuth2Provider)
         } catch (e: Exception) {
             throw InvalidOAuth2ProviderException()
         }

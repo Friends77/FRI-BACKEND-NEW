@@ -1,10 +1,10 @@
 package com.example.user.domain.entity
 
 import com.example.user.domain.entity.base.BaseModifiableEntity
-import com.example.user.domain.valueobject.AuthorityRole
+import com.example.user.domain.valueobject.type.AuthorityRoleType
 import com.example.user.domain.valueobject.Email
 import com.example.user.domain.valueobject.EncodedPassword
-import com.example.user.domain.valueobject.OAuth2Provider
+import com.example.user.domain.valueobject.type.OAuth2ProviderType
 import jakarta.persistence.CascadeType
 import jakarta.persistence.Column
 import jakarta.persistence.Embedded
@@ -27,7 +27,7 @@ class Member private constructor(
 
     @Column(nullable = true)
     @Enumerated(EnumType.STRING)
-    var oAuth2Provider: OAuth2Provider? = null
+    var oAuth2ProviderType: OAuth2ProviderType? = null
         protected set
 
     @Column(nullable = false)
@@ -45,17 +45,17 @@ class Member private constructor(
         ): Member {
             val member = Member(email = email, isOAuth2User = false)
             member.password = password
-            member.addAuthority(AuthorityRole.ROLE_USER)
+            member.addAuthority(AuthorityRoleType.ROLE_USER)
             return member
         }
 
         fun createUserByOAuth2(
             email: Email,
-            oAuth2Provider: OAuth2Provider,
+            oAuth2ProviderType: OAuth2ProviderType,
         ): Member {
             val member = Member(email = email, isOAuth2User = true)
-            member.oAuth2Provider = oAuth2Provider
-            member.addAuthority(AuthorityRole.ROLE_USER)
+            member.oAuth2ProviderType = oAuth2ProviderType
+            member.addAuthority(AuthorityRoleType.ROLE_USER)
             return member
         }
 
@@ -66,12 +66,12 @@ class Member private constructor(
         ): Member {
             val member = Member(email = email, isOAuth2User = false)
             member.password = password
-            member.addAuthority(AuthorityRole.ROLE_ADMIN)
+            member.addAuthority(AuthorityRoleType.ROLE_ADMIN)
             return member
         }
     }
 
-    private fun addAuthority(role: AuthorityRole) {
+    private fun addAuthority(role: AuthorityRoleType) {
         mutableAuthorities.add(Authority(role = role, member = this))
     }
 

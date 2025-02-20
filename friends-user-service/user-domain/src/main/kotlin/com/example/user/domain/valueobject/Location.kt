@@ -1,24 +1,28 @@
 package com.example.user.domain.valueobject
 
-import com.example.user.domain.exception.InvalidProfilePropertyException
+import com.example.user.domain.exception.IllegalProfileArgumentException
+import jakarta.persistence.Column
 import jakarta.persistence.Embeddable
 
 @Embeddable
-class Location private constructor(
-    val latitude: Double,
-    val longitude: Double,
+class Location (
+    latitude: Double,
+    longitude: Double,
 ) {
-    companion object {
-        fun of(latitude: Double, longitude: Double): Location {
-            if (latitude < -90 || latitude > 90) {
-                throw InvalidProfilePropertyException("위도는 -90에서 90 사이의 값이어야 합니다.")
-            }
-            if (longitude < -180 || longitude > 180) {
-                throw InvalidProfilePropertyException("경도는 -180에서 180 사이의 값이어야 합니다.")
-            }
-            return Location(latitude, longitude)
+    init {
+        if (latitude < -90 || latitude > 90) {
+            throw IllegalProfileArgumentException("위도는 -90에서 90 사이의 값이어야 합니다.")
+        }
+        if (longitude < -180 || longitude > 180) {
+            throw IllegalProfileArgumentException("경도는 -180에서 180 사이의 값이어야 합니다.")
         }
     }
+
+    @Column(nullable = true)
+    val latitude: Double = latitude
+
+    @Column(nullable = true)
+    val longitude: Double = longitude
 
     fun distanceTo(other: Location): Double {
         val theta = longitude - other.longitude

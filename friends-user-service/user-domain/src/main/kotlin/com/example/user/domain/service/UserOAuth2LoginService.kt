@@ -8,7 +8,7 @@ import com.example.user.domain.repository.MemberRepository
 import com.example.user.domain.repository.ProfileRepository
 import com.example.user.domain.valueobject.AtRt
 import com.example.user.domain.valueobject.Email
-import com.example.user.domain.valueobject.OAuth2Provider
+import com.example.user.domain.valueobject.type.OAuth2ProviderType
 import org.springframework.stereotype.Service
 
 @Service
@@ -20,11 +20,11 @@ class UserOAuth2LoginService(
     fun loginByOAuth2(
         nickname: String,
         email: String,
-        oAuth2Provider: OAuth2Provider
+        oAuth2ProviderType: OAuth2ProviderType
     ) : AtRt {
-        val member = memberRepository.findByEmailWithAuthorities(email) ?: registerUserByOAuth2(nickname, email, oAuth2Provider)
+        val member = memberRepository.findByEmailWithAuthorities(email) ?: registerUserByOAuth2(nickname, email, oAuth2ProviderType)
 
-        if (member.oAuth2Provider != oAuth2Provider) {
+        if (member.oAuth2ProviderType != oAuth2ProviderType) {
             throw AlreadyRegisteredAnotherMethodException()
         }
 
@@ -37,9 +37,9 @@ class UserOAuth2LoginService(
     private fun registerUserByOAuth2(
         nickname: String,
         email: String,
-        oAuth2Provider: OAuth2Provider
+        oAuth2ProviderType: OAuth2ProviderType
     ) : Member {
-        val member = Member.createUserByOAuth2(email = Email(email), oAuth2Provider = oAuth2Provider)
+        val member = Member.createUserByOAuth2(email = Email(email), oAuth2ProviderType = oAuth2ProviderType)
         val profile = Profile(member = member, nickname = nickname)
         memberRepository.save(member)
         profileRepository.save(profile)

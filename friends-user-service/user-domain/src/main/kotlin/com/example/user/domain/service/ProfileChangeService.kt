@@ -5,10 +5,10 @@ import com.example.user.domain.exception.ProfileNotFoundByMemberIdException
 import com.example.user.domain.repository.ProfileRepository
 import com.example.user.domain.validator.UserRegisterValidator
 import com.example.user.domain.valueobject.Birth
-import com.example.user.domain.valueobject.Category
-import com.example.user.domain.valueobject.Gender
+import com.example.user.domain.valueobject.type.CategorySubType
+import com.example.user.domain.valueobject.type.GenderType
 import com.example.user.domain.valueobject.Location
-import com.example.user.domain.valueobject.MBTI
+import com.example.user.domain.valueobject.type.MBTIType
 import org.springframework.stereotype.Service
 import java.time.LocalDate
 import java.util.UUID
@@ -33,13 +33,13 @@ class ProfileChangeService (
     }
 
     fun changeGender(memberId : UUID, genderStr : String) {
-        val gender = try {
-            Gender.valueOf(genderStr)
+        val genderType = try {
+            GenderType.valueOf(genderStr)
         } catch (e: Exception) {
             throw InvalidProfilePropertyException("존재하지 않는 성별입니다.")
         }
         val profile = profileRepository.findByMemberId(memberId) ?: throw ProfileNotFoundByMemberIdException()
-        profile.changeGender(gender)
+        profile.changeGender(genderType)
     }
 
     fun changeLocation(memberId: UUID, latitude: Double, longitude: Double){
@@ -49,13 +49,13 @@ class ProfileChangeService (
     }
 
     fun changeMbti(memberId: UUID, mbtiStr: String){
-        val mbti = try {
-            MBTI.valueOf(mbtiStr)
+        val mbtiType = try {
+            MBTIType.valueOf(mbtiStr)
         } catch (e: Exception) {
             throw InvalidProfilePropertyException("존재하지 않는 MBTI입니다.")
         }
         val profile = profileRepository.findByMemberId(memberId) ?: throw ProfileNotFoundByMemberIdException()
-        profile.changeMbti(mbti)
+        profile.changeMbti(mbtiType)
     }
 
     fun changeSelfDescription(memberId: UUID, selfDescription: String){
@@ -75,14 +75,14 @@ class ProfileChangeService (
         if (categoryList.size > 5) {
             throw InvalidProfilePropertyException("카테고리는 5개 이하로 선택해주세요.")
         }
-        val categories : MutableList<Category> = mutableListOf()
+        val categories : MutableList<CategorySubType> = mutableListOf()
         for (category in categoryList){
-            val categoryEnum = try {
-                Category.valueOf(category)
+            val categorySubTypeEnum = try {
+                CategorySubType.valueOf(category)
             } catch (e: Exception) {
                 throw InvalidProfilePropertyException("[${category}] 는 존재하지 않는 카테고리입니다.")
             }
-            categories.add(categoryEnum)
+            categories.add(categorySubTypeEnum)
         }
 
         val profile = profileRepository.findByMemberId(memberId) ?: throw ProfileNotFoundByMemberIdException()

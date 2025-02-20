@@ -4,7 +4,7 @@ import com.example.user.domain.auth.JwtClaimReader
 import com.example.user.domain.exception.InvalidEmailJwtException
 import com.example.user.domain.exception.MissingJwtPayloadException
 import com.example.user.domain.valueobject.JwtKey
-import com.example.user.domain.valueobject.JwtType
+import com.example.user.domain.valueobject.type.JwtType
 import org.springframework.stereotype.Component
 
 @Component

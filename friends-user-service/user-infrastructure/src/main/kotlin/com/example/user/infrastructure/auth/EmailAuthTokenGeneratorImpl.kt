@@ -2,7 +2,7 @@ package com.example.user.infrastructure.auth
 
 import com.example.user.domain.auth.EmailAuthTokenGenerator
 import com.example.user.domain.valueobject.JwtKey
-import com.example.user.domain.valueobject.JwtType
+import com.example.user.domain.valueobject.type.JwtType
 import com.example.user.infrastructure.util.JwtUtil
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component

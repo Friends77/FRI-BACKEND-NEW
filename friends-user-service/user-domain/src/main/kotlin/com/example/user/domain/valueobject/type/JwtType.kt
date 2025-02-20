@@ -1,4 +1,4 @@
-package com.example.user.domain.valueobject
+package com.example.user.domain.valueobject.type
 
 enum class JwtType {
     ACCESS,

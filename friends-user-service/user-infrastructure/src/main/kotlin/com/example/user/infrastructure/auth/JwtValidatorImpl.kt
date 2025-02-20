@@ -1,7 +1,7 @@
 package com.example.user.infrastructure.auth
 
 import com.example.user.domain.validator.JwtValidator
-import com.example.user.domain.valueobject.JwtType
+import com.example.user.domain.valueobject.type.JwtType
 import com.example.user.infrastructure.util.JwtClaimReaderImpl
 import com.example.user.infrastructure.util.JwtUtil
 import org.springframework.stereotype.Component
