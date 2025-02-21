@@ -2,6 +2,7 @@ package com.example.user.domain.entity
 
 import com.example.user.domain.entity.base.BaseModifiableEntity
 import com.example.user.domain.valueobject.Birth
+import com.example.user.domain.valueobject.Category
 import com.example.user.domain.valueobject.type.CategorySubType
 import com.example.user.domain.valueobject.Gender
 import com.example.user.domain.valueobject.Image
@@ -88,12 +89,12 @@ class Profile(
         this.image = image
     }
 
-    fun changeCategories(categories : List<CategorySubType>) {
+    fun changeCategories(categories : List<Category>) {
         mutableProfileCategories.clear()
         categories.forEach { addProfileCategory(it) }
     }
 
-    private fun addProfileCategory(categorySubType: CategorySubType) {
-        mutableProfileCategories.add(ProfileCategory(profile = this, categorySubType = categorySubType))
+    private fun addProfileCategory(category: Category) {
+        mutableProfileCategories.add(ProfileCategory(profile = this, category = category))
     }
 }

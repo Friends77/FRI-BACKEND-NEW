@@ -4,12 +4,15 @@ import com.example.user.domain.exception.IllegalProfileArgumentException
 import com.example.user.domain.valueobject.type.CategorySubType
 import jakarta.persistence.Column
 import jakarta.persistence.Embeddable
+import jakarta.persistence.EnumType
+import jakarta.persistence.Enumerated
 
 @Embeddable
 class Category (
     rawType: String
 ){
     @Column(name = "category", nullable = true)
+    @Enumerated(EnumType.STRING)
     val type: CategorySubType = try {
         CategorySubType.valueOf(rawType)
     } catch (e: IllegalArgumentException) {
