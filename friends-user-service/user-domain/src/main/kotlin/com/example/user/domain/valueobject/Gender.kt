@@ -16,7 +16,7 @@ class Gender(
     val type: GenderType = try {
         GenderType.valueOf(rawType)
     } catch (e: IllegalArgumentException) {
-        throw IllegalProfileArgumentException("유효하지 않은 성별 값: $rawType")
+        throw IllegalProfileArgumentException("유효하지 않은 성별 값: $rawType \n 가능한 성별 값: ${GenderType.entries.joinToString(", ")}")
     }
 
     override fun equals(other: Any?): Boolean {
