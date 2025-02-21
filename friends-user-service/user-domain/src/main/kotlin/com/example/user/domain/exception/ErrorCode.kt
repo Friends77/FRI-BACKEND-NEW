@@ -23,8 +23,8 @@ enum class ErrorCode(
     INVALID_REFRESH_TOKEN(HttpStatus.UNAUTHORIZED, "유효하지 않은 Refresh Token입니다."),
     OAUTH2_USER_PASSWORD_CHANGE(HttpStatus.BAD_REQUEST, "OAuth2 유저의 비밀번호 변경은 불가능합니다."),
     PASSWORD_EQUAL_LAST_PASSWORD(HttpStatus.BAD_REQUEST, "이전 비밀번호와 동일한 비밀번호는 사용할 수 없습니다."),
-    ILLEGAL_MEMBER_ARGUMENT(HttpStatus.BAD_REQUEST, "%s"),
-    ILLEGAL_PROFILE_ARGUMENT(HttpStatus.BAD_REQUEST, "%s"),
+    ILLEGAL_MEMBER_ARGUMENT(HttpStatus.BAD_REQUEST, "잘못된 회원 정보입니다."),
+    ILLEGAL_PROFILE_ARGUMENT(HttpStatus.BAD_REQUEST, "잘못된 프로필 정보입니다."),
 
     // Member
     NOT_FOUND_MEMBER(HttpStatus.NOT_FOUND, "해당 ID의 유저가 존재하지 않습니다."),
