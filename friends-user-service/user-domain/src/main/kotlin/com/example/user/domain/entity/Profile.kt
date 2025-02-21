@@ -21,20 +21,17 @@ import jakarta.persistence.Column
 import jakarta.persistence.Convert
 import jakarta.persistence.Embedded
 import jakarta.persistence.Entity
-import jakarta.persistence.FetchType
-import jakarta.persistence.JoinColumn
 import jakarta.persistence.OneToMany
-import jakarta.persistence.OneToOne
+import java.util.UUID
 
 @Entity
 class Profile(
-    member: Member,
+    memberId: UUID,
     nickname: Nickname,
 ) : BaseModifiableEntity() {
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    val member: Member = member
-
+    @Column(name = "member_id", nullable = false, updatable = false, unique = true)
+    val memberId: UUID = memberId
+    
     @Column(name = "nickname", nullable = false)
     @Convert(converter = NicknameConverter::class)
     var nickname: Nickname = nickname

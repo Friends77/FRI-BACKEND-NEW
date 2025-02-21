@@ -37,7 +37,7 @@ class UserRegisterService(
         val encodedPassword = EncodedPassword(passwordEncoder.encode(registerDto.password))
 
         val member = Member.createUser(email = email, password = encodedPassword)
-        val profile = Profile(member = member, nickname = nickname)
+        val profile = Profile(memberId = member.id, nickname = nickname)
 
         memberRepository.save(member)
         profileRepository.save(profile)

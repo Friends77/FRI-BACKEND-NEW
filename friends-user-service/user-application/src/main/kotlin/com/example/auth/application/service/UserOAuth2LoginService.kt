@@ -78,7 +78,7 @@ class UserOAuth2LoginService(
         oAuth2Provider: OAuth2Provider
     ) : Member {
         val member = Member.createUserByOAuth2(email = email, oAuth2Provider = oAuth2Provider)
-        val profile = Profile(member = member, nickname = nickname)
+        val profile = Profile(memberId = member.id, nickname = nickname)
         memberRepository.save(member)
         profileRepository.save(profile)
         return member
