@@ -5,6 +5,7 @@ import com.example.auth.application.dto.UserDto
 import com.example.user.domain.auth.PasswordEncoder
 import com.example.user.domain.entity.Member
 import com.example.user.domain.entity.Profile
+import com.example.user.domain.exception.AlreadyRegisteredAnotherMethodException
 import com.example.user.domain.repository.MemberRepository
 import com.example.user.domain.repository.ProfileRepository
 import com.example.user.domain.validator.EmailAuthTokenValidator
@@ -30,7 +31,7 @@ class UserRegisterService(
 
         val email = Email(registerDto.email)
         if (memberRepository.existsByEmail(email)) {
-            throw IllegalArgumentException("이미 가입된 이메일입니다.")
+            throw AlreadyRegisteredAnotherMethodException("이미 가입된 이메일입니다.")
         }
         val nickname = Nickname(registerDto.nickname)
         val encodedPassword = EncodedPassword(passwordEncoder.encode(registerDto.password))
