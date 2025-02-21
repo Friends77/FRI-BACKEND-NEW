@@ -31,7 +31,7 @@ data class ChangeMbtiDto(
 
 data class ChangeProfileImageDto(
     val memberId : UUID,
-    val imageUrl : String
+    val imageUrl : String?
 )
 
 data class ChangeCategoriesDto(

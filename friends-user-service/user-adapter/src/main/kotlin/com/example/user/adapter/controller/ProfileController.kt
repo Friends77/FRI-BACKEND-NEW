@@ -9,7 +9,7 @@ import com.example.auth.application.dto.ChangeNicknameDto
 import com.example.auth.application.dto.ChangeProfileImageDto
 import com.example.auth.application.dto.ChangeSelfDescriptionDto
 import com.example.auth.application.dto.ProfileDto
-import com.example.auth.application.service.ProfileChangeUseCase
+import com.example.auth.application.service.ProfileChangeService
 import com.example.auth.application.service.ProfileQueryUseCase
 import com.example.user.adapter.ChangeBirthRequestDto
 import com.example.user.adapter.ChangeCategoriesRequestDto
@@ -32,7 +32,7 @@ import java.util.UUID
 @RestController
 @RequestMapping("/api/user/profile")
 class ProfileController (
-    private val profileChangeUseCase: ProfileChangeUseCase,
+    private val profileChangeService: ProfileChangeService,
     private val profileQueryUseCase: ProfileQueryUseCase
 ){
     @GetMapping
@@ -60,7 +60,7 @@ class ProfileController (
         val memberId = UUID.fromString(memberIdInHeader)
         val nickname = changeNicknameRequestDto.nickname
         val changeNicknameDto = ChangeNicknameDto(memberId, nickname)
-        profileChangeUseCase.changeNickname(changeNicknameDto)
+        profileChangeService.changeNickname(changeNicknameDto)
         return ResponseEntity.ok().build()
     }
 
@@ -72,7 +72,7 @@ class ProfileController (
         val memberId = UUID.fromString(memberIdInHeader)
         val localDate = changeBirthRequestDto.localDate
         val changeBirthDto = ChangeBirthDto(memberId, localDate)
-        profileChangeUseCase.changeBirth(changeBirthDto)
+        profileChangeService.changeBirth(changeBirthDto)
         return ResponseEntity.ok().build()
     }
 
@@ -84,7 +84,7 @@ class ProfileController (
         val memberId = UUID.fromString(memberIdInHeader)
         val gender = changeGenderRequestDto.gender
         val changeGenderDto = ChangeGenderDto(memberId, gender)
-        profileChangeUseCase.changeGender(changeGenderDto)
+        profileChangeService.changeGender(changeGenderDto)
         return ResponseEntity.ok().build()
     }
 
@@ -97,7 +97,7 @@ class ProfileController (
         val latitude = changeLocationRequestDto.latitude
         val longitude = changeLocationRequestDto.longitude
         val changeLocationDto = ChangeLocationDto(memberId, latitude, longitude)
-        profileChangeUseCase.changeLocation(changeLocationDto)
+        profileChangeService.changeLocation(changeLocationDto)
         return ResponseEntity.ok().build()
     }
 
@@ -109,7 +109,7 @@ class ProfileController (
         val memberId = UUID.fromString(memberIdInHeader)
         val mbti = changeMbtiRequestDto.mbti
         val changeMbtiDto = ChangeMbtiDto(memberId, mbti)
-        profileChangeUseCase.changeMbti(changeMbtiDto)
+        profileChangeService.changeMbti(changeMbtiDto)
         return ResponseEntity.ok().build()
     }
 
@@ -121,7 +121,7 @@ class ProfileController (
         val memberId = UUID.fromString(memberIdInHeader)
         val imageUrl = changeProfileImageRequestDto.imageUrl
         val changeProfileImageDto = ChangeProfileImageDto(memberId, imageUrl)
-        profileChangeUseCase.changeProfileImage(changeProfileImageDto)
+        profileChangeService.changeProfileImage(changeProfileImageDto)
         return ResponseEntity.ok().build()
     }
 
@@ -133,7 +133,7 @@ class ProfileController (
         val memberId = UUID.fromString(memberIdInHeader)
         val categories = changeCategoriesRequestDto.categories
         val changeCategoriesDto = ChangeCategoriesDto(memberId, categories)
-        profileChangeUseCase.changeCategories(changeCategoriesDto)
+        profileChangeService.changeCategories(changeCategoriesDto)
         return ResponseEntity.ok().build()
     }
 
@@ -145,7 +145,7 @@ class ProfileController (
         val memberId = UUID.fromString(memberIdInHeader)
         val selfDescription = changeSelfDescriptionRequestDto.selfDescription
         val changeSelfDescriptionDto = ChangeSelfDescriptionDto(memberId, selfDescription)
-        profileChangeUseCase.changeSelfDescription(changeSelfDescriptionDto)
+        profileChangeService.changeSelfDescription(changeSelfDescriptionDto)
         return ResponseEntity.ok().build()
     }
 }

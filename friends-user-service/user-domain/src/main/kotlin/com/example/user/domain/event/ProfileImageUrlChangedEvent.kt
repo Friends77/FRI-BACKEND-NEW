@@ -4,5 +4,5 @@ import java.util.UUID
 
 data class ProfileImageUrlChangedEvent(
     val memberId : UUID,
-    val profileImageUrl : String,
+    val profileImageUrl : String?,
 )

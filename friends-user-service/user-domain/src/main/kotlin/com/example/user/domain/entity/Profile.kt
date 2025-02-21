@@ -1,6 +1,7 @@
 package com.example.user.domain.entity
 
 import com.example.user.domain.entity.base.BaseModifiableEntity
+import com.example.user.domain.exception.IllegalProfileArgumentException
 import com.example.user.domain.valueobject.Birth
 import com.example.user.domain.valueobject.Category
 import com.example.user.domain.valueobject.type.CategorySubType
@@ -90,6 +91,9 @@ class Profile(
     }
 
     fun changeCategories(categories : List<Category>) {
+        if (categories.size > 5) {
+            throw IllegalProfileArgumentException("카테고리는 5개 이하로 선택해주세요.")
+        }
         mutableProfileCategories.clear()
         categories.forEach { addProfileCategory(it) }
     }
