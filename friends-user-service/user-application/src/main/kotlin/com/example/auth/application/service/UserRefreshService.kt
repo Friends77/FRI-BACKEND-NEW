@@ -24,9 +24,9 @@ class UserRefreshService(
         atRtValidator.validateRefreshToken(refreshToken)
 
         val memberId = jwtClaimReader.getMemberId(refreshToken)
-            ?: throw MissingJwtPayloadException(JwtKey.MEMBER_ID.value)
+            ?: throw MissingJwtPayloadException("${JwtKey.MEMBER_ID.value} 가 refresh token 에 존재하지 않습니다.")
         val authorities = jwtClaimReader.getAuthorities(refreshToken)
-            ?: throw MissingJwtPayloadException(JwtKey.AUTHORITIES.value)
+            ?: throw MissingJwtPayloadException("${JwtKey.AUTHORITIES.value} 가 refresh token 에 존재하지 않습니다.")
 
         val atRt = atRtGenerator.createAtRt(memberId, authorities)
         return AuthMapper.atRtToAtRtDto(atRt)

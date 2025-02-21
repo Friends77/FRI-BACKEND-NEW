@@ -1,6 +1,5 @@
 package com.example.user.domain.service
 
-import com.example.user.domain.exception.MemberNotFoundByEmailException
 import com.example.user.domain.exception.OAuth2UserPasswordChangeException
 import com.example.user.domain.exception.PasswordEqualLastPasswordException
 import com.example.user.domain.repository.MemberRepository

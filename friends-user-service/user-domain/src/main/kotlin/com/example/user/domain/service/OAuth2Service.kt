@@ -18,9 +18,9 @@ class OAuth2Service(
         oAuth2ProviderType: OAuth2ProviderType
     ): OAuth2ProfileData {
         val accessToken = oAuth2Fetcher.getAccessToken(code, oAuth2ProviderType)
-            ?: throw OAuth2FetchFailedException(oAuth2ProviderType)
+            ?: throw OAuth2FetchFailedException("${oAuth2ProviderType.name} 에서 access token 을 가져오는데 실패했습니다.")
         val attributes = oAuth2Fetcher.getUserAttributes(accessToken, oAuth2ProviderType)
-            ?: throw OAuth2FetchFailedException(oAuth2ProviderType)
+            ?: throw OAuth2FetchFailedException("${oAuth2ProviderType.name} 에서 사용자 정보를 가져오는데 실패했습니다.")
 
         val extractor = try {
             oAuth2DataExtractorFactory.getExtractor(oAuth2ProviderType)

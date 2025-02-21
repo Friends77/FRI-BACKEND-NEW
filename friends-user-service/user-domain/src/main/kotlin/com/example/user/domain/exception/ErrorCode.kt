@@ -4,14 +4,10 @@ import org.springframework.http.HttpStatus
 
 enum class ErrorCode(
     val httpStatus: HttpStatus,
-    private val errorMessageTemplate: String,
+    val defaultMessage: String,
 ) {
     // Auth
-    UNAUTHORIZED(HttpStatus.UNAUTHORIZED, "인증되지 않은 사용자입니다."),
-    FORBIDDEN(HttpStatus.FORBIDDEN, "권한이 없습니다."),
-    MISSING_JWT_PAYLOAD(HttpStatus.UNAUTHORIZED, "JWT 토큰에 %s가 존재하지 않습니다."),
-    NOT_FOUND_MEMBER_BY_EMAIL(HttpStatus.NOT_FOUND, "해당 이메일의 유저가 존재하지 않습니다."),
-    EMAIL_AUTHENTICATION_FAILED(HttpStatus.UNAUTHORIZED, "이메일 인증에 실패하였습니다."),
+    MISSING_JWT_PAYLOAD(HttpStatus.UNAUTHORIZED, "JWT 토큰에 페이로드가 존재하지 않습니다."),
     INVALID_EMAIL_JWT(HttpStatus.UNAUTHORIZED, "유효하지 않은 이메일 JWT입니다."),
     EMAIL_ALREADY_EXISTS(HttpStatus.BAD_REQUEST, "이미 존재하는 이메일입니다."),
     INVALID_EMAIL_PATTERN(HttpStatus.BAD_REQUEST, "유효하지 않은 이메일 형식입니다."),
@@ -31,17 +27,8 @@ enum class ErrorCode(
     ILLEGAL_PROFILE_ARGUMENT(HttpStatus.BAD_REQUEST, "%s"),
 
     // Member
-    NOT_FOUND_MEMBER_BY_ID(HttpStatus.NOT_FOUND,  "해당 ID의 유저가 존재하지 않습니다."),
+    NOT_FOUND_MEMBER(HttpStatus.NOT_FOUND, "해당 ID의 유저가 존재하지 않습니다."),
 
     // Profile
     PROFILE_NOT_FOUND_BY_MEMBER_ID(HttpStatus.NOT_FOUND, "해당 ID의 프로필이 존재하지 않습니다."),
-    INVALID_PROFILE_PROPERTY(HttpStatus.BAD_REQUEST, "%s"),
-
-    ;
-    fun formatErrorMessage(vararg args: Any): String =
-        if (args.isNotEmpty()) {
-            String.format(errorMessageTemplate, *args)
-        } else {
-            errorMessageTemplate
-        }
 }

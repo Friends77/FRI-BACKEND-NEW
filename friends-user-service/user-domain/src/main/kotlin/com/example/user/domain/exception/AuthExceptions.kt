@@ -1,10 +1,7 @@
 package com.example.user.domain.exception
 
-import com.example.user.domain.valueobject.type.OAuth2ProviderType
 
-class MissingJwtPayloadException(
-    payloadMissed: String,
-) : BaseException(ErrorCode.MISSING_JWT_PAYLOAD, payloadMissed)
+class MissingJwtPayloadException(message: String) : BaseException(ErrorCode.MISSING_JWT_PAYLOAD, message)
 
 class InvalidEmailJwtException : BaseException(ErrorCode.INVALID_EMAIL_JWT)
 
@@ -22,7 +19,7 @@ class EmailSendFailedException : BaseException(ErrorCode.EMAIL_SEND_FAILED)
 
 class InvalidEmailVerificationCodeException : BaseException(ErrorCode.INVALID_EMAIL_VERIFICATION_CODE)
 
-class OAuth2FetchFailedException(oAuth2ProviderType: OAuth2ProviderType) : BaseException(ErrorCode.OAUTH2_FETCH_FAILED, oAuth2ProviderType.name)
+class OAuth2FetchFailedException(message: String) : BaseException(ErrorCode.OAUTH2_FETCH_FAILED, message)
 
 class AlreadyRegisteredAnotherMethodException : BaseException(ErrorCode.ALREADY_REGISTERED_ANOTHER_METHOD)
 

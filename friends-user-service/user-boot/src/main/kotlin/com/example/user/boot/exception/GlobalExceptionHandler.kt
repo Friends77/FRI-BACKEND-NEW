@@ -19,12 +19,12 @@ class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
         log.info(ex.message)
         return ResponseEntity
             .status(ex.errorCode.httpStatus)
-            .body(ErrorResponse.of(ex.errorCode, ex.message))
+            .body(ErrorResponse(ex.errorCode, ex.message))
     }
 
     @ExceptionHandler(Exception::class)
     fun handleException(ex: Exception): ResponseEntity<Any> {
-        log.error(ex.message)
+        log.error(ex.message, ex)
         return ResponseEntity
             .status(HttpStatus.INTERNAL_SERVER_ERROR)
             .body("서버 내부 오류입니다.")
