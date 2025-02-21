@@ -29,7 +29,7 @@ class OAuth2DataExtractException : BaseException(ErrorCode.OAUTH2_DATA_EXTRACT_F
 
 class InvalidRefreshTokenException : BaseException(ErrorCode.INVALID_REFRESH_TOKEN)
 
-class OAuth2UserPasswordChangeException : BaseException(ErrorCode.OAUTH2_USER_PASSWORD_CHANGE)
+class OAuth2UserPasswordChangeException(message : String? = null) : BaseException(ErrorCode.OAUTH2_USER_PASSWORD_CHANGE, message)
 
 class PasswordEqualLastPasswordException : BaseException(ErrorCode.PASSWORD_EQUAL_LAST_PASSWORD)
 

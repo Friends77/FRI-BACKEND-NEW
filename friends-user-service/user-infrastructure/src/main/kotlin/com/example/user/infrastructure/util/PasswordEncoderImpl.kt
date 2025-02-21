@@ -12,7 +12,7 @@ class PasswordEncoderImpl : PasswordEncoder {
         return encoder.encode(rawPassword)
     }
 
-    override fun matches(rawPassword: String, encodedPassword: String): Boolean {
+    override fun matches(rawPassword: String, encodedPassword: String?): Boolean {
         return encoder.matches(rawPassword, encodedPassword)
     }
 }

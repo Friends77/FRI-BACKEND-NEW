@@ -2,7 +2,7 @@ package com.example.user.adapter.controller
 
 import com.example.auth.application.dto.RefreshDto
 import com.example.auth.application.service.UserLoginService
-import com.example.auth.application.service.UserPasswordUseCase
+import com.example.auth.application.service.UserResetPasswordService
 import com.example.auth.application.service.UserRefreshService
 import com.example.auth.application.service.UserRegisterUseCase
 import com.example.user.adapter.AdapterMapper
@@ -25,7 +25,7 @@ class AuthController (
     private val userRegisterUseCase: UserRegisterUseCase,
     private val userLoginService: UserLoginService,
     private val userRefreshService: UserRefreshService,
-    private val userPasswordUseCase: UserPasswordUseCase
+    private val userResetPasswordService: UserResetPasswordService
 ){
     @PostMapping("/register")
     fun register(@RequestBody registerRegisterDto: RegisterRequestDto) : ResponseEntity<RegisterResponseDto>{
@@ -58,7 +58,7 @@ class AuthController (
         @RequestBody resetPasswordRequestDto: ResetPasswordRequestDto
     ) : ResponseEntity<String>{
         val resetPasswordDto = AdapterMapper.resetPasswordRequestDtoToResetPasswordDto(resetPasswordRequestDto)
-        userPasswordUseCase.resetPassword(resetPasswordDto)
+        userResetPasswordService.resetPassword(resetPasswordDto)
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build()
     }
 }

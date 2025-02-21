@@ -1,6 +1,7 @@
 package com.example.user.domain.entity
 
 import com.example.user.domain.entity.base.BaseModifiableEntity
+import com.example.user.domain.exception.OAuth2UserPasswordChangeException
 import com.example.user.domain.valueobject.type.AuthorityRoleType
 import com.example.user.domain.valueobject.Email
 import com.example.user.domain.valueobject.EncodedPassword
@@ -76,6 +77,10 @@ class Member private constructor(
     }
 
     fun changePassword(password: EncodedPassword) {
+        if (isOAuth2User || this.password == null) {
+            throw OAuth2UserPasswordChangeException()
+        }
         this.password = password
     }
+
 }
