@@ -8,7 +8,7 @@ import jakarta.persistence.Embeddable
 class SelfDescription(
     value : String
 ) {
-    @Column(nullable = true)
+    @Column(name = "self_description", nullable = true)
     val value: String = value
 
     init {

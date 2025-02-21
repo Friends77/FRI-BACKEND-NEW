@@ -7,6 +7,7 @@ import com.example.user.domain.auth.AtRtGenerator
 import com.example.user.domain.auth.PasswordEncoder
 import com.example.user.domain.exception.LoginFailedException
 import com.example.user.domain.repository.MemberRepository
+import com.example.user.domain.valueobject.Email
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -21,7 +22,7 @@ class UserLoginService(
         val email = loginDto.email
         val password = loginDto.password
 
-        val member = memberRepository.findByEmailWithAuthorities(email)
+        val member = memberRepository.findByEmailWithAuthorities(Email(email))
             ?: throw LoginFailedException("해당 이메일 [${email}]로 가입된 회원이 없습니다.")
 
         if (member.isOAuth2User || member.password == null)

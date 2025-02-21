@@ -49,7 +49,7 @@ class UserOAuth2LoginService(
             ?: registerUserByOAuth2(nickname, email, oauth2Provider)
         // 똑같은 이메일로 가입한 이력이 존재하다면 예외 처리
         if (member.oAuth2Provider != oauth2Provider) {
-            throw AlreadyRegisteredAnotherMethodException("이미 ${member.oAuth2Provider.type} 로 가입한 이력이 있습니다.")
+            throw AlreadyRegisteredAnotherMethodException("이미 ${member.oAuth2Provider?.type} 로 가입한 이력이 있습니다.")
         }
         val atRt = atRtGenerator.createAtRt(member.id, member.authorities.map { it.role })
         return AuthMapper.atRtToAtRtDto(atRt)

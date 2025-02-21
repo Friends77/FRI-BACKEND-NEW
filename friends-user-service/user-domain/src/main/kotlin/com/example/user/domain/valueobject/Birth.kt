@@ -7,7 +7,7 @@ import java.time.LocalDate
 
 @Embeddable
 class Birth (
-    @Column(name = "birth", nullable = false)
+    @Column(name = "birth", nullable = true)
     val localDate: LocalDate
 ) {
     init {

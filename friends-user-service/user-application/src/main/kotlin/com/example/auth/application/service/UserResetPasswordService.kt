@@ -24,7 +24,7 @@ class UserResetPasswordService (
 
         emailAuthTokenValidator.validateEmailAuthToken(emailAuthToken, email)
 
-        val member = memberRepository.findByEmail(email) ?: throw MemberNotFoundException("$email 로 가입된 회원이 없습니다.")
+        val member = memberRepository.findByEmail(Email(email)) ?: throw MemberNotFoundException("$email 로 가입된 회원이 없습니다.")
 
         if (passwordEncoder.matches(newPassword, member.password?.value)) { throw PasswordEqualLastPasswordException() }
 

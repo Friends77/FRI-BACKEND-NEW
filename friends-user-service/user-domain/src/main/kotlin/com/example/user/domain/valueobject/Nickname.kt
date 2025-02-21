@@ -8,7 +8,7 @@ import jakarta.persistence.Embeddable
 class Nickname(
     value : String
 ) {
-    @Column(nullable = false)
+    @Column(name = "nickname", nullable = false)
     val value: String = value
 
     init {

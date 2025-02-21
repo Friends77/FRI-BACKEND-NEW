@@ -1,14 +1,15 @@
 package com.example.user.domain.repository
 
 import com.example.user.domain.entity.Member
+import com.example.user.domain.valueobject.Email
 import java.util.UUID
 
 interface MemberRepository {
-    fun findByEmailWithAuthorities(email: String): Member?
+    fun findByEmailWithAuthorities(email: Email): Member?
 
     fun save(member: Member): Member
 
-    fun existsByEmail(email: String): Boolean
+    fun existsByEmail(email: Email): Boolean
 
-    fun findByEmail(email: String): Member?
+    fun findByEmail(email: Email): Member?
 }

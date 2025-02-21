@@ -29,6 +29,9 @@ class UserRegisterService(
         emailAuthTokenValidator.validateEmailAuthToken(emailAuthToken, registerDto.email)
 
         val email = Email(registerDto.email)
+        if (memberRepository.existsByEmail(email)) {
+            throw IllegalArgumentException("이미 가입된 이메일입니다.")
+        }
         val nickname = Nickname(registerDto.nickname)
         val encodedPassword = EncodedPassword(passwordEncoder.encode(registerDto.password))
 
