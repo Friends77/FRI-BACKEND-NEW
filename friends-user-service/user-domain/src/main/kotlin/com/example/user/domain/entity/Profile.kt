@@ -11,6 +11,11 @@ import com.example.user.domain.valueobject.MBTI
 import com.example.user.domain.valueobject.Nickname
 import com.example.user.domain.valueobject.SelfDescription
 import com.example.user.domain.valueobject.attributeconverter.BirthConverter
+import com.example.user.domain.valueobject.attributeconverter.GenderConverter
+import com.example.user.domain.valueobject.attributeconverter.ImageConverter
+import com.example.user.domain.valueobject.attributeconverter.MBTIConverter
+import com.example.user.domain.valueobject.attributeconverter.NicknameConverter
+import com.example.user.domain.valueobject.attributeconverter.SelfDescriptionConverter
 import jakarta.persistence.CascadeType
 import jakarta.persistence.Column
 import jakarta.persistence.Convert
@@ -30,7 +35,8 @@ class Profile(
     @JoinColumn(name = "member_id")
     val member: Member = member
 
-    @Embedded
+    @Column(name = "nickname", nullable = false)
+    @Convert(converter = NicknameConverter::class)
     var nickname: Nickname = nickname
         protected set
 
@@ -39,7 +45,8 @@ class Profile(
     var birth: Birth? = null
         protected set
 
-    @Embedded
+    @Column(name = "gender", nullable = true)
+    @Convert(converter = GenderConverter::class)
     var gender : Gender? = null
         protected set
 
@@ -47,15 +54,18 @@ class Profile(
     var location: Location? = null
         protected set
 
-    @Embedded
+    @Column(name = "mbti", nullable = true)
+    @Convert(converter = MBTIConverter::class)
     var mbti : MBTI? = null
         protected set
 
-    @Embedded
+    @Column(name = "self_description", nullable = true)
+    @Convert(converter = SelfDescriptionConverter::class)
     var selfDescription: SelfDescription? = null
         protected set
 
-    @Embedded
+    @Column(name = "image_url", nullable = true)
+    @Convert(converter = ImageConverter::class)
     var image: Image? = null
         protected set
 

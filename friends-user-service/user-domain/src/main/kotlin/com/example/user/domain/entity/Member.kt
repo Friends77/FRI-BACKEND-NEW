@@ -7,6 +7,8 @@ import com.example.user.domain.valueobject.Email
 import com.example.user.domain.valueobject.EncodedPassword
 import com.example.user.domain.valueobject.OAuth2Provider
 import com.example.user.domain.valueobject.attributeconverter.EmailConverter
+import com.example.user.domain.valueobject.attributeconverter.EncodedPasswordConverter
+import com.example.user.domain.valueobject.attributeconverter.OAuth2ProviderConverter
 import jakarta.persistence.CascadeType
 import jakarta.persistence.Column
 import jakarta.persistence.Convert
@@ -24,14 +26,16 @@ class Member private constructor(
     @Convert(converter = EmailConverter::class)
     val email: Email = email
 
-    @Embedded
+    @Column(name = "password", nullable = true)
+    @Convert(converter = EncodedPasswordConverter::class)
     var password: EncodedPassword? = null
         protected set
 
-    @Embedded
+    @Column(name = "oauth2_provider", nullable = true)
+    @Convert(converter = OAuth2ProviderConverter::class)
     val oAuth2Provider : OAuth2Provider? = null
 
-    @Column(nullable = false)
+    @Column(name = "is_oauth2_user", nullable = false)
     val isOAuth2User : Boolean = isOAuth2User
 
     @OneToMany(mappedBy = "member", cascade = [CascadeType.ALL], orphanRemoval = true)

@@ -1,13 +1,8 @@
 package com.example.user.domain.valueobject
 
-import jakarta.persistence.Column
-import jakarta.persistence.Embeddable
-
-@Embeddable
 class Image(
     url: String
 ) {
-    @Column(name = "image_url", nullable = true)
     val url: String = url
 
     override fun equals(other: Any?): Boolean {

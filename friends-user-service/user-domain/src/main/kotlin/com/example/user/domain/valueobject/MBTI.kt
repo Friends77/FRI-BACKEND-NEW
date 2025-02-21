@@ -2,14 +2,10 @@ package com.example.user.domain.valueobject
 
 import com.example.user.domain.exception.IllegalProfileArgumentException
 import com.example.user.domain.valueobject.type.MBTIType
-import jakarta.persistence.Column
-import jakarta.persistence.Embeddable
 
-@Embeddable
 class MBTI(
     rawType: String
 ) {
-    @Column(name = "mbti", nullable = true)
     val type: MBTIType = try {
         MBTIType.valueOf(rawType)
     } catch (e: IllegalArgumentException) {

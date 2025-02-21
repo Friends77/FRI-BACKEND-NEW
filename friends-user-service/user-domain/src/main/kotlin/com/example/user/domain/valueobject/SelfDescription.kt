@@ -1,14 +1,10 @@
 package com.example.user.domain.valueobject
 
 import com.example.user.domain.exception.IllegalProfileArgumentException
-import jakarta.persistence.Column
-import jakarta.persistence.Embeddable
 
-@Embeddable
 class SelfDescription(
     value : String
 ) {
-    @Column(name = "self_description", nullable = true)
     val value: String = value
 
     init {

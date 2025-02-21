@@ -5,11 +5,9 @@ import com.example.user.domain.valueobject.type.OAuth2ProviderType
 import jakarta.persistence.Column
 import jakarta.persistence.Embeddable
 
-@Embeddable
 class OAuth2Provider(
     rawType : String
 ) {
-    @Column(name = "oauth2_provider", nullable = true)
     val type : OAuth2ProviderType = try {
         OAuth2ProviderType.valueOf(rawType)
     } catch (e: IllegalArgumentException) {

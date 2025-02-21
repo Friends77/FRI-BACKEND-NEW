@@ -1,13 +1,9 @@
 package com.example.user.domain.valueobject
 
-import jakarta.persistence.Column
-import jakarta.persistence.Embeddable
 
-@Embeddable
 class EncodedPassword(
     value : String
 ){
-    @Column(name = "password", nullable = true)
     val value : String = value
 
     override fun equals(other: Any?): Boolean {
