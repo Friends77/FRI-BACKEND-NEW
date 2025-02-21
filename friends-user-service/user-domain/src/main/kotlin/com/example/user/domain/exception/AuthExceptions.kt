@@ -16,7 +16,7 @@ class InvalidNicknamePatternException : BaseException(ErrorCode.INVALID_NICKNAME
 
 class InvalidPasswordPatternException : BaseException(ErrorCode.INVALID_PASSWORD_PATTERN)
 
-class LoginFailedException : BaseException(ErrorCode.LOGIN_FAILED)
+class LoginFailedException(message: String) : BaseException(ErrorCode.LOGIN_FAILED, message)
 
 class EmailSendFailedException : BaseException(ErrorCode.EMAIL_SEND_FAILED)
 

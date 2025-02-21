@@ -1,8 +1,9 @@
 package com.example.user.adapter.controller
 
 import com.example.auth.application.dto.RefreshDto
-import com.example.auth.application.service.UserLoginUseCase
+import com.example.auth.application.service.UserLoginService
 import com.example.auth.application.service.UserPasswordUseCase
+import com.example.auth.application.service.UserRefreshService
 import com.example.auth.application.service.UserRegisterUseCase
 import com.example.user.adapter.AdapterMapper
 import com.example.user.adapter.LoginRequestDto
@@ -22,7 +23,8 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/api/global/auth")
 class AuthController (
     private val userRegisterUseCase: UserRegisterUseCase,
-    private val userLoginUseCase: UserLoginUseCase,
+    private val userLoginService: UserLoginService,
+    private val userRefreshService: UserRefreshService,
     private val userPasswordUseCase: UserPasswordUseCase
 ){
     @PostMapping("/register")
@@ -36,7 +38,7 @@ class AuthController (
     @PostMapping("/login")
     fun login(@RequestBody loginRequestDto: LoginRequestDto) : ResponseEntity<LoginResponseDto>{
         val loginDto = AdapterMapper.loginRequestDtoToLoginDto(loginRequestDto)
-        val atRtDto = userLoginUseCase.login(loginDto)
+        val atRtDto = userLoginService.login(loginDto)
         val loginResponseDto = AdapterMapper.atRtDtoToLoginResponseDto(atRtDto)
         return ResponseEntity.ok(loginResponseDto)
     }
@@ -46,7 +48,7 @@ class AuthController (
         @CookieValue("refreshToken") refreshToken: String
     ) : ResponseEntity<LoginResponseDto>{
         val refreshDto = RefreshDto(refreshToken)
-        val atRtDto = userLoginUseCase.refresh(refreshDto)
+        val atRtDto = userRefreshService.refresh(refreshDto)
         val loginResponseDto = AdapterMapper.atRtDtoToLoginResponseDto(atRtDto)
         return ResponseEntity.ok(loginResponseDto)
     }
