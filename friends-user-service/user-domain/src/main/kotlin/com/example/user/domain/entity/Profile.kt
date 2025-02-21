@@ -31,7 +31,7 @@ class Profile(
 ) : BaseModifiableEntity() {
     @Column(name = "member_id", nullable = false, updatable = false, unique = true)
     val memberId: UUID = memberId
-    
+
     @Column(name = "nickname", nullable = false)
     @Convert(converter = NicknameConverter::class)
     var nickname: Nickname = nickname
