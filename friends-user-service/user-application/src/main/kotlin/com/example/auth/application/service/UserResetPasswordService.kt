@@ -6,6 +6,7 @@ import com.example.user.domain.exception.MemberNotFoundException
 import com.example.user.domain.exception.PasswordEqualLastPasswordException
 import com.example.user.domain.repository.MemberRepository
 import com.example.user.domain.validator.EmailAuthTokenValidator
+import com.example.user.domain.valueobject.Email
 import com.example.user.domain.valueobject.EncodedPassword
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional

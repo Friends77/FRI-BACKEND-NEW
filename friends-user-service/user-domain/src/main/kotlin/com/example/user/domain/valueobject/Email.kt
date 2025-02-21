@@ -1,14 +1,10 @@
 package com.example.user.domain.valueobject
 
 import com.example.user.domain.exception.IllegalMemberArgumentException
-import jakarta.persistence.Column
-import jakarta.persistence.Embeddable
 
-@Embeddable
 class Email(
     value: String
 ) {
-    @Column(name = "email", nullable = false, unique = true)
     val value: String = value
 
     init {

@@ -4,14 +4,16 @@ import com.example.user.domain.entity.base.BaseModifiableEntity
 import com.example.user.domain.exception.IllegalProfileArgumentException
 import com.example.user.domain.valueobject.Birth
 import com.example.user.domain.valueobject.Category
-import com.example.user.domain.valueobject.type.CategorySubType
 import com.example.user.domain.valueobject.Gender
 import com.example.user.domain.valueobject.Image
 import com.example.user.domain.valueobject.Location
 import com.example.user.domain.valueobject.MBTI
 import com.example.user.domain.valueobject.Nickname
 import com.example.user.domain.valueobject.SelfDescription
+import com.example.user.domain.valueobject.attributeconverter.BirthConverter
 import jakarta.persistence.CascadeType
+import jakarta.persistence.Column
+import jakarta.persistence.Convert
 import jakarta.persistence.Embedded
 import jakarta.persistence.Entity
 import jakarta.persistence.FetchType
@@ -32,7 +34,8 @@ class Profile(
     var nickname: Nickname = nickname
         protected set
 
-    @Embedded
+    @Column(name = "birth", nullable = true)
+    @Convert(converter = BirthConverter::class)
     var birth: Birth? = null
         protected set
 

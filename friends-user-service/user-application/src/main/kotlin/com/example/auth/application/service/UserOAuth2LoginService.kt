@@ -45,7 +45,7 @@ class UserOAuth2LoginService(
         val email = Email(oAuth2ProfileData.email)
 
         // 소셜 로그인으로 가입한 이력이 없다면 대신 회원가입
-        val member = memberRepository.findByEmailWithAuthorities(email.value)
+        val member = memberRepository.findByEmailWithAuthorities(email)
             ?: registerUserByOAuth2(nickname, email, oauth2Provider)
         // 똑같은 이메일로 가입한 이력이 존재하다면 예외 처리
         if (member.oAuth2Provider != oauth2Provider) {

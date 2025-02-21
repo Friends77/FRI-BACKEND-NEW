@@ -46,6 +46,7 @@ data class ChangeSelfDescriptionDto(
 
 data class ProfileDto(
     val memberId : UUID,
+    val profileId : UUID,
     val nickname : String,
     val birth : LocalDate?,
     val gender: String?,

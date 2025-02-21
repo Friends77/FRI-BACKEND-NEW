@@ -6,8 +6,10 @@ import com.example.user.domain.valueobject.type.AuthorityRoleType
 import com.example.user.domain.valueobject.Email
 import com.example.user.domain.valueobject.EncodedPassword
 import com.example.user.domain.valueobject.OAuth2Provider
+import com.example.user.domain.valueobject.attributeconverter.EmailConverter
 import jakarta.persistence.CascadeType
 import jakarta.persistence.Column
+import jakarta.persistence.Convert
 import jakarta.persistence.Embedded
 import jakarta.persistence.Entity
 import jakarta.persistence.OneToMany
@@ -18,7 +20,8 @@ class Member private constructor(
     isOAuth2User: Boolean,
     oAuth2Provider: OAuth2Provider? = null
 ) : BaseModifiableEntity() {
-    @Embedded
+    @Column(nullable = false, unique = true)
+    @Convert(converter = EmailConverter::class)
     val email: Email = email
 
     @Embedded

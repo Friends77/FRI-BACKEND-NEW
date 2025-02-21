@@ -1,13 +1,9 @@
 package com.example.user.domain.valueobject
 
 import com.example.user.domain.exception.IllegalProfileArgumentException
-import jakarta.persistence.Column
-import jakarta.persistence.Embeddable
 import java.time.LocalDate
 
-@Embeddable
 class Birth (
-    @Column(name = "birth", nullable = true)
     val localDate: LocalDate
 ) {
     init {

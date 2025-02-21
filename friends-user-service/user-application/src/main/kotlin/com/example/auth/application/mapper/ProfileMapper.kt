@@ -7,7 +7,8 @@ import com.example.user.domain.entity.Profile
 object ProfileMapper {
     fun profileToProfileDto(profile: Profile) : ProfileDto {
         return ProfileDto(
-            memberId = profile.id,
+            memberId = profile.member.id,
+            profileId = profile.id,
             nickname = profile.nickname.value,
             birth = profile.birth?.localDate,
             gender = profile.gender?.type?.name,
