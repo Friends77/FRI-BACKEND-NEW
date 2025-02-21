@@ -8,14 +8,14 @@ object ProfileMapper {
     fun profileToProfileDto(profile: Profile) : ProfileDto {
         return ProfileDto(
             memberId = profile.id,
-            nickname = profile.nickname,
+            nickname = profile.nickname.value,
             birth = profile.birth?.localDate,
-            gender = profile.gender?.name,
+            gender = profile.gender?.type?.name,
             location = profile.location?.let { LocationDto(it.latitude, it.longitude) },
-            mbti = profile.mbti?.name,
-            profileImageUrl = profile.image,
-            categories = profile.profileCategories.map { it.categorySubType.name },
-            selfDescription = profile.selfDescription
+            mbti = profile.mbti?.type?.name,
+            profileImageUrl = profile.image?.url,
+            categories = profile.profileCategories.map { it.category.type.name },
+            selfDescription = profile.selfDescription?.value
         )
     }
 }

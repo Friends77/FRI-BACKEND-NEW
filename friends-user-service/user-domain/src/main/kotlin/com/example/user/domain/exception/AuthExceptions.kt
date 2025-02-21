@@ -5,14 +5,6 @@ class MissingJwtPayloadException(message: String) : BaseException(ErrorCode.MISS
 
 class InvalidEmailJwtException : BaseException(ErrorCode.INVALID_EMAIL_JWT)
 
-class EmailAlreadyExistsException : BaseException(ErrorCode.EMAIL_ALREADY_EXISTS)
-
-class InvalidEmailPatternException : BaseException(ErrorCode.INVALID_EMAIL_PATTERN)
-
-class InvalidNicknamePatternException : BaseException(ErrorCode.INVALID_NICKNAME_PATTERN)
-
-class InvalidPasswordPatternException : BaseException(ErrorCode.INVALID_PASSWORD_PATTERN)
-
 class LoginFailedException(message: String) : BaseException(ErrorCode.LOGIN_FAILED, message)
 
 class EmailSendFailedException : BaseException(ErrorCode.EMAIL_SEND_FAILED)
@@ -21,11 +13,9 @@ class InvalidEmailVerificationCodeException : BaseException(ErrorCode.INVALID_EM
 
 class OAuth2FetchFailedException(message: String) : BaseException(ErrorCode.OAUTH2_FETCH_FAILED, message)
 
-class AlreadyRegisteredAnotherMethodException : BaseException(ErrorCode.ALREADY_REGISTERED_ANOTHER_METHOD)
+class AlreadyRegisteredAnotherMethodException(message: String? = null) : BaseException(ErrorCode.ALREADY_REGISTERED_ANOTHER_METHOD, message)
 
-class InvalidOAuth2ProviderException : BaseException(ErrorCode.INVALID_OAUTH2_PROVIDER)
-
-class OAuth2DataExtractException : BaseException(ErrorCode.OAUTH2_DATA_EXTRACT_FAILED)
+class OAuth2DataExtractException(message : String? = null) : BaseException(ErrorCode.OAUTH2_DATA_EXTRACT_FAILED, message)
 
 class InvalidRefreshTokenException : BaseException(ErrorCode.INVALID_REFRESH_TOKEN)
 

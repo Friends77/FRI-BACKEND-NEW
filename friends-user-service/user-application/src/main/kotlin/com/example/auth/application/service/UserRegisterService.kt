@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional
 
 @Service
 @Transactional
-class UserRegisterUseCase(
+class UserRegisterService(
     private val emailAuthTokenValidator: EmailAuthTokenValidator,
     private val memberRepository: MemberRepository,
     private val profileRepository: ProfileRepository,

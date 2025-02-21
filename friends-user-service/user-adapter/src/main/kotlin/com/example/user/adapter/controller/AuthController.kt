@@ -4,7 +4,7 @@ import com.example.auth.application.dto.RefreshDto
 import com.example.auth.application.service.UserLoginService
 import com.example.auth.application.service.UserResetPasswordService
 import com.example.auth.application.service.UserRefreshService
-import com.example.auth.application.service.UserRegisterUseCase
+import com.example.auth.application.service.UserRegisterService
 import com.example.user.adapter.AdapterMapper
 import com.example.user.adapter.LoginRequestDto
 import com.example.user.adapter.LoginResponseDto
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/global/auth")
 class AuthController (
-    private val userRegisterUseCase: UserRegisterUseCase,
+    private val userRegisterService: UserRegisterService,
     private val userLoginService: UserLoginService,
     private val userRefreshService: UserRefreshService,
     private val userResetPasswordService: UserResetPasswordService
@@ -30,7 +30,7 @@ class AuthController (
     @PostMapping("/register")
     fun register(@RequestBody registerRegisterDto: RegisterRequestDto) : ResponseEntity<RegisterResponseDto>{
         val registerDto = AdapterMapper.registerRequestDtoToRegisterDto(registerRegisterDto)
-        val userDto = userRegisterUseCase.register(registerDto)
+        val userDto = userRegisterService.register(registerDto)
         val registerResponseDto = AdapterMapper.userDtoToRegisterResponseDto(userDto)
         return ResponseEntity.status(HttpStatus.CREATED).body(registerResponseDto)
     }

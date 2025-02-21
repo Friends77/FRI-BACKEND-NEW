@@ -10,7 +10,7 @@ import com.example.auth.application.dto.ChangeProfileImageDto
 import com.example.auth.application.dto.ChangeSelfDescriptionDto
 import com.example.auth.application.dto.ProfileDto
 import com.example.auth.application.service.ProfileChangeService
-import com.example.auth.application.service.ProfileQueryUseCase
+import com.example.auth.application.service.ProfileQueryService
 import com.example.user.adapter.ChangeBirthRequestDto
 import com.example.user.adapter.ChangeCategoriesRequestDto
 import com.example.user.adapter.ChangeGenderRequestDto
@@ -33,14 +33,14 @@ import java.util.UUID
 @RequestMapping("/api/user/profile")
 class ProfileController (
     private val profileChangeService: ProfileChangeService,
-    private val profileQueryUseCase: ProfileQueryUseCase
+    private val profileQueryService: ProfileQueryService
 ){
     @GetMapping
     fun getMyProfile(
         @RequestHeader("X-Member-Id") memberIdInHeader : String
     ) : ResponseEntity<ProfileDto> {
         val memberId = UUID.fromString(memberIdInHeader)
-        val profileDto = profileQueryUseCase.getMyProfile(memberId)
+        val profileDto = profileQueryService.getProfile(memberId)
         return ResponseEntity.ok(profileDto)
     }
 
@@ -48,7 +48,7 @@ class ProfileController (
     fun getProfile(
         @PathVariable memberId: UUID
     ) : ResponseEntity<ProfileDto> {
-        val profileDto = profileQueryUseCase.getMyProfile(memberId)
+        val profileDto = profileQueryService.getProfile(memberId)
         return ResponseEntity.ok(profileDto)
     }
 

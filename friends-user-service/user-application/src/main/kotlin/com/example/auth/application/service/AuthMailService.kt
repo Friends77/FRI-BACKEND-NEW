@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service
 import java.util.concurrent.ExecutorService
 
 @Service
-class AuthMailUseCase(
+class AuthMailService(
     private val verificationMailSender: VerificationMailSender,
     private val emailVerificationCodeValidator: EmailVerificationCodeValidator,
     private val emailAuthTokenGenerator: EmailAuthTokenGenerator,
