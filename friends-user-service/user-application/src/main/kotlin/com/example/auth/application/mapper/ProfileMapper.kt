@@ -3,10 +3,10 @@ package com.example.auth.application.mapper
 import com.example.auth.application.dto.LocationDto
 import com.example.auth.application.dto.ProfileDto
 import com.example.user.domain.dao.data.ProfileView
+import com.example.user.domain.entity.Profile
 import com.fasterxml.jackson.databind.ObjectMapper
 
 object ProfileMapper {
-    private val objectMapper = ObjectMapper()
     fun profileViewToProfileDto(profileView: ProfileView) : ProfileDto {
         return ProfileDto(
             memberId = profileView.memberId,
@@ -26,6 +26,28 @@ object ProfileMapper {
             profileImageUrl = profileView.imageUrl,
             categories = profileView.categories,
             selfDescription = profileView.selfDescription,
+        )
+    }
+
+    fun profileToProfileDto(profile: Profile) : ProfileDto {
+        return ProfileDto(
+            memberId = profile.memberId,
+            profileId = profile.id,
+            nickname = profile.nickname.value,
+            birth = profile.birth?.localDate,
+            gender = profile.gender?.type?.name,
+            location = if (profile.location != null) {
+                LocationDto(
+                    latitude = profile.location!!.latitude,
+                    longitude = profile.location!!.longitude
+                )
+            } else {
+                null
+            },
+            mbti = profile.mbti?.type?.name,
+            profileImageUrl = profile.image?.url,
+            categories = profile.profileCategories.map { it.category.type.name },
+            selfDescription = profile.selfDescription?.value
         )
     }
 }
