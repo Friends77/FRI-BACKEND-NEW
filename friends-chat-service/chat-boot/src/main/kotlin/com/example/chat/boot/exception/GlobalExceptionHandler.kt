@@ -19,7 +19,7 @@ class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
         log.info(ex.message)
         return ResponseEntity
             .status(ex.errorCode.httpStatus)
-            .body(ErrorResponse.of(ex.errorCode, ex.message))
+            .body(ErrorResponse(ex.errorCode, ex.message))
     }
 
     @ExceptionHandler(Exception::class)
