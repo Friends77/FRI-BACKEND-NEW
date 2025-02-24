@@ -44,8 +44,8 @@ class ChatRoomController(
     ) : ResponseEntity<String> {
         val memberId = UUID.fromString(memberIdInHeader)
         val enterChatRoomDto = EnterChatRoomDto(
-            memberId,
-            chatRoomId
+            chatRoomId = chatRoomId,
+            memberId = memberId
         )
         chatRoomEnterService.enterChatRoom(enterChatRoomDto)
         return ResponseEntity.ok("채팅방 입장")
