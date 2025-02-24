@@ -24,5 +24,5 @@ class Category (
     override fun hashCode(): Int {
         return type.hashCode()
     }
-    
+
 }
