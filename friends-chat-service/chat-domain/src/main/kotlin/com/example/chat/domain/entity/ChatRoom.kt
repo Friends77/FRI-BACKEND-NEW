@@ -1,7 +1,7 @@
 package com.example.chat.domain.entity
 
 import com.example.chat.domain.entity.base.BaseModifiableEntity
-import com.example.chat.domain.valueobject.Category
+import com.example.chat.domain.valueobject.type.CategorySubType
 import jakarta.persistence.CascadeType
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
@@ -12,7 +12,7 @@ import java.util.UUID
 class ChatRoom(
     managerId : UUID,
     title : String,
-    categories: List<Category>
+    categories: List<CategorySubType>
 ) : BaseModifiableEntity() {
     companion object
 
@@ -50,7 +50,7 @@ class ChatRoom(
         this.title = title
     }
 
-    fun changeCategories(categories: List<Category>) {
+    fun changeCategories(categories: List<CategorySubType>) {
         mutableChatRoomCategories.clear()
         categories.forEach { addCategory(it) }
     }
@@ -71,8 +71,8 @@ class ChatRoom(
         participantCount--
     }
 
-    private fun addCategory(category: Category) {
-        mutableChatRoomCategories.add(ChatRoomCategory(this, category))
+    private fun addCategory(categorySubType: CategorySubType) {
+        mutableChatRoomCategories.add(ChatRoomCategory(this, categorySubType))
     }
 
     fun addChatRoomMember(chatRoomMember: ChatRoomMember) {

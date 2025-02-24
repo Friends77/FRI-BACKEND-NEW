@@ -4,7 +4,7 @@ import com.example.chat.domain.entity.ChatRoom
 import com.example.chat.domain.entity.ChatRoomMember
 import com.example.chat.domain.exception.InvalidChatRoomPropertyException
 import com.example.chat.domain.repository.ChatRoomRepository
-import com.example.chat.domain.valueobject.Category
+import com.example.chat.domain.valueobject.type.CategorySubType
 import com.example.chat.domain.valueobject.Profile
 import org.springframework.stereotype.Service
 import java.util.UUID
@@ -27,7 +27,7 @@ class ChatRoomCreateService(
 
         val categories = categoryList.map {
             try {
-                Category.valueOf(it)
+                CategorySubType.valueOf(it)
             } catch (e: IllegalArgumentException) {
                 throw InvalidChatRoomPropertyException("$it 은 존재하지 않는 카테고리입니다.")
             }
