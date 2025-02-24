@@ -1,6 +1,8 @@
 package com.example.chat.application.service
 
+import com.example.chat.application.client.MessageControllerClient
 import com.example.chat.application.client.UserServiceClient
+import com.example.chat.application.client.request.EnterChatRoomRequestDto
 import com.example.chat.application.dto.EnterChatRoomDto
 import com.example.chat.domain.entity.ChatRoomMember
 import com.example.chat.domain.exception.ChatRoomNotFoundException
@@ -13,7 +15,8 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 class ChatRoomEnterService(
     private val chatRoomRepository: ChatRoomRepository,
-    private val userServiceClient: UserServiceClient
+    private val userServiceClient: UserServiceClient,
+    private val messageControllerClient: MessageControllerClient
 ) {
     fun enterChatRoom(enterChatRoomDto: EnterChatRoomDto) {
         val memberId = enterChatRoomDto.memberId
@@ -28,6 +31,14 @@ class ChatRoomEnterService(
         }
 
         chatRoom.addChatRoomMember(ChatRoomMember(chatRoom, memberId, profile))
-        // TODO : 들어간 채팅방에 온라인 유저로 연결하고 입장 메세지 전송
+
+        // 채팅방 입장 시 해당 채팅방에 온라인 유저로 등록 및 시스템 입장 메세지 전송
+        messageControllerClient.enterChatRoom(
+            EnterChatRoomRequestDto(
+                chatRoomId = chatRoomId.toString(),
+                memberId = memberId.toString(),
+                nickname = profile.nickname
+            )
+        )
     }
 }
