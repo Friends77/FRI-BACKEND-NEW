@@ -36,7 +36,6 @@ class ChatConnectService(
         userWebSocketSessions.computeIfAbsent(memberId) { ConcurrentHashMap.newKeySet() }.add(session)
 
         chatRoomIds.forEach { chatRoomId ->
-            logger.info("$memberId 가 $chatRoomId 에 온라인으로 접속되었습니다.")
             connectOneChat(memberId, chatRoomId)
         }
     }
@@ -46,16 +45,17 @@ class ChatConnectService(
         val chatRoomIds = getJoinedChatRoomIds(memberId)
 
         chatRoomIds.forEach { chatRoomId ->
-            logger.info("$memberId 가 $chatRoomId 에서 온라인 접속을 종료하였습니다.")
             disconnectOneChat(memberId, chatRoomId)
         }
     }
 
     fun connectOneChat(memberId: String, chatRoomId: String) {
+        logger.info("$memberId 가 $chatRoomId 에 온라인으로 접속되었습니다.")
         chatOnlineUserIds.computeIfAbsent(chatRoomId) { ConcurrentHashMap.newKeySet() }.add(memberId)
     }
 
     fun disconnectOneChat(memberId: String, chatRoomId: String) {
+        logger.info("$memberId 가 $chatRoomId 에서 온라인 접속을 종료하였습니다.")
         chatOnlineUserIds[chatRoomId]?.remove(memberId)
     }
 
