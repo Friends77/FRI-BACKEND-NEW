@@ -1,7 +1,9 @@
 package com.example.friendsmessagecontroller.controller
 
 import com.example.friendsmessagecontroller.controller.dto.MessageReceiveDto
+import com.example.friendsmessagecontroller.event.KafkaEventPublisher
 import com.example.friendsmessagecontroller.event.MessageReceiveEvent
+import com.example.friendsmessagecontroller.service.ChatConnectService
 import com.example.friendsmessagecontroller.service.MessageService
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.slf4j.LoggerFactory
@@ -14,7 +16,8 @@ import org.springframework.web.socket.handler.TextWebSocketHandler
 
 @Component
 class ChatWebSocketHandler(
-    private val messageService: MessageService,
+    private val kafkaEventPublisher: KafkaEventPublisher,
+    private val chatConnectService: ChatConnectService,
     private val objectMapper: ObjectMapper
 ) : TextWebSocketHandler(){
     private val logger = LoggerFactory.getLogger(this::class.java)
@@ -28,7 +31,7 @@ class ChatWebSocketHandler(
     override fun afterConnectionEstablished(session: WebSocketSession) {
         val memberId = getMemberId(session)
         session.textMessageSizeLimit = TEXT_MAX_SIZE
-        messageService.connectChat(memberId, ConcurrentWebSocketSessionDecorator(session, SEND_TIME_LIMIT, BUFFER_SIZE_LIMIT))
+        chatConnectService.connectChat(memberId, ConcurrentWebSocketSessionDecorator(session, SEND_TIME_LIMIT, BUFFER_SIZE_LIMIT))
     }
 
     override fun handleTextMessage(session: WebSocketSession, message: TextMessage) {
@@ -46,12 +49,12 @@ class ChatWebSocketHandler(
             content = messageReceiveDto.content,
             type = messageReceiveDto.type
         )
-        messageService.receiveMessage(messageReceiveEvent)
+        kafkaEventPublisher.publishMessageReceiveEvent(messageReceiveEvent)
     }
 
     override fun afterConnectionClosed(session: WebSocketSession, status: CloseStatus) {
         val memberId = getMemberId(session)
-        messageService.disconnectChat(memberId, session)
+        chatConnectService.disconnectChat(memberId, session)
     }
 
     private fun getMemberId(session: WebSocketSession): String {
