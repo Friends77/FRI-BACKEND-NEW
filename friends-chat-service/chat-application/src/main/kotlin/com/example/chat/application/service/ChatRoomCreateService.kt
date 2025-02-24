@@ -1,6 +1,8 @@
 package com.example.chat.application.service
 
+import com.example.chat.application.client.MessageControllerClient
 import com.example.chat.application.client.UserServiceClient
+import com.example.chat.application.client.request.EnterChatRoomRequestDto
 import com.example.chat.application.dto.CreateChatRoomDto
 import com.example.chat.domain.entity.ChatRoom
 import com.example.chat.domain.entity.ChatRoomMember
@@ -16,7 +18,8 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 class ChatRoomCreateService (
     private val chatRoomRepository: ChatRoomRepository,
-    private val userServiceClient: UserServiceClient
+    private val userServiceClient: UserServiceClient,
+    private val messageControllerClient: MessageControllerClient
 ) {
     fun createChatRoom(createChatRoomDto: CreateChatRoomDto) {
         val managerId = createChatRoomDto.managerId
@@ -38,5 +41,13 @@ class ChatRoomCreateService (
         chatRoom.changeProfileImageUrl(imageUrl)
         chatRoom.addChatRoomMember(ChatRoomMember(chatRoom, managerId, profile))
         chatRoomRepository.save(chatRoom)
+
+        messageControllerClient.enterChatRoom(
+            EnterChatRoomRequestDto(
+                chatRoomId = chatRoom.id.toString(),
+                memberId = managerId.toString(),
+                nickname = profile.nickname
+            )
+        )
     }
 }
