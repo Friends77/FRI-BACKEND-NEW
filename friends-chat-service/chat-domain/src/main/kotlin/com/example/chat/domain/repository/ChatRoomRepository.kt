@@ -1,10 +1,8 @@
 package com.example.chat.domain.repository
 
 import com.example.chat.domain.entity.ChatRoom
-import java.util.Optional
+import org.springframework.data.jpa.repository.JpaRepository
 import java.util.UUID
 
-interface ChatRoomRepository {
-    fun save(chatRoom: ChatRoom): ChatRoom
-    fun findById(chatRoomId: UUID): Optional<ChatRoom>
+interface ChatRoomRepository : JpaRepository<ChatRoom, UUID> {
 }
