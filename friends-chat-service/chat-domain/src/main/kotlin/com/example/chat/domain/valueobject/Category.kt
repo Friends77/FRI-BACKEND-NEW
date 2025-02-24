@@ -1,8 +1,7 @@
 package com.example.chat.domain.valueobject
 
+import com.example.chat.domain.exception.IllegalChatRoomPropertyException
 import com.example.chat.domain.valueobject.type.CategorySubType
-import com.example.user.domain.exception.IllegalProfileArgumentException
-import com.example.user.domain.valueobject.type.CategorySubType
 
 class Category (
     rawType: String
@@ -10,7 +9,7 @@ class Category (
     val type: CategorySubType = try {
         CategorySubType.valueOf(rawType)
     } catch (e: IllegalArgumentException) {
-        throw IllegalProfileArgumentException("유효하지 않은 카테고리 값: $rawType")
+        throw IllegalChatRoomPropertyException("유효하지 않은 카테고리 값: $rawType")
     }
 
     override fun equals(other: Any?): Boolean {
@@ -25,6 +24,5 @@ class Category (
     override fun hashCode(): Int {
         return type.hashCode()
     }
-
-
+    
 }
