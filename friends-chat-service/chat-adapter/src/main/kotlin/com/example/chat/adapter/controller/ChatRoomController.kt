@@ -3,8 +3,8 @@ package com.example.chat.adapter.controller
 import com.example.chat.adapter.dto.CreateChatRoomRequestDto
 import com.example.chat.application.dto.CreateChatRoomDto
 import com.example.chat.application.dto.EnterChatRoomDto
-import com.example.chat.application.usecase.ChatRoomCreateUseCase
-import com.example.chat.application.usecase.ChatRoomEnterUseCase
+import com.example.chat.application.service.ChatRoomCreateService
+import com.example.chat.application.service.ChatRoomEnterService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PathVariable
@@ -18,8 +18,8 @@ import java.util.UUID
 @RestController
 @RequestMapping("/api/user/chat-room")
 class ChatRoomController(
-    private val chatRoomCreateUseCase: ChatRoomCreateUseCase,
-    private val chatRoomEnterUseCase: ChatRoomEnterUseCase
+    private val chatRoomCreateService: ChatRoomCreateService,
+    private val chatRoomEnterService: ChatRoomEnterService
 ) {
     @PostMapping
     fun createChatRoom(
@@ -33,7 +33,7 @@ class ChatRoomController(
             createChatRoomRequestDto.categories,
             memberId
         )
-        chatRoomCreateUseCase.createChatRoom(createChatRoomDto)
+        chatRoomCreateService.createChatRoom(createChatRoomDto)
         return ResponseEntity.status(HttpStatus.CREATED).body("채팅방 생성")
     }
 
@@ -47,7 +47,7 @@ class ChatRoomController(
             memberId,
             chatRoomId
         )
-        chatRoomEnterUseCase.enterChatRoom(enterChatRoomDto)
+        chatRoomEnterService.enterChatRoom(enterChatRoomDto)
         return ResponseEntity.ok("채팅방 입장")
     }
 }

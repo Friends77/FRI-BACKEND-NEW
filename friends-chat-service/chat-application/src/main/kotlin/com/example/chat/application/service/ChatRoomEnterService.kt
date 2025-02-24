@@ -1,16 +1,18 @@
-package com.example.chat.application.usecase
+package com.example.chat.application.service
 
 import com.example.chat.application.client.UserServiceClient
 import com.example.chat.application.dto.EnterChatRoomDto
-import com.example.chat.domain.service.ChatRoomEnterService
+import com.example.chat.domain.entity.ChatRoomMember
+import com.example.chat.domain.exception.ChatRoomNotFoundException
+import com.example.chat.domain.repository.ChatRoomRepository
 import com.example.chat.domain.valueobject.Profile
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Transactional
 @Service
-class ChatRoomEnterUseCase(
-    private val chatRoomEnterService: ChatRoomEnterService,
+class ChatRoomEnterService(
+    private val chatRoomRepository: ChatRoomRepository,
     private val userServiceClient: UserServiceClient
 ) {
     fun enterChatRoom(enterChatRoomDto: EnterChatRoomDto) {
@@ -21,10 +23,11 @@ class ChatRoomEnterUseCase(
             profileDto.nickname,
             profileDto.profileImageUrl
         )
-        chatRoomEnterService.enterChatRoom(
-            memberId,
-            chatRoomId,
-            profile
-        )
+        val chatRoom = chatRoomRepository.findById(chatRoomId).orElseThrow {
+            throw ChatRoomNotFoundException()
+        }
+
+        chatRoom.addChatRoomMember(ChatRoomMember(chatRoom, memberId, profile))
+        // TODO : 들어간 채팅방에 온라인 유저로 연결하고 입장 메세지 전송
     }
 }

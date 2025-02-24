@@ -2,9 +2,11 @@ package com.example.chat.domain.entity
 
 import com.example.chat.domain.entity.base.BaseModifiableEntity
 import com.example.chat.domain.valueobject.Category
-import com.example.chat.domain.valueobject.type.CategorySubType
+import com.example.chat.domain.valueobject.Title
+import com.example.chat.domain.valueobject.converter.TitleConverter
 import jakarta.persistence.CascadeType
 import jakarta.persistence.Column
+import jakarta.persistence.Convert
 import jakarta.persistence.Entity
 import jakarta.persistence.OneToMany
 import java.util.UUID
@@ -12,7 +14,7 @@ import java.util.UUID
 @Entity
 class ChatRoom(
     managerId : UUID,
-    title : String,
+    title : Title,
     categories: List<Category>
 ) : BaseModifiableEntity() {
     companion object
@@ -21,7 +23,8 @@ class ChatRoom(
     var managerId = managerId
         private set
 
-    @Column(nullable = false)
+    @Column(name = "title", nullable = false)
+    @Convert(converter = TitleConverter::class)
     var title = title
         private set
 
@@ -47,11 +50,11 @@ class ChatRoom(
         this.managerId = managerId
     }
 
-    fun changeTitle(title: String) {
+    fun changeTitle(title: Title) {
         this.title = title
     }
 
-    fun changeCategories(categories: List<CategorySubType>) {
+    fun changeCategories(categories: List<Category>) {
         mutableChatRoomCategories.clear()
         categories.forEach { addCategory(it) }
     }
