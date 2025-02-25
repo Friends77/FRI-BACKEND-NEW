@@ -10,6 +10,7 @@ import java.util.UUID
 
 @Entity
 class Message(
+    clientId : String,
     chatRoomId : UUID,
     senderId : UUID,
     content : String,
@@ -17,6 +18,9 @@ class Message(
 ) : BaseModifiableEntity() {
     @Column(nullable = false)
     val chatRoomId : UUID = chatRoomId
+
+    @Column(nullable = false, unique = true)
+    val clientId : String = clientId
 
     @Column(nullable = false)
     val senderId : UUID = senderId

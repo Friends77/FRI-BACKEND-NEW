@@ -11,11 +11,12 @@ class MessageSaveService(
     private val messageRepository: MessageRepository
 ) {
     fun saveMessage(
+        clientId : String,
         chatRoomId: UUID,
         senderId: UUID,
         content: String,
         type: MessageType
     ) : Message{
-        return messageRepository.save(Message(chatRoomId, senderId, content, type))
+        return messageRepository.save(Message(clientId, chatRoomId, senderId, content, type))
     }
 }

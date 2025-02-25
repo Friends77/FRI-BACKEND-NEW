@@ -28,6 +28,7 @@ class MessageSaveEventHandler(
         val type = MessageType.valueOf(event.type)
 
         val message = messageSaveService.saveMessage(
+            clientId = event.clientMessageId,
             chatRoomId = chatRoomId,
             senderId = senderId,
             content = content,
