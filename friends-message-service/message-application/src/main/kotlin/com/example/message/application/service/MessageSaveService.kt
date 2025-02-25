@@ -1,4 +1,4 @@
-package com.example.message.domain.service
+package com.example.message.application.service
 
 import com.example.message.domain.entity.Message
 import com.example.message.domain.repository.MessageRepository

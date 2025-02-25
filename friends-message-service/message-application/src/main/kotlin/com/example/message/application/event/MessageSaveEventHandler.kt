@@ -4,7 +4,7 @@ import com.example.message.domain.event.EventHandler
 import com.example.message.domain.event.EventPublisher
 import com.example.message.domain.event.MessageReceiveEvent
 import com.example.message.domain.event.MessageSendEvent
-import com.example.message.domain.service.MessageSaveService
+import com.example.message.application.service.MessageSaveService
 import com.example.message.domain.valueobject.MessageType
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
