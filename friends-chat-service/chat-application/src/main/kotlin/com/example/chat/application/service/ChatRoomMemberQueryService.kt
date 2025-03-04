@@ -8,9 +8,7 @@ import java.util.UUID
 @Transactional(readOnly = true)
 @Service
 class ChatRoomMemberQueryService(
-    private val chatRoomMemberRepository: ChatRoomMemberRepository
+    private val chatRoomMemberRepository: ChatRoomMemberRepository,
 ) {
-    fun getJoinedChatRoomIds(memberId: UUID): List<UUID> {
-        return chatRoomMemberRepository.findAllIdByMemberId(memberId)
-    }
+    fun getJoinedChatRoomIds(memberId: UUID): List<UUID> = chatRoomMemberRepository.findAllChatRoomIdByMemberId(memberId)
 }

@@ -14,4 +14,7 @@ dependencies {
 
     // kafka
     implementation("org.springframework.kafka:spring-kafka")
+
+    // feign client
+    api("org.springframework.cloud:spring-cloud-starter-openfeign:4.2.0")
 }

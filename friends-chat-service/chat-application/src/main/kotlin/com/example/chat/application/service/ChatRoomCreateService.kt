@@ -1,9 +1,9 @@
 package com.example.chat.application.service
 
-import com.example.chat.application.client.MessageControllerClient
-import com.example.chat.application.client.UserServiceClient
-import com.example.chat.application.client.request.EnterChatRoomRequestDto
 import com.example.chat.application.dto.CreateChatRoomDto
+import com.example.chat.domain.client.SendMessageController
+import com.example.chat.domain.client.UserInformationService
+import com.example.chat.domain.client.request.EnterChatRoomRequestDto
 import com.example.chat.domain.entity.ChatRoom
 import com.example.chat.domain.entity.ChatRoomMember
 import com.example.chat.domain.exception.IllegalChatRoomPropertyException
@@ -16,18 +16,19 @@ import org.springframework.transaction.annotation.Transactional
 
 @Transactional
 @Service
-class ChatRoomCreateService (
+class ChatRoomCreateService(
     private val chatRoomRepository: ChatRoomRepository,
-    private val userServiceClient: UserServiceClient,
-    private val messageControllerClient: MessageControllerClient
+    private val userInformationService: UserInformationService,
+    private val sendMessageController: SendMessageController,
 ) {
     fun createChatRoom(createChatRoomDto: CreateChatRoomDto) {
         val managerId = createChatRoomDto.managerId
-        val profileDto = userServiceClient.getProfile(managerId)
-        val profile = Profile(
-            profileDto.nickname,
-            profileDto.profileImageUrl
-        )
+        val profileDto = userInformationService.getProfile(managerId)
+        val profile =
+            Profile(
+                profileDto.nickname,
+                profileDto.profileImageUrl,
+            )
 
         val categoryList = createChatRoomDto.categories
         val title = createChatRoomDto.title
@@ -42,12 +43,12 @@ class ChatRoomCreateService (
         chatRoom.addChatRoomMember(ChatRoomMember(chatRoom, managerId, profile))
         chatRoomRepository.save(chatRoom)
 
-        messageControllerClient.enterChatRoom(
+        sendMessageController.enterChatRoom(
             EnterChatRoomRequestDto(
                 chatRoomId = chatRoom.id.toString(),
                 memberId = managerId.toString(),
-                nickname = profile.nickname
-            )
+                nickname = profile.nickname,
+            ),
         )
     }
 }
